@@ -1,0 +1,82 @@
+[
+  {
+    "objectID": "week1.html",
+    "href": "week1.html",
+    "title": "2  제 1주차: 파이썬, 경제학의 새로운 날개를 달다 (Google Colab 환경)",
+    "section": "",
+    "text": "2.1 주차 목표",
+    "crumbs": [
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>제 1주차: 파이썬, 경제학의 새로운 날개를 달다 (Google Colab 환경)</span>"
+    ]
+  },
+  {
+    "objectID": "week1.html#주차-목표",
+    "href": "week1.html#주차-목표",
+    "title": "2  제 1주차: 파이썬, 경제학의 새로운 날개를 달다 (Google Colab 환경)",
+    "section": "",
+    "text": "파이썬이 무엇인지 이해하고, 경제학 분야에서의 중요성과 활용 가능성을 인지한다.\n클라우드 기반 파이썬 개발 환경인 Google Colaboratory (Colab) 에 접속하고, 새 노트북을 생성 및 사용할 수 있다.\nColab의 코드 셀을 이용하여 print() 함수로 원하는 내용을 출력하고, 주석 사용법을 익힌다.\n파이썬의 기본 산술 연산자를 사용하여 간단한 계산을 수행하고, 이를 기초적인 경제 계산(총수입, 총비용 등)에 적용할 수 있다.\n첫 파이썬 코드를 작성하고 실행하는 경험을 통해 프로그래밍에 대한 두려움을 없앤다.",
+    "crumbs": [
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>제 1주차: 파이썬, 경제학의 새로운 날개를 달다 (Google Colab 환경)</span>"
+    ]
+  },
+  {
+    "objectID": "week1.html#준비물",
+    "href": "week1.html#준비물",
+    "title": "2  제 1주차: 파이썬, 경제학의 새로운 날개를 달다 (Google Colab 환경)",
+    "section": "2.2 준비물",
+    "text": "2.2 준비물\n\n인터넷 접속이 가능한 컴퓨터\nGoogle 계정 (Colab 사용에 필요)",
+    "crumbs": [
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>제 1주차: 파이썬, 경제학의 새로운 날개를 달다 (Google Colab 환경)</span>"
+    ]
+  },
+  {
+    "objectID": "week1.html#수업-내용-상세",
+    "href": "week1.html#수업-내용-상세",
+    "title": "2  제 1주차: 파이썬, 경제학의 새로운 날개를 달다 (Google Colab 환경)",
+    "section": "2.3 수업 내용 상세",
+    "text": "2.3 수업 내용 상세\n\n2.3.1 1. 들어가며: 왜 경제학도가 파이썬을 배워야 할까요? (15분)\n\n생각 열기: “경제학 공부하는데 왜 갑자기 프로그래밍 언어를 배우라고 할까요?” 질문 던지기.\n전통적 도구의 한계: 엑셀 등 기존 도구의 편리함과 한계점 설명 (대규모 데이터 처리, 복잡한 모델링, 자동화의 어려움).\n파이썬 소개:\n\n파이썬(Python)은 배우기 쉽고 간결하며 강력한 프로그래밍 언어입니다.\n데이터 분석, 웹 개발, 인공지능 등 다양한 분야에서 활용됩니다. (범용성)\nNumPy, Pandas, Matplotlib, Scikit-learn 등 경제/데이터 분석에 특화된 강력한 라이브러리(도구 모음)가 풍부합니다. (강력한 생태계)\n\n경제학에서의 파이썬 활용:\n\n데이터 분석: 경제 통계 데이터(GDP, 실업률, 물가 등) 처리 및 분석.\n계량경제 모델링: 복잡한 통계 모델 구현 및 시뮬레이션.\n데이터 시각화: 분석 결과를 효과적인 그래프로 표현.\n자동화: 반복적인 데이터 수집 및 분석 작업 자동화.\n결론: 파이썬은 현대 경제학 연구 및 실무에서 필수적인 분석 도구로 자리매김하고 있습니다.\n\n\n\n\n2.3.2 2. 우리의 클라우드 작업실: Google Colab 시작하기 (25분)\n\nGoogle Colaboratory (Colab)란?\n\nGoogle에서 제공하는 무료 클라우드 기반 파이썬 실행 환경입니다.\n별도의 설치 과정 없이 웹 브라우저만 있으면 어디서든 파이썬 코드를 작성하고 실행할 수 있습니다.\nGoogle Drive와 연동되어 작업 내용을 쉽게 저장하고 공유할 수 있습니다.\n데이터 분석 및 머신러닝에 필요한 주요 라이브러리가 대부분 미리 설치되어 있습니다.\n\n[실습] Colab 접속 및 새 노트 생성:\n\n웹 브라우저를 열고 colab.research.google.com 에 접속합니다.\nGoogle 계정으로 로그인합니다. (계정이 없다면 생성 필요)\n팝업 창이 뜨면 ’새 노트’를 클릭하거나, 팝업 창을 닫고 상단 메뉴에서 파일 &gt; 새 노트를 선택합니다.\n새로운 노트북 파일(.ipynb)이 생성됩니다. 상단의 UntitledX.ipynb 부분을 클릭하여 파일 이름을 Week1_Practice.ipynb 등으로 변경합니다. 파일은 자동으로 Google Drive에 저장됩니다.\n\nColab 인터페이스 둘러보기:\n\n셀(Cell): 코드를 입력하거나 텍스트를 작성하는 기본 단위입니다. Jupyter Notebook과 유사합니다.\n\n코드 셀: 파이썬 코드를 입력하고 실행하는 곳. 왼쪽에 실행 버튼(▶)이 있습니다.\n텍스트 셀: 설명, 제목, 목록 등 서식이 있는 텍스트(Markdown)를 작성하는 곳. 더블 클릭하여 편집합니다.\n\n메뉴: 파일 저장, 셀 추가/삭제, 런타임(실행 환경) 관리 등을 할 수 있습니다.\n[실습] 셀 추가 및 삭제: 상단 메뉴의 + 코드, + 텍스트 버튼으로 셀을 추가하고, 셀 오른쪽의 휴지통 아이콘으로 삭제해봅니다.\n\n\n\n\n2.3.3 3. 파이썬과 첫 만남: 화면에 글자 출력하기 (15분)\n\nprint() 함수: 파이썬에서 가장 기본적이고 중요한 함수 중 하나로, 괄호 안의 내용을 화면(출력 창)에 보여주는 역할을 합니다.\n[실습] “Hello, World!” 출력:\n\n첫 번째 코드 셀에 다음 코드를 입력합니다. python       print(\"Hello, Economics World!\")\n따옴표(\" 또는 ')로 감싸진 부분은 “문자열(String)”이라고 부릅니다. (다음 주에 자세히!)\n셀 실행: 코드 셀 왼쪽의 실행 버튼(▶)을 클릭하거나, 셀을 선택한 상태에서 Shift + Enter 키를 누릅니다.\n셀 아래에 Hello, Economics World!가 출력되는 것을 확인합니다. (처음 실행 시 Colab이 백엔드 서버에 연결하느라 약간의 시간이 걸릴 수 있습니다.)\n\n주석(Comment): 코드에 대한 설명을 덧붙이거나 특정 코드를 잠시 실행되지 않게 할 때 사용합니다. # 기호 뒤에 오는 내용은 파이썬이 실행하지 않습니다.\n[실습] 주석 사용: python     # 이것은 주석입니다. 파이썬은 이 줄을 무시합니다.     print(\"데이터 분석의 첫걸음!\") # 코드 옆에 설명을 추가할 수도 있습니다.     # print(\"이 코드는 실행되지 않습니다.\")\n\n위 코드를 입력하고 실행하여 주석의 역할을 확인합니다.\n\n\n\n\n2.3.4 4. 파이썬 계산기: 기본 산술 연산 (15분)\n\n파이썬은 강력한 계산기로도 사용할 수 있습니다. Colab 코드 셀에서 바로 계산식을 입력하고 실행하면 결과를 볼 수 있습니다.\n기본 연산자:\n\n+: 덧셈\n-: 뺄셈\n*: 곱셈 (x가 아님)\n/: 나눗셈\n**: 거듭제곱 (예: 2**3은 2의 3제곱)\n(): 연산 순서 지정 (괄호 안을 먼저 계산)\n\n[실습] 코드 셀에서 직접 계산해보기:\n::: {#550440a4 .cell execution_count=1} {.python .cell-code}   2 + 3\n::: {.cell-output .cell-output-display execution_count=4} 5 ::: :::\n10 - 4\n5 * 6\n100 / 5 # 나눗셈 결과는 보통 소수점 포함 (float)\n2 ** 4 # 2의 4제곱 = 16\n(2 + 3) * 4 # 괄호 먼저 계산: 5 * 4 = 20\n\n각 셀을 실행하며 결과를 확인합니다. Colab(및 Jupyter)에서는 코드 셀의 마지막 줄 실행 결과가 자동으로 출력됩니다. 명시적으로 출력하려면 print() 함수를 사용하면 됩니다.\n\nprint(5 * 6)\nprint(100 / 5)\n\n\n\n2.3.5 5. 경제학 맛보기: 간단한 경제 계산 (15분)\n\n방금 배운 산술 연산을 아주 간단한 경제 시나리오에 적용해 봅시다.\n시나리오: 어떤 상품의 가격(Price)이 1500원이고, 30개가 팔렸다(Quantity). 고정 비용(Fixed Cost)은 10000원이고, 상품 1개당 가변 비용(Variable Cost)은 500원이다.\n[실습] 총수입(Total Revenue), 총비용(Total Cost), 이익(Profit) 계산:\n\n새 코드 셀에 다음 코드를 입력하고 실행하여 결과를 확인합니다.\n\n# 총수입 = 가격 * 판매량\nprint(\"총 수입:\")\nprint(1500 * 30)\n\n# 총 비용 = 고정 비용 + (단위당 가변 비용 * 판매량)\nprint(\"총 비용:\")\nprint(10000 + (500 * 30))\n\n# 이익 = 총 수입 - 총 비용\n# 위 계산 결과를 직접 사용하여 계산 가능\nprint(\"이익:\")\nprint((1500 * 30) - (10000 + (500 * 30)))\n\n핵심: 복잡해 보이는 계산도 파이썬의 기본 연산으로 단계적으로 수행할 수 있다는 점을 체험합니다.\n\n\n\n\n2.3.6 6. 마무리 및 다음 시간 예고 (5분)\n\n오늘 배운 내용 요약:\n\n경제학에서 파이썬의 중요성 및 Colab 환경 소개\nColab 접속, 새 노트 생성, 코드 셀/텍스트 셀 사용법\nprint() 함수로 결과 출력하기 및 주석(#) 사용법\n기본 산술 연산 (+, -, *, /, **, ()) 및 간단한 경제 계산 적용\n\n핵심: 별도 설치 없이 Google Colab을 통해 파이썬 코드를 쉽게 작성하고 실행할 수 있습니다. 파이썬은 강력한 계산 도구이기도 합니다.\n다음 시간 예고: 오늘 계산에 사용한 숫자들(가격, 수량 등)을 컴퓨터 메모리에 저장하고 재사용하는 방법인 변수(Variables) 와 다양한 종류의 데이터(숫자, 문자 등)를 나타내는 자료형(Data Types) 에 대해 배울 예정입니다.\n과제 안내:\n\nGoogle Colab에 접속하여 오늘 실습한 내용(print, 주석, 산술 연산)을 복습하는 노트를 직접 만들어 보세요. (파일 이름은 Week1_Review.ipynb 등으로 지정)\nColab 코드 셀을 계산기처럼 사용하여 다음을 계산하고 결과를 확인하세요:\n\n500 * 1.1 (500의 10% 증가)\n10000 / 250\n3 ** 4\n\n(선택) Colab의 텍스트 셀을 사용하여 오늘 배운 내용을 간단히 요약 정리해보세요. Markdown 문법을 익히는 데 도움이 됩니다.",
+    "crumbs": [
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>제 1주차: 파이썬, 경제학의 새로운 날개를 달다 (Google Colab 환경)</span>"
+    ]
+  },
+  {
+    "objectID": "intro.html",
+    "href": "intro.html",
+    "title": "1  Introduction",
+    "section": "",
+    "text": "This is a book created from markdown and executable code.\nSee Knuth (1984) for additional discussion of literate programming.\n\n\n\n\nKnuth, Donald E. 1984. “Literate Programming.” Comput. J. 27 (2): 97–111. https://doi.org/10.1093/comjnl/27.2.97.",
+    "crumbs": [
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Introduction</span>"
+    ]
+  },
+  {
+    "objectID": "summary.html",
+    "href": "summary.html",
+    "title": "3  Summary",
+    "section": "",
+    "text": "In summary, this book has no content whatsoever.",
+    "crumbs": [
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Summary</span>"
+    ]
+  },
+  {
+    "objectID": "references.html",
+    "href": "references.html",
+    "title": "References",
+    "section": "",
+    "text": "Knuth, Donald E. 1984. “Literate Programming.” Comput.\nJ. 27 (2): 97–111. https://doi.org/10.1093/comjnl/27.2.97.",
+    "crumbs": [
+      "References"
+    ]
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "economics_000",
+    "section": "",
+    "text": "Preface\nThis is a Quarto book.\nTo learn more about Quarto books visit https://quarto.org/docs/books.",
+    "crumbs": [
+      "Preface"
+    ]
+  }
+]

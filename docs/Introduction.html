@@ -1,0 +1,1092 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.7.24">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>1&nbsp; week1. Introduction to python – economics_000</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./summary.html" rel="next">
+<link href="./index.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-a37c72dd2dbac68997fcdc15a3622e78.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-364982630eef5352dd1537128a8ed5cb.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+</head>
+
+<body class="nav-sidebar floating quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./Introduction.html">Curriculum</a></li><li class="breadcrumb-item"><a href="./Introduction.html"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">week1. Introduction to python</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">economics_000</a> 
+        <div class="sidebar-tools-main tools-wide">
+    <a href="https://github.com/voidmain443" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
+    <div class="dropdown">
+      <a href="" title="Share" id="quarto-navigation-tool-dropdown-0" class="quarto-navigation-tool dropdown-toggle px-1" data-bs-toggle="dropdown" aria-expanded="false" role="link" aria-label="Share"><i class="bi bi-share"></i></a>
+      <ul class="dropdown-menu" aria-labelledby="quarto-navigation-tool-dropdown-0">
+          <li>
+            <a class="dropdown-item sidebar-tools-main-item" href="https://twitter.com/intent/tweet?url=|url|">
+              <i class="bi bi-twitter pe-1"></i>
+            Twitter
+            </a>
+          </li>
+          <li>
+            <a class="dropdown-item sidebar-tools-main-item" href="https://www.facebook.com/sharer/sharer.php?u=|url|">
+              <i class="bi bi-facebook pe-1"></i>
+            Facebook
+            </a>
+          </li>
+      </ul>
+    </div>
+  <a href="" class="quarto-reader-toggle quarto-navigation-tool px-1" onclick="window.quartoToggleReader(); return false;" title="Toggle reader mode">
+  <div class="quarto-reader-toggle-btn">
+  <i class="bi"></i>
+  </div>
+</a>
+</div>
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Preface</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">Curriculum</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Introduction.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">week1. Introduction to python</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./summary.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Summery</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./references.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">References</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#파이썬-소개-google-colab-환경" id="toc-파이썬-소개-google-colab-환경" class="nav-link active" data-scroll-target="#파이썬-소개-google-colab-환경"><span class="header-section-number">2</span> 파이썬 소개 (Google Colab 환경)</a>
+  <ul class="collapse">
+  <li><a href="#들어가며-왜-경제학도가-파이썬을-배워야-할까요" id="toc-들어가며-왜-경제학도가-파이썬을-배워야-할까요" class="nav-link" data-scroll-target="#들어가며-왜-경제학도가-파이썬을-배워야-할까요"><span class="header-section-number">2.1</span> 들어가며: 왜 경제학도가 파이썬을 배워야 할까요?</a></li>
+  <li><a href="#우리의-클라우드-작업실-google-colab-시작하기" id="toc-우리의-클라우드-작업실-google-colab-시작하기" class="nav-link" data-scroll-target="#우리의-클라우드-작업실-google-colab-시작하기"><span class="header-section-number">2.2</span> 우리의 클라우드 작업실: Google Colab 시작하기</a></li>
+  <li><a href="#화면에-글자-출력하기-print-함수" id="toc-화면에-글자-출력하기-print-함수" class="nav-link" data-scroll-target="#화면에-글자-출력하기-print-함수"><span class="header-section-number">2.3</span> 화면에 글자 출력하기 (<code>print()</code> 함수)</a>
+  <ul class="collapse">
+  <li><a href="#실습-1-print-함수-사용-연습" id="toc-실습-1-print-함수-사용-연습" class="nav-link" data-scroll-target="#실습-1-print-함수-사용-연습">[실습 1] <code>print()</code> 함수 사용 연습</a></li>
+  </ul></li>
+  <li><a href="#코드에-메모-남기기-주석-comment" id="toc-코드에-메모-남기기-주석-comment" class="nav-link" data-scroll-target="#코드에-메모-남기기-주석-comment"><span class="header-section-number">2.4</span> 코드에 메모 남기기: 주석 (Comment)</a>
+  <ul class="collapse">
+  <li><a href="#실습-2-주석-사용-연습" id="toc-실습-2-주석-사용-연습" class="nav-link" data-scroll-target="#실습-2-주석-사용-연습">[실습 2] 주석 사용 연습</a></li>
+  </ul></li>
+  <li><a href="#파이썬-계산기-기본-산술-연산" id="toc-파이썬-계산기-기본-산술-연산" class="nav-link" data-scroll-target="#파이썬-계산기-기본-산술-연산"><span class="header-section-number">2.5</span> 파이썬 계산기: 기본 산술 연산</a>
+  <ul class="collapse">
+  <li><a href="#실습-3-산술-연산-연습" id="toc-실습-3-산술-연산-연습" class="nav-link" data-scroll-target="#실습-3-산술-연산-연습">[실습 3] 산술 연산 연습</a></li>
+  </ul></li>
+  <li><a href="#경제학-맛보기-간단한-경제-계산" id="toc-경제학-맛보기-간단한-경제-계산" class="nav-link" data-scroll-target="#경제학-맛보기-간단한-경제-계산"><span class="header-section-number">2.6</span> 경제학 맛보기: 간단한 경제 계산</a></li>
+  <li><a href="#마무리-및-다음-시간-예고" id="toc-마무리-및-다음-시간-예고" class="nav-link" data-scroll-target="#마무리-및-다음-시간-예고"><span class="header-section-number">2.7</span> 7. 마무리 및 다음 시간 예고</a></li>
+  <li><a href="#첫-주차-과제" id="toc-첫-주차-과제" class="nav-link" data-scroll-target="#첫-주차-과제"><span class="header-section-number">2.8</span> 첫 주차 과제</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./Introduction.html">Curriculum</a></li><li class="breadcrumb-item"><a href="./Introduction.html"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">week1. Introduction to python</span></a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">week1. Introduction to python</span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="파이썬-소개-google-colab-환경" class="level1" data-number="2">
+<h1 data-number="2"><span class="header-section-number">2</span> 파이썬 소개 (Google Colab 환경)</h1>
+<p><strong>강의 개요:</strong></p>
+<p>안녕하세요, 여러분! 경제학 분석 여정의 첫걸음을 떼는 시간입니다. 이번 주에는 왜 우리가 파이썬을 배워야 하는지 알아보고, 코딩 작업 환경인 Google Colab과 친숙해지는 시간을 갖겠습니다. 또한, 파이썬의 가장 기본적인 명령어인 <code>print()</code> 함수, 코드에 설명을 다는 주석, 그리고 파이썬을 계산기처럼 사용하는 방법에 대해 배우고 직접 실습해 볼 것입니다.</p>
+<p><strong>이번 시간 학습 목표:</strong></p>
+<ol type="1">
+<li>파이썬이 경제학 분석에 왜 유용한 도구인지 이해합니다.</li>
+<li>Google Colaboratory (Colab)에 접속하고 기본적인 인터페이스(셀, 메뉴) 사용법을 익힙니다.</li>
+<li><code>print()</code> 함수를 사용하여 원하는 텍스트나 숫자, 계산 결과를 화면에 출력할 수 있습니다.</li>
+<li>주석 (<code>#</code>)을 사용하여 코드에 설명을 추가하는 방법을 배웁니다.</li>
+<li>파이썬의 기본 산술 연산자(<code>+</code>, <code>-</code>, <code>*</code>, <code>/</code>, <code>**</code>, <code>()</code>)를 사용하여 계산을 수행할 수 있습니다.</li>
+<li>배운 내용을 활용하여 간단한 경제 계산(총수입, 총비용 등)을 수행합니다.</li>
+</ol>
+<p><strong>준비물:</strong></p>
+<ul>
+<li>인터넷 접속이 가능한 컴퓨터</li>
+<li>Google 계정</li>
+</ul>
+<section id="들어가며-왜-경제학도가-파이썬을-배워야-할까요" class="level2" data-number="2.1">
+<h2 data-number="2.1" class="anchored" data-anchor-id="들어가며-왜-경제학도가-파이썬을-배워야-할까요"><span class="header-section-number">2.1</span> 들어가며: 왜 경제학도가 파이썬을 배워야 할까요?</h2>
+<p>여러분 중 많은 분들이 ‘경제학 공부하기도 바쁜데, 왜 코딩까지 배워야 할까?’ 하는 생각을 하실 수 있습니다. 아주 합리적인 질문이죠.</p>
+<p>전통적으로 경제학 분석에는 엑셀(Excel)과 같은 스프레드시트 프로그램이나 이뷰(EViews), 스테이타(Stata) 같은 통계 패키지가 많이 사용되었습니다. 이 도구들은 여전히 특정 작업에 유용하지만, 현대 경제학이 다루는 데이터의 규모와 복잡성은 점점 커지고 있습니다.</p>
+<ul>
+<li><strong>데이터의 규모:</strong> 이제는 수백만, 수천만 건을 넘어서는 빅데이터를 다루는 경우가 많아졌습니다. 엑셀은 일정 규모 이상의 데이터를 다루기 어렵습니다.</li>
+<li><strong>분석의 복잡성:</strong> 최신 계량경제 모델이나 머신러닝 기법을 적용하려면 기존 통계 패키지만으로는 한계가 있을 수 있습니다.</li>
+<li><strong>자동화와 반복 작업:</strong> 웹에서 데이터를 주기적으로 가져오거나(크롤링), 동일한 분석을 여러 데이터셋에 반복 적용하는 등의 작업을 자동화하기 어렵습니다.</li>
+<li><strong>재현성:</strong> 다른 연구자가 분석 과정을 똑같이 따라하고 검증하기 어렵게 만드는 ‘클릭 기반’ 작업 방식의 한계가 있습니다.</li>
+</ul>
+<p><strong>파이썬은 이러한 문제들을 해결하는 데 강력한 해답을 제시합니다:</strong></p>
+<ol type="1">
+<li><strong>다재다능함(Versatility):</strong> 파이썬은 데이터 분석뿐만 아니라 웹 개발, 자동화, 인공지능 등 다양한 분야에서 쓰이는 범용 언어입니다. 즉, 한번 배워두면 활용 범위가 매우 넓습니다.</li>
+<li><strong>강력한 생태계(Rich Ecosystem):</strong> NumPy(수치 계산), Pandas(데이터 처리), Matplotlib/Seaborn(시각화), Scikit-learn(머신러닝), Statsmodels(통계 분석) 등 경제/데이터 분석에 필수적인 고성능 라이브러리(미리 만들어진 코드 모음)가 풍부합니다. 이 라이브러리 덕분에 복잡한 작업도 비교적 쉽게 수행할 수 있습니다.</li>
+<li><strong>오픈 소스 및 무료:</strong> 누구나 무료로 사용할 수 있고, 전 세계 수많은 개발자와 사용자들이 함께 발전시키는 활발한 커뮤니티를 가지고 있어 문제 해결에 도움을 받기 용이합니다.</li>
+<li><strong>코드 기반의 재현성:</strong> 모든 분석 과정이 코드로 기록되므로, 분석 결과를 다른 사람이 쉽게 확인하고 재현할 수 있습니다. 이는 과학적 연구의 투명성과 신뢰성을 높이는 데 중요합니다.</li>
+</ol>
+<p>결론적으로, 파이썬을 배우는 것은 여러분의 경제학 분석 능력을 한 단계 끌어올리고, 미래의 데이터 기반 사회에서 경쟁력을 갖추는 데 큰 도움이 될 것입니다. 조금 낯설더라도 즐거운 마음으로 함께 시작해 봅시다!</p>
+</section>
+<section id="우리의-클라우드-작업실-google-colab-시작하기" class="level2" data-number="2.2">
+<h2 data-number="2.2" class="anchored" data-anchor-id="우리의-클라우드-작업실-google-colab-시작하기"><span class="header-section-number">2.2</span> 우리의 클라우드 작업실: Google Colab 시작하기</h2>
+<p>파이썬 코드를 작성하고 실행하려면 ’개발 환경’이 필요합니다. 우리는 설치가 필요 없고 무료로 사용할 수 있는 <strong>Google Colaboratory (Colab)</strong> 을 사용할 것입니다.</p>
+<p><strong>Colab 접속 및 새 노트 만들기:</strong></p>
+<ol type="1">
+<li>웹 브라우저에서 <a href="https://colab.research.google.com">colab.research.google.com</a> 으로 접속합니다.</li>
+<li>Google 계정으로 로그인합니다.</li>
+<li><code>파일</code> &gt; <code>새 노트</code> 메뉴를 선택하여 새로운 빈 노트를 만듭니다.</li>
+<li>노트 상단의 <code>UntitledX.ipynb</code> 부분을 클릭하여 파일 이름을 <code>Week1_Practice.ipynb</code> 처럼 바꿔줍니다. (자동으로 구글 드라이브에 저장됩니다.)</li>
+</ol>
+<p><strong>Colab 기본 인터페이스:</strong></p>
+<ul>
+<li><strong>셀(Cell):</strong> Colab 노트북은 여러 개의 ’셀’로 구성됩니다. 셀에는 크게 두 종류가 있습니다.
+<ul>
+<li><strong>코드 셀:</strong> 파이썬 코드를 입력하고 실행하는 곳입니다. 회색 배경이고 왼쪽에 실행(▶) 버튼이 있습니다.</li>
+<li><strong>텍스트 셀:</strong> 설명, 제목, 이미지 등을 넣는 곳입니다. 지금 여러분이 읽고 있는 이 내용도 텍스트 셀에 작성된 것입니다. (더블클릭하면 편집 가능하며, Markdown이라는 간단한 서식 문법을 사용합니다.)</li>
+</ul></li>
+<li><strong>셀 실행:</strong> 셀을 실행하려면 해당 셀을 클릭하고 <strong><code>Shift + Enter</code></strong> 키를 누르거나 셀 왼쪽의 실행(▶) 버튼을 클릭하면 됩니다. 코드 셀은 코드를 실행하고 결과를 아래에 보여주고, 텍스트 셀은 서식이 적용된 텍스트를 보여줍니다.</li>
+<li><strong>셀 추가/삭제:</strong> 화면 상단 메뉴 아래의 <code>+ 코드</code>, <code>+ 텍스트</code> 버튼으로 셀을 추가할 수 있고, 셀을 선택한 상태에서 오른쪽의 휴지통 아이콘으로 삭제할 수 있습니다.</li>
+</ul>
+<p><strong>[실습] Colab 인터페이스 익숙해지기</strong></p>
+<ol type="1">
+<li><code>+ 코드</code> 버튼을 눌러 아래에 새로운 코드 셀을 추가해보세요.</li>
+<li><code>+ 텍스트</code> 버튼을 눌러 새로운 텍스트 셀을 추가하고, 간단한 메모(예: “Colab 사용 연습 중”)를 작성한 뒤 <code>Shift + Enter</code>를 눌러보세요.</li>
+<li>방금 만든 셀들을 선택하고 휴지통 아이콘을 눌러 삭제해보세요.</li>
+</ol>
+</section>
+<section id="화면에-글자-출력하기-print-함수" class="level2" data-number="2.3">
+<h2 data-number="2.3" class="anchored" data-anchor-id="화면에-글자-출력하기-print-함수"><span class="header-section-number">2.3</span> 화면에 글자 출력하기 (<code>print()</code> 함수)</h2>
+<p>자, 이제 첫 파이썬 코드를 작성해 봅시다! 파이썬에게 우리가 원하는 내용을 화면에 보여달라고 요청할 때 <code>print()</code> 함수를 사용합니다.</p>
+<p><code>print()</code> 함수는 괄호 <code>()</code> 안에 출력하고 싶은 내용을 넣으면 됩니다. 만약 글자(문자열)를 출력하고 싶다면, 내용을 따옴표(<code>"</code> 또는 <code>'</code>)로 감싸줘야 합니다.</p>
+<p><strong>예제 1: 기본적인 문자열 출력</strong></p>
+<div id="6a7ad137" class="cell" data-execution_count="2">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Hello, Economics World!"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Hello, Economics World!</code></pre>
+</div>
+</div>
+<div id="25b2a00f" class="cell" data-execution_count="3">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'파이썬 공부를 시작합니다.'</span>) <span class="co"># 작은따옴표도 가능합니다.</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>파이썬 공부를 시작합니다.</code></pre>
+</div>
+</div>
+<p><strong>예제 2: 숫자 출력</strong></p>
+<p>숫자를 출력할 때는 따옴표 없이 그냥 숫자를 넣으면 됩니다.</p>
+<div id="bf65ef0f" class="cell" data-execution_count="4">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="dv">123</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>123</code></pre>
+</div>
+</div>
+<div id="1673680b" class="cell" data-execution_count="5">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="fl">3.14159</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>3.14159</code></pre>
+</div>
+</div>
+<p><strong>예제 3: 계산 결과 출력</strong></p>
+<p>괄호 안에 직접 계산식을 넣으면, 파이썬이 계산을 먼저 수행하고 그 결과를 출력해 줍니다.</p>
+<div id="6856483c" class="cell" data-execution_count="6">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="dv">100</span> <span class="op">+</span> <span class="dv">50</span>) <span class="co"># 덧셈 결과 출력</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>150</code></pre>
+</div>
+</div>
+<div id="d700d039" class="cell" data-execution_count="7">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="dv">10</span> <span class="op">*</span> <span class="dv">5</span>) <span class="co"># 곱셈 결과 출력</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>50</code></pre>
+</div>
+</div>
+<p><strong>예제 4: 여러 내용 함께 출력하기 (쉼표 사용)</strong></p>
+<p><code>print()</code> 함수 안에 쉼표(<code>,</code>)를 사용하여 여러 개의 값(문자열, 숫자 등)을 나열하면, 각 값 사이에 공백이 하나씩 들어가면서 함께 출력됩니다.</p>
+<div id="8d19319c" class="cell" data-execution_count="8">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"가격:"</span>, <span class="dv">15000</span>, <span class="st">"원"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>가격: 15000 원</code></pre>
+</div>
+</div>
+<div id="95512cae" class="cell" data-execution_count="9">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"오늘의 판매량:"</span>, <span class="dv">50</span>, <span class="st">"개,"</span>, <span class="st">"목표 달성!"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>오늘의 판매량: 50 개, 목표 달성!</code></pre>
+</div>
+</div>
+<section id="실습-1-print-함수-사용-연습" class="level3">
+<h3 class="anchored" data-anchor-id="실습-1-print-함수-사용-연습">[실습 1] <code>print()</code> 함수 사용 연습</h3>
+<p>아래 요구사항에 맞춰 <code>print()</code> 함수를 사용하여 결과를 출력하는 코드를 각각의 코드 셀에 작성해보세요.</p>
+<ol type="1">
+<li>본인의 이름 또는 별명을 화면에 출력하세요.</li>
+<li>숫자 2025를 화면에 출력하세요.</li>
+<li><code>50 * 10</code> 의 계산 결과를 화면에 출력하세요.</li>
+<li>“수업 과목:” 이라는 글자와 “파이썬 수업” 이라는 글자를 쉼표를 이용해 한 줄에 함께 출력하세요. (결과 예: <code>수업 과목: 파이썬 수업</code>)</li>
+</ol>
+<hr>
+<div id="f1b7646d" class="cell" data-execution_count="10">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 실습 1-1: 본인 이름/별명 출력</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="co"># 여기에 코드를 작성하세요.</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="6e30fbcc" class="cell" data-execution_count="11">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 실습 1-2: 숫자 2025 출력</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="co"># 여기에 코드를 작성하세요.</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="cc6b30ad" class="cell" data-execution_count="12">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 실습 1-3: 50 * 10 계산 결과 출력</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="co"># 여기에 코드를 작성하세요.</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="d926b55b" class="cell" data-execution_count="13">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 실습 1-4: 여러 내용 함께 출력</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="co"># 여기에 코드를 작성하세요.</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+</section>
+<section id="코드에-메모-남기기-주석-comment" class="level2" data-number="2.4">
+<h2 data-number="2.4" class="anchored" data-anchor-id="코드에-메모-남기기-주석-comment"><span class="header-section-number">2.4</span> 코드에 메모 남기기: 주석 (Comment)</h2>
+<p>코드를 작성하다 보면, 이 코드가 어떤 기능을 하는지, 왜 이렇게 작성했는지 나중에 다시 보거나 다른 사람에게 설명해야 할 때가 있습니다. 이때 코드에 <strong>주석(Comment)</strong> 을 달아두면 매우 유용합니다.</p>
+<p>파이썬에서 주석은 <code>#</code> 기호로 시작합니다. <code>#</code> 기호 뒤에 오는 내용은 그 줄 끝까지 파이썬 실행기가 무시합니다. 즉, 프로그램 실행에 아무런 영향을 주지 않고 오직 사람만 볼 수 있는 메모입니다.</p>
+<p><strong>예제 1: 코드 설명 주석</strong></p>
+<div id="fa4c14cb" class="cell" data-execution_count="14">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 아래 코드는 환영 메시지를 출력합니다. (이 줄은 주석입니다)</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Welcome to Python for Economics!"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Welcome to Python for Economics!</code></pre>
+</div>
+</div>
+<p><strong>예제 2: 코드 옆 주석</strong></p>
+<p>코드와 같은 줄에 설명을 짧게 추가할 수도 있습니다.</p>
+<div id="42b1a892" class="cell" data-execution_count="15">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="dv">365</span> <span class="op">*</span> <span class="dv">24</span>) <span class="co"># 1년은 몇 시간인지 계산</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>8760</code></pre>
+</div>
+</div>
+<p><strong>예제 3: 코드 실행 잠시 막기 (주석 처리)</strong></p>
+<p>특정 코드 라인을 실행하고 싶지 않을 때, 그 줄 맨 앞에 <code>#</code>을 붙여 주석으로 만들면 해당 코드는 실행되지 않습니다. 디버깅할 때 유용하게 쓰입니다.</p>
+<div id="b5e50696" class="cell" data-execution_count="16">
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"이 메시지는 보입니다."</span>)</span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="co"># print("이 메시지는 주석 처리되어 보이지 않습니다.")</span></span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"이 메시지도 보입니다."</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>이 메시지는 보입니다.
+이 메시지도 보입니다.</code></pre>
+</div>
+</div>
+<section id="실습-2-주석-사용-연습" class="level3">
+<h3 class="anchored" data-anchor-id="실습-2-주석-사용-연습">[실습 2] 주석 사용 연습</h3>
+<ol type="1">
+<li>아래 코드 셀에 <code>print("오늘 날짜:", "2025년 4월 17일")</code> 코드를 작성하고, 그 코드 윗줄에 <code>#</code>를 이용하여 “오늘 날짜를 출력하는 코드” 라는 주석을 추가하세요.</li>
+<li>새로운 코드 셀에 <code>print(12 * 30)</code> 코드를 작성하고, 같은 줄 코드 뒤에 <code>#</code>를 이용하여 “1년은 약 몇 개월인지 계산” 이라는 주석을 추가하세요.</li>
+</ol>
+<hr>
+<div id="779da18f" class="cell" data-execution_count="17">
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 실습 </span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+</section>
+<section id="파이썬-계산기-기본-산술-연산" class="level2" data-number="2.5">
+<h2 data-number="2.5" class="anchored" data-anchor-id="파이썬-계산기-기본-산술-연산"><span class="header-section-number">2.5</span> 파이썬 계산기: 기본 산술 연산</h2>
+<p>파이썬은 기본적인 사칙연산부터 거듭제곱까지 다양한 수학 계산을 할 수 있습니다. 주요 산술 연산자는 다음과 같습니다.</p>
+<ul>
+<li><code>+</code> : 덧셈</li>
+<li><code>-</code> : 뺄셈</li>
+<li><code>*</code> : 곱셈 (별표 <code>*</code> 사용)</li>
+<li><code>/</code> : 나눗셈 (결과는 소수점을 포함하는 실수(float) 형태)</li>
+<li><code>**</code> : 거듭제곱 (예: <code>2 ** 3</code> 은 <span class="math inline">\(2^3 = 8\)</span>)</li>
+<li><code>//</code> : 정수 나눗셈 (나눗셈 결과의 몫만 구함)</li>
+<li><code>%</code> : 나머지 (나눗셈 결과의 나머지만 구함)</li>
+<li><code>()</code> : 괄호 (연산 순서 지정, 괄호 안을 가장 먼저 계산 - PEMDAS/BODMAS 원칙)</li>
+</ul>
+<p><strong>예제 1: 사칙연산</strong></p>
+<div id="116227c6" class="cell" data-execution_count="18">
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"10 + 5 ="</span>, <span class="dv">10</span> <span class="op">+</span> <span class="dv">5</span>)</span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"10 - 5 ="</span>, <span class="dv">10</span> <span class="op">-</span> <span class="dv">5</span>)</span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"10 * 5 ="</span>, <span class="dv">10</span> <span class="op">*</span> <span class="dv">5</span>)</span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"10 / 5 ="</span>, <span class="dv">10</span> <span class="op">/</span> <span class="dv">5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>10 + 5 = 15
+10 - 5 = 5
+10 * 5 = 50
+10 / 5 = 2.0</code></pre>
+</div>
+</div>
+<p><strong>예제 2: 거듭제곱, 정수 나눗셈, 나머지</strong></p>
+<div id="e0b7797e" class="cell" data-execution_count="20">
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"2의 5제곱 ="</span>, <span class="dv">2</span> <span class="op">**</span> <span class="dv">5</span>) <span class="co"># 2*2*2*2*2</span></span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"17 나누기 5의 몫 ="</span>, <span class="dv">17</span> <span class="op">//</span> <span class="dv">5</span>) <span class="co"># 17 = 5*3 + 2 에서 몫은 3</span></span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"17 나누기 5의 나머지 ="</span>, <span class="dv">17</span> <span class="op">%</span> <span class="dv">5</span>) <span class="co"># 17 = 5*3 + 2 에서 나머지는 2</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>2의 5제곱 = 32
+17 나누기 5의 몫 = 3
+17 나누기 5의 나머지 = 2</code></pre>
+</div>
+</div>
+<p><strong>예제 3: 연산 순서와 괄호</strong></p>
+<p>파이썬은 수학에서와 같이 곱셈/나눗셈을 덧셈/뺄셈보다 먼저 계산합니다. 괄호를 사용하면 연산 순서를 바꿀 수 있습니다.</p>
+<div id="0c4b4698" class="cell" data-execution_count="21">
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"2 + 3 * 4 ="</span>, <span class="dv">2</span> <span class="op">+</span> <span class="dv">3</span> <span class="op">*</span> <span class="dv">4</span>) <span class="co"># 곱셈 먼저: 2 + 12 = 14</span></span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"(2 + 3) * 4 ="</span>, (<span class="dv">2</span> <span class="op">+</span> <span class="dv">3</span>) <span class="op">*</span> <span class="dv">4</span>) <span class="co"># 괄호 먼저: 5 * 4 = 20</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>2 + 3 * 4 = 14
+(2 + 3) * 4 = 20</code></pre>
+</div>
+</div>
+<p><strong>예제 4: 실수 연산</strong></p>
+<p>소수점이 있는 실수(float)끼리도 당연히 연산이 가능합니다.</p>
+<div id="71f813d5" class="cell" data-execution_count="22">
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"3.14 * 2 ="</span>, <span class="fl">3.14</span> <span class="op">*</span> <span class="dv">2</span>)</span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"10.5 / 2.5 ="</span>, <span class="fl">10.5</span> <span class="op">/</span> <span class="fl">2.5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>3.14 * 2 = 6.28
+10.5 / 2.5 = 4.2</code></pre>
+</div>
+</div>
+<p><strong>주의:</strong> 0으로 나누는 것은 수학적으로 정의되지 않으므로, 파이썬에서도 0으로 나누려고 하면 오류(<code>ZeroDivisionError</code>)가 발생합니다.</p>
+<div id="8798bb87" class="cell" data-execution_count="24">
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="co"># print(10 / 0) # 이 코드는 ZeroDivisionError를 발생시킵니다.</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<section id="실습-3-산술-연산-연습" class="level3">
+<h3 class="anchored" data-anchor-id="실습-3-산술-연산-연습">[실습 3] 산술 연산 연습</h3>
+<p>아래 요구사항에 맞춰 계산을 수행하고 결과를 <code>print()</code> 함수로 출력하는 코드를 각각의 코드 셀에 작성해보세요.</p>
+<ol type="1">
+<li>숫자 1234와 5678을 더한 결과를 출력하세요.</li>
+<li>숫자 50에서 15를 뺀 결과를 출력하세요.</li>
+<li>숫자 10의 3제곱 (<span class="math inline">\(10^3\)</span>)을 계산하여 출력하세요.</li>
+<li>숫자 25를 4로 나누었을 때의 몫과 나머지를 각각 계산하여 출력하세요. (힌트: <code>//</code> 와 <code>%</code> 연산자 사용)</li>
+<li><code>(100 + 200) / 5</code> 를 계산하여 출력하세요. 괄호의 역할에 주목하세요.</li>
+</ol>
+<hr>
+<div id="e4f2f9df" class="cell" data-execution_count="25">
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 실습 3</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+</section>
+<section id="경제학-맛보기-간단한-경제-계산" class="level2" data-number="2.6">
+<h2 data-number="2.6" class="anchored" data-anchor-id="경제학-맛보기-간단한-경제-계산"><span class="header-section-number">2.6</span> 경제학 맛보기: 간단한 경제 계산</h2>
+<p>이제 오늘 배운 <code>print</code>와 산술 연산을 활용하여 첫 시간에 잠시 언급했던 간단한 경제 계산을 다시 해봅시다.</p>
+<p><strong>시나리오:</strong></p>
+<ul>
+<li>티셔츠 가격(Price) = 15,000원</li>
+<li>판매량(Quantity) = 50장</li>
+<li>고정 비용(Fixed Cost) = 500,000원</li>
+<li>단위당 가변 비용(Variable Cost per Unit) = 5,000원</li>
+</ul>
+<p><strong>계산 목표:</strong></p>
+<ul>
+<li>총수입 (Total Revenue, TR) = 가격 × 판매량</li>
+<li>총가변비용 (Total Variable Cost, TVC) = 단위당 가변 비용 × 판매량</li>
+<li>총비용 (Total Cost, TC) = 고정 비용 + 총가변비용</li>
+<li>이익 (Profit) = 총수입 - 총비용</li>
+</ul>
+<p><strong>파이썬 코드로 계산하기:</strong></p>
+<p>계산 과정을 명확히 하기 위해, 각 단계의 결과를 출력해 보겠습니다.</p>
+<div id="16f1522d" class="cell" data-execution_count="26">
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 1. 총수입(TR) 계산 및 출력</span></span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"--- 총수입 계산 ---"</span>)</span>
+<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"가격:"</span>, <span class="dv">15000</span>)</span>
+<span id="cb38-4"><a href="#cb38-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"판매량:"</span>, <span class="dv">50</span>)</span>
+<span id="cb38-5"><a href="#cb38-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"총수입(TR):"</span>, <span class="dv">15000</span> <span class="op">*</span> <span class="dv">50</span>)</span>
+<span id="cb38-6"><a href="#cb38-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-7"><a href="#cb38-7" aria-hidden="true" tabindex="-1"></a><span class="co"># 2. 총가변비용(TVC) 계산 및 출력</span></span>
+<span id="cb38-8"><a href="#cb38-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">--- 총가변비용 계산 ---"</span>) <span class="co"># \n 은 줄바꿈 문자입니다.</span></span>
+<span id="cb38-9"><a href="#cb38-9" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"단위당 가변 비용:"</span>, <span class="dv">5000</span>)</span>
+<span id="cb38-10"><a href="#cb38-10" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"판매량:"</span>, <span class="dv">50</span>)</span>
+<span id="cb38-11"><a href="#cb38-11" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"총가변비용(TVC):"</span>, <span class="dv">5000</span> <span class="op">*</span> <span class="dv">50</span>)</span>
+<span id="cb38-12"><a href="#cb38-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-13"><a href="#cb38-13" aria-hidden="true" tabindex="-1"></a><span class="co"># 3. 총비용(TC) 계산 및 출력</span></span>
+<span id="cb38-14"><a href="#cb38-14" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">--- 총비용 계산 ---"</span>)</span>
+<span id="cb38-15"><a href="#cb38-15" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"고정 비용:"</span>, <span class="dv">500000</span>)</span>
+<span id="cb38-16"><a href="#cb38-16" aria-hidden="true" tabindex="-1"></a><span class="co"># 위에서 계산한 총가변비용 값을 직접 사용 (지금은 숫자를 다시 쓰지만, 다음 주 변수를 배우면 더 편해집니다)</span></span>
+<span id="cb38-17"><a href="#cb38-17" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"총비용(TC):"</span>, <span class="dv">500000</span> <span class="op">+</span> (<span class="dv">5000</span> <span class="op">*</span> <span class="dv">50</span>))</span>
+<span id="cb38-18"><a href="#cb38-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-19"><a href="#cb38-19" aria-hidden="true" tabindex="-1"></a><span class="co"># 4. 이익(Profit) 계산 및 출력</span></span>
+<span id="cb38-20"><a href="#cb38-20" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">--- 이익 계산 ---"</span>)</span>
+<span id="cb38-21"><a href="#cb38-21" aria-hidden="true" tabindex="-1"></a><span class="co"># 위에서 계산한 총수입과 총비용 값을 직접 사용</span></span>
+<span id="cb38-22"><a href="#cb38-22" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"이익(Profit):"</span>, (<span class="dv">15000</span> <span class="op">*</span> <span class="dv">50</span>) <span class="op">-</span> (<span class="dv">500000</span> <span class="op">+</span> (<span class="dv">5000</span> <span class="op">*</span> <span class="dv">50</span>)))</span>
+<span id="cb38-23"><a href="#cb38-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-24"><a href="#cb38-24" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">--- 최종 요약 ---"</span>)</span>
+<span id="cb38-25"><a href="#cb38-25" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"총수입:"</span>, <span class="dv">15000</span> <span class="op">*</span> <span class="dv">50</span>)</span>
+<span id="cb38-26"><a href="#cb38-26" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"총비용:"</span>, <span class="dv">500000</span> <span class="op">+</span> (<span class="dv">5000</span> <span class="op">*</span> <span class="dv">50</span>))</span>
+<span id="cb38-27"><a href="#cb38-27" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"이 익:"</span>, (<span class="dv">15000</span> <span class="op">*</span> <span class="dv">50</span>) <span class="op">-</span> (<span class="dv">500000</span> <span class="op">+</span> (<span class="dv">5000</span> <span class="op">*</span> <span class="dv">50</span>)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>--- 총수입 계산 ---
+가격: 15000
+판매량: 50
+총수입(TR): 750000
+
+--- 총가변비용 계산 ---
+단위당 가변 비용: 5000
+판매량: 50
+총가변비용(TVC): 250000
+
+--- 총비용 계산 ---
+고정 비용: 500000
+총비용(TC): 750000
+
+--- 이익 계산 ---
+이익(Profit): 0
+
+--- 최종 요약 ---
+총수입: 750000
+총비용: 750000
+이 익: 0</code></pre>
+</div>
+</div>
+<p>이번 예제에서는 계산 과정의 명확성을 위해 각 단계의 결과를 출력했습니다. 하지만 여전히 가격(15000)이나 수량(50) 같은 값들이 여러 번 반복해서 사용되고 있죠? 다음 주에 배울 <strong>변수</strong>를 사용하면 이런 반복을 줄이고 코드를 훨씬 효율적으로 만들 수 있습니다.</p>
+</section>
+<section id="마무리-및-다음-시간-예고" class="level2" data-number="2.7">
+<h2 data-number="2.7" class="anchored" data-anchor-id="마무리-및-다음-시간-예고"><span class="header-section-number">2.7</span> 7. 마무리 및 다음 시간 예고</h2>
+<p>오늘 첫 수업, 다들 수고 많으셨습니다! 오늘은 파이썬이 왜 경제학 분석에 유용한 도구인지 알아보고, 우리의 작업 공간이 될 Google Colab 사용법을 익혔습니다. 그리고 파이썬의 가장 기본적인 출력 명령어인 <code>print</code>와 코드 설명을 위한 주석 사용법, 마지막으로 파이썬의 강력한 계산 기능을 직접 실습해 보았습니다.</p>
+<p><strong>다음 시간에는:</strong></p>
+<p>오늘 마지막 예제에서 느꼈던 불편함, 즉 반복되는 값들을 효율적으로 관리하는 방법인 <strong>변수(Variables)</strong> 에 대해 자세히 배울 것입니다. 또한, 파이썬이 다루는 여러 종류의 데이터(숫자, 문자열 등)인 <strong>자료형(Data Types)</strong> 과 사용자로부터 직접 입력을 받는 <strong><code>input()</code> 함수</strong>에 대해서도 알아볼 예정입니다.</p>
+</section>
+<section id="첫-주차-과제" class="level2" data-number="2.8">
+<h2 data-number="2.8" class="anchored" data-anchor-id="첫-주차-과제"><span class="header-section-number">2.8</span> 첫 주차 과제</h2>
+<p>오늘 배운 내용을 복습하고 다음 수업을 준비하기 위해 아래 과제를 Colab에서 새 노트(<code>Week1_Assignment.ipynb</code> 등)에 풀어보세요.</p>
+<ol type="1">
+<li><strong><code>print()</code> 연습:</strong>
+<ul>
+<li><code>print()</code> 함수를 여러 번 사용하여 다음과 같이 본인 소개를 여러 줄로 출력해보세요. <code>이름: [본인 이름]     학과: 경제학과     학번: [본인 학번]</code></li>
+</ul></li>
+<li><strong>산술 연산 연습:</strong>
+<ul>
+<li>어떤 물건의 가격이 50,000원이고, 10% 할인 쿠폰이 있다고 할 때, 할인 금액과 최종 가격을 계산하여 각각 출력하세요. (힌트: 할인 금액 = 원래 가격 * 0.1, 최종 가격 = 원래 가격 - 할인 금액)</li>
+<li>섭씨 온도(Celsius)를 화씨 온도(Fahrenheit)로 변환하는 공식은 <span class="math inline">\(F = (C \times 9/5) + 32\)</span> 입니다. 섭씨 25도를 화씨로 변환하여 결과를 출력하세요.</li>
+</ul></li>
+<li><strong>주석 연습:</strong>
+<ul>
+<li>위 2번 문제의 각 계산 코드 윗줄에 어떤 계산인지 설명하는 주석을 추가하세요.</li>
+</ul></li>
+</ol>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+        const codeEl = trigger.previousElementSibling.cloneNode(true);
+        for (const childEl of codeEl.children) {
+          if (isCodeAnnotation(childEl)) {
+            childEl.remove();
+          }
+        }
+        return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./index.html" class="pagination-link" aria-label="Preface">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Preface</span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./summary.html" class="pagination-link" aria-label="Summery">
+        <span class="nav-page-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Summery</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+<p>Economic Freshman Python (1e) was written by JunhaPark.</p>
+</div>   
+    <div class="nav-footer-center">
+      &nbsp;
+    </div>
+    <div class="nav-footer-right">
+<p>This book was built with <a href="https://quarto.org/">Quarto</a>.</p>
+</div>
+  </div>
+</footer>
+
+
+
+
+</body></html>

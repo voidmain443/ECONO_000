@@ -1,0 +1,42 @@
+project:
+  type: book
+  output-dir: docs
+
+book:
+  title: "economics_000"
+  reader-mode: true
+  author: "박준하"
+  page-footer: 
+    left: |
+      Economic Freshman Python (1e) was written by JunhaPark.
+    right: |
+      This book was built with <a href="https://quarto.org/">Quarto</a>.
+  cover-image: cover.png
+  #favicon: 
+  repo-url: https://github.com/voidmain443
+  sharing: [twitter, facebook]
+  date: "4/15/2025"
+  chapters:
+    - index.qmd
+    - part: Curriculum
+      chapters:
+        - Introduction.ipynb
+        - week2.ipynb
+        - summary.qmd
+        - references.qmd
+    #- part: Support
+    #  chapters:
+    #    - support.qmd
+
+
+bibliography: references.bib
+
+number-depth: 2
+
+format:
+  html:
+    theme:
+      - cosmo
+    code-copy: true
+    
+
