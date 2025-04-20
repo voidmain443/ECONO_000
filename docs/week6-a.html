@@ -1,0 +1,1074 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.7.24">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>7&nbsp; 보충 학습: 파이썬 스크립트와 코드 재사용 심화 (Advanced Topic) – economics_000</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./week7.html" rel="next">
+<link href="./week6.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-a37c72dd2dbac68997fcdc15a3622e78.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-806c95bdecf85540f7beab145150c922.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+
+</head>
+
+<body class="nav-sidebar floating quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./Introduction.html">Curriculum</a></li><li class="breadcrumb-item"><a href="./week6-a.html"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">보충 학습: 파이썬 스크립트와 코드 재사용 심화 (Advanced Topic)</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">economics_000</a> 
+        <div class="sidebar-tools-main tools-wide">
+    <a href="https://github.com/voidmain443" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
+    <div class="dropdown">
+      <a href="" title="Share" id="quarto-navigation-tool-dropdown-0" class="quarto-navigation-tool dropdown-toggle px-1" data-bs-toggle="dropdown" aria-expanded="false" role="link" aria-label="Share"><i class="bi bi-share"></i></a>
+      <ul class="dropdown-menu" aria-labelledby="quarto-navigation-tool-dropdown-0">
+          <li>
+            <a class="dropdown-item sidebar-tools-main-item" href="https://twitter.com/intent/tweet?url=|url|">
+              <i class="bi bi-twitter pe-1"></i>
+            Twitter
+            </a>
+          </li>
+          <li>
+            <a class="dropdown-item sidebar-tools-main-item" href="https://www.facebook.com/sharer/sharer.php?u=|url|">
+              <i class="bi bi-facebook pe-1"></i>
+            Facebook
+            </a>
+          </li>
+      </ul>
+    </div>
+  <a href="" class="quarto-reader-toggle quarto-navigation-tool px-1" onclick="window.quartoToggleReader(); return false;" title="Toggle reader mode">
+  <div class="quarto-reader-toggle-btn">
+  <i class="bi"></i>
+  </div>
+</a>
+</div>
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Preface</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">Curriculum</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Introduction.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">week1. Introduction to python</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./week2.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">week2. Variables</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./week3.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">3주차: 똑똑한 프로그램 만들기 (조건문 If)</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./week4.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">4주차: 반복 작업은 컴퓨터에게! (반복문 for 와 리스트 활용)</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./week5.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">5주차: 코드를 재사용하는 마법 (함수와 딕셔너리 활용)</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./week6.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">6주차: 시장의 작동 원리 파헤치기 (수요와 공급 모델링 및 균형 찾기)</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./week6-a.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">보충 학습: 파이썬 스크립트와 코드 재사용 심화 (Advanced Topic)</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./week7.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">7주차: 백문이 불여일견! 데이터 시각화 기초 (Matplotlib)</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./week8.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">8주차: 파이썬으로 경제 분석하기 (종합 응용 및 마무리)</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./references.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">References</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#명령줄에서-파이썬-실행하기-argparse-소개" id="toc-명령줄에서-파이썬-실행하기-argparse-소개" class="nav-link active" data-scroll-target="#명령줄에서-파이썬-실행하기-argparse-소개">1. 명령줄에서 파이썬 실행하기 (<code>argparse</code> 소개)</a></li>
+  <li><a href="#파일명-sd_analyzer.py-실제-파일로-저장해야-함" id="toc-파일명-sd_analyzer.py-실제-파일로-저장해야-함" class="nav-link" data-scroll-target="#파일명-sd_analyzer.py-실제-파일로-저장해야-함">파일명: sd_analyzer.py (실제 파일로 저장해야 함)</a></li>
+  <li><a href="#나만의-코드-모음-만들기-모듈과-패키지-기초" id="toc-나만의-코드-모음-만들기-모듈과-패키지-기초" class="nav-link" data-scroll-target="#나만의-코드-모음-만들기-모듈과-패키지-기초">2. 나만의 코드 모음 만들기 (모듈과 패키지 기초)</a></li>
+  <li><a href="#코드를-더욱-체계적으로-패키지package-구성하기" id="toc-코드를-더욱-체계적으로-패키지package-구성하기" class="nav-link" data-scroll-target="#코드를-더욱-체계적으로-패키지package-구성하기">3. 코드를 더욱 체계적으로: 패키지(Package) 구성하기</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./Introduction.html">Curriculum</a></li><li class="breadcrumb-item"><a href="./week6-a.html"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">보충 학습: 파이썬 스크립트와 코드 재사용 심화 (Advanced Topic)</span></a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">보충 학습: 파이썬 스크립트와 코드 재사용 심화 (Advanced Topic)</span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<p>지금까지 우리는 주로 Colab 노트북 환경에서 코드를 작성하고 즉시 결과를 확인하는 방식으로 파이썬을 배워왔습니다. 노트북 환경은 탐색적 데이터 분석이나 학습 과정에는 매우 훌륭하지만, 실제 연구나 프로젝트에서는 다음과 같은 요구사항이 생길 수 있습니다.</p>
+<ol type="1">
+<li><strong>자동화:</strong> 매번 노트북을 열어 코드를 실행하는 것이 아니라, 특정 분석 작업을 <strong>자동으로</strong> 또는 <strong>명령 한 줄로</strong> 실행하고 싶을 때 (예: 매일 새로운 데이터를 받아 균형점을 계산하고 보고).</li>
+<li><strong>코드 재사용:</strong> 우리가 만든 유용한 함수들(예: <code>find_equilibrium</code>)을 이번 분석뿐만 아니라, <strong>다른 프로젝트나 다른 스크립트</strong>에서도 쉽게 가져다 쓰고 싶을 때.</li>
+<li><strong>협업 및 관리:</strong> 코드가 점점 길고 복잡해질 때, 여러 개의 파일로 <strong>기능별로 나누어 관리</strong>하고 다른 사람들과 협업하고 싶을 때.</li>
+</ol>
+<p>이러한 요구사항을 해결하기 위해 파이썬에서는 <strong>명령줄 스크립트(Command-line Script)</strong> 와 <strong>모듈(Module)/패키지(Package)</strong> 라는 개념을 사용합니다. 오늘은 이 두 가지 개념에 대해 간단히 맛보는 시간을 갖겠습니다. (이 내용은 고급 과정이므로, 지금 당장 완벽히 이해하지 않아도 괜찮습니다!)</p>
+<section id="명령줄에서-파이썬-실행하기-argparse-소개" class="level3">
+<h3 class="anchored" data-anchor-id="명령줄에서-파이썬-실행하기-argparse-소개">1. 명령줄에서 파이썬 실행하기 (<code>argparse</code> 소개)</h3>
+<p>우리가 작성한 파이썬 코드를 <code>.py</code> 라는 확장자로 저장하면, 터미널(명령 프롬프트, PowerShell 등) 환경에서 <code>python 파일이름.py</code> 명령으로 실행할 수 있습니다. 이것을 <strong>파이썬 스크립트</strong>라고 부릅니다.</p>
+<p>그런데 스크립트를 실행할 때마다 수요/공급 함수의 파라미터(<code>a</code>, <code>b</code>, <code>c</code>, <code>d</code>) 값을 코드 내부에서 직접 수정하는 것은 번거롭습니다. 스크립트를 실행하는 <strong>시점</strong>에 이 값들을 <strong>외부에서 전달</strong>해주면 훨씬 유연하겠죠? 이때 사용하는 것이 <strong>명령줄 인자(Command-line Argument)</strong> 이며, 파이썬에서는 <code>argparse</code> 라는 표준 라이브러리를 통해 이를 쉽게 처리할 수 있습니다.</p>
+<p><strong><code>argparse</code> 사용 예시 (<code>sd_analyzer.py</code> 가상 스크립트)</strong></p>
+<p>만약 아래와 같은 내용으로 <code>sd_analyzer.py</code> 파일을 만들었다고 가정해 봅시다. (Colab에서는 아래 코드를 직접 실행하기보다, 이런 <code>.py</code> 파일을 만들 수 있다는 개념을 이해하는 것이 중요합니다.)</p>
+</section>
+<section id="파일명-sd_analyzer.py-실제-파일로-저장해야-함" class="level3">
+<h3 class="anchored" data-anchor-id="파일명-sd_analyzer.py-실제-파일로-저장해야-함">파일명: sd_analyzer.py (실제 파일로 저장해야 함)</h3>
+<pre class="{python}"><code>import argparse
+
+# --- S&amp;D 관련 함수 정의 (또는 다른 파일에서 import) ---
+# (이 부분은 설명을 위해 간단히 다시 정의합니다. 실제로는 import 사용 권장)
+def quantity_demanded(price, a, b):
+    if b &lt;= 0: return None
+    q_d = a - b * price
+    return max(0, q_d)
+
+def quantity_supplied(price, c, d):
+    if d &lt;= 0: return None
+    q_s = c + d * price
+    return max(0, q_s)
+
+def find_equilibrium(a, b, c, d):
+    if b &lt;= 0 or d &lt;= 0 or (b + d) == 0: return None
+    p_star = (a - c) / (b + d)
+    if p_star &lt; 0: return None
+    q_star = quantity_demanded(p_star, a, b)
+    # if q_star &lt; 0: return None # 필요시 추가
+    return p_star, q_star
+# --- 함수 정의 끝 ---
+
+# 1. ArgumentParser 객체 생성
+parser = argparse.ArgumentParser(description='선형 수요/공급 모델의 균형점을 계산합니다.')
+
+# 2. 명령줄 인자 정의 (--a, --b, --c, --d 라는 이름으로 인자를 받음)
+#    type=float : 입력값을 실수로 처리
+#    required=True : 필수 인자임을 명시
+#    help='...' : 도움말 메시지
+parser.add_argument('--a', type=float, required=True, help='수요 함수 절편 (Qd = a - bP)')
+parser.add_argument('--b', type=float, required=True, help='수요 함수 기울기 절대값 (Qd = a - bP)')
+parser.add_argument('--c', type=float, required=True, help='공급 함수 절편 (Qs = c + dP)')
+parser.add_argument('--d', type=float, required=True, help='공급 함수 기울기 (Qs = c + dP)')
+
+# 3. 명령줄 인자 파싱(분석)
+args = parser.parse_args()
+
+# 4. 파싱된 인자를 사용하여 균형점 계산 함수 호출
+#    args.a, args.b 등으로 접근 가능
+equilibrium_point = find_equilibrium(args.a, args.b, args.c, args.d)
+
+# 5. 결과 출력
+if equilibrium_point:
+    p_eq, q_eq = equilibrium_point
+    print(f"--- 계산 결과 ---")
+    print(f"수요 함수: Qd = {args.a} - {args.b}P")
+    print(f"공급 함수: Qs = {args.c} + {args.d}P")
+    print(f"균형 가격(P*): {p_eq:.2f}")
+    print(f"균형 거래량(Q*): {q_eq:.2f}")
+else:
+    print("오류: 균형점을 계산할 수 없습니다. 파라미터를 확인하세요.")</code></pre>
+<p><strong>스크립트 실행 방법 (터미널에서):</strong></p>
+<p>위 <code>sd_analyzer.py</code> 파일이 저장된 디렉토리에서, 터미널을 열고 다음과 같이 명령어를 입력하면 됩니다.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">python</span> sd_analyzer.py <span class="at">--a</span> 100 <span class="at">--b</span> 2 <span class="at">--c</span> 10 <span class="at">--d</span> 3</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>이렇게 하면 <code>--a</code> 뒤의 <code>100</code>이 <code>args.a</code>로, <code>--b</code> 뒤의 <code>2</code>가 <code>args.b</code>로 전달되어 코드가 실행되고 결과가 터미널에 출력됩니다. 파라미터 값을 바꿔가며 스크립트를 쉽게 재실행할 수 있습니다.</p>
+<p><strong>(Colab/Jupyter 환경에서는)</strong> 위 파이썬 코드를 직접 실행하면 <code>argparse</code>가 명령줄 인자를 찾지 못해 오류가 발생합니다. Colab에서 명령줄 인자를 테스트하려면 특별한 방법(<code>sys.argv</code> 조작 등)이 필요하지만, 여기서는 <strong>“파이썬 스크립트를 만들고 명령줄에서 인자를 받아 실행할 수 있다”</strong> 는 개념을 이해하는 것이 중요합니다.</p>
+</section>
+<section id="나만의-코드-모음-만들기-모듈과-패키지-기초" class="level3">
+<h3 class="anchored" data-anchor-id="나만의-코드-모음-만들기-모듈과-패키지-기초">2. 나만의 코드 모음 만들기 (모듈과 패키지 기초)</h3>
+<p>우리가 작성한 함수들(<code>quantity_demanded</code>, <code>quantity_supplied</code>, <code>find_equilibrium</code>)은 다른 분석에서도 유용하게 쓰일 수 있습니다. 이 함수들을 별도의 파이썬 파일(<code>.py</code>)로 저장해두면, 다른 노트북이나 스크립트에서 <strong>가져와서(import)</strong> 재사용할 수 있습니다. 이렇게 재사용 가능한 코드(함수, 클래스, 변수 등)를 담고 있는 <code>.py</code> 파일을 <strong>모듈(Module)</strong> 이라고 부릅니다.</p>
+<p><strong>모듈 만들기 (Colab에서 <code>%%writefile</code> 사용):</strong></p>
+<p>Colab에서는 <code>%%writefile 파일이름.py</code> 이라는 특별한 명령(Cell Magic)을 코드 셀 맨 위에 써서 해당 셀의 내용을 파이썬 파일로 저장할 수 있습니다.</p>
+<div id="a087082b" class="cell" data-execution_count="1">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="op">%%</span>writefile market_models.py</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="co"># 이 셀의 내용은 market_models.py 파일로 저장됩니다.</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="co">"""</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="co">시장 수요, 공급, 균형점 계산 관련 함수들을 모아놓은 모듈</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="co">"""</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> quantity_demanded(price, a, b):</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""선형 수요 함수 Qd = a - bP 를 계산합니다."""</span></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> b <span class="op">&lt;=</span> <span class="dv">0</span>:</span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>        <span class="co"># print("오류: 수요 곡선 기울기(b)는 양수여야 합니다.") # 모듈에서는 print보다 오류 발생 권장</span></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>        <span class="cf">raise</span> <span class="pp">ValueError</span>(<span class="st">"수요 곡선 기울기(b)는 양수여야 합니다."</span>)</span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>    q_d <span class="op">=</span> a <span class="op">-</span> b <span class="op">*</span> price</span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="bu">max</span>(<span class="dv">0</span>, q_d)</span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> quantity_supplied(price, c, d):</span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""선형 공급 함수 Qs = c + dP 를 계산합니다."""</span></span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> d <span class="op">&lt;=</span> <span class="dv">0</span>:</span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a>        <span class="cf">raise</span> <span class="pp">ValueError</span>(<span class="st">"공급 곡선 기울기(d)는 양수여야 합니다."</span>)</span>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a>    q_s <span class="op">=</span> c <span class="op">+</span> d <span class="op">*</span> price</span>
+<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="bu">max</span>(<span class="dv">0</span>, q_s)</span>
+<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> find_equilibrium(a, b, c, d):</span>
+<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""선형 수요/공급 함수의 균형 가격(P*)과 균형 거래량(Q*)을 계산하여 튜플로 반환합니다."""</span></span>
+<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> b <span class="op">&lt;=</span> <span class="dv">0</span> <span class="kw">or</span> d <span class="op">&lt;=</span> <span class="dv">0</span>:</span>
+<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a>        <span class="cf">raise</span> <span class="pp">ValueError</span>(<span class="st">"수요/공급 곡선 기울기(b, d)는 양수여야 합니다."</span>)</span>
+<span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> (b <span class="op">+</span> d) <span class="op">==</span> <span class="dv">0</span>:</span>
+<span id="cb3-28"><a href="#cb3-28" aria-hidden="true" tabindex="-1"></a>        <span class="cf">raise</span> <span class="pp">ValueError</span>(<span class="st">"수요와 공급 곡선 기울기 합이 0입니다. 평행선."</span>)</span>
+<span id="cb3-29"><a href="#cb3-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-30"><a href="#cb3-30" aria-hidden="true" tabindex="-1"></a>    p_star <span class="op">=</span> (a <span class="op">-</span> c) <span class="op">/</span> (b <span class="op">+</span> d)</span>
+<span id="cb3-31"><a href="#cb3-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-32"><a href="#cb3-32" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> p_star <span class="op">&lt;</span> <span class="dv">0</span>:</span>
+<span id="cb3-33"><a href="#cb3-33" aria-hidden="true" tabindex="-1"></a>        <span class="co"># print("균형 가격이 음수입니다.") # 실제 균형 없음</span></span>
+<span id="cb3-34"><a href="#cb3-34" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> (<span class="va">None</span>, <span class="va">None</span>) <span class="co"># 음수 가격 대신 None 반환 고려</span></span>
+<span id="cb3-35"><a href="#cb3-35" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-36"><a href="#cb3-36" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 균형 거래량 계산</span></span>
+<span id="cb3-37"><a href="#cb3-37" aria-hidden="true" tabindex="-1"></a>    q_star <span class="op">=</span> quantity_demanded(p_star, a, b) <span class="co"># 같은 모듈 내 함수 호출</span></span>
+<span id="cb3-38"><a href="#cb3-38" aria-hidden="true" tabindex="-1"></a>    <span class="co"># if q_star &lt; 0: q_star = 0 # 필요시 음수 거래량 0 처리</span></span>
+<span id="cb3-39"><a href="#cb3-39" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-40"><a href="#cb3-40" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> p_star, q_star</span>
+<span id="cb3-41"><a href="#cb3-41" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-42"><a href="#cb3-42" aria-hidden="true" tabindex="-1"></a><span class="co"># 모듈로 만들 때는 아래와 같은 직접 실행 코드는 보통 if __name__ == "__main__": 블록 안에 넣습니다.</span></span>
+<span id="cb3-43"><a href="#cb3-43" aria-hidden="true" tabindex="-1"></a><span class="co"># (이 부분은 모듈로 사용될 때는 실행되지 않음)</span></span>
+<span id="cb3-44"><a href="#cb3-44" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="va">__name__</span> <span class="op">==</span> <span class="st">"__main__"</span>:</span>
+<span id="cb3-45"><a href="#cb3-45" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"market_models 모듈이 직접 실행되었습니다. (테스트용)"</span>)</span>
+<span id="cb3-46"><a href="#cb3-46" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 간단한 테스트 코드</span></span>
+<span id="cb3-47"><a href="#cb3-47" aria-hidden="true" tabindex="-1"></a>    a_test, b_test <span class="op">=</span> <span class="dv">100</span>, <span class="dv">1</span></span>
+<span id="cb3-48"><a href="#cb3-48" aria-hidden="true" tabindex="-1"></a>    c_test, d_test <span class="op">=</span> <span class="dv">20</span>, <span class="dv">2</span></span>
+<span id="cb3-49"><a href="#cb3-49" aria-hidden="true" tabindex="-1"></a>    p_eq, q_eq <span class="op">=</span> find_equilibrium(a_test, b_test, c_test, d_test)</span>
+<span id="cb3-50"><a href="#cb3-50" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> p_eq <span class="kw">is</span> <span class="kw">not</span> <span class="va">None</span>:</span>
+<span id="cb3-51"><a href="#cb3-51" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="ss">f"테스트 균형점: P*=</span><span class="sc">{</span>p_eq<span class="sc">:.2f}</span><span class="ss">, Q*=</span><span class="sc">{</span>q_eq<span class="sc">:.2f}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Writing market_models.py</code></pre>
+</div>
+</div>
+<p>위 셀을 실행하면 Colab의 현재 작업 디렉토리에 <code>market_models.py</code> 파일이 생성됩니다. (왼쪽 파일 탐색기 탭에서 확인 가능)</p>
+<p><strong>모듈 가져와서 사용하기 (<code>import</code>):</strong></p>
+<p>이제 다른 코드 셀이나 다른 노트북에서 이 <code>market_models.py</code> 모듈을 가져와서 그 안에 정의된 함수들을 사용할 수 있습니다.</p>
+<div id="a3fc8a1b" class="cell" data-execution_count="2">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 1. 모듈 전체를 import 하기</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> market_models</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="co"># 함수 호출 시 모듈 이름을 앞에 붙여야 함</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>eq1 <span class="op">=</span> market_models.find_equilibrium(a<span class="op">=</span><span class="dv">100</span>, b<span class="op">=</span><span class="dv">2</span>, c<span class="op">=</span><span class="dv">10</span>, d<span class="op">=</span><span class="dv">3</span>)</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> eq1[<span class="dv">0</span>] <span class="kw">is</span> <span class="kw">not</span> <span class="va">None</span>:</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"(import 모듈 전체) 균형 가격: </span><span class="sc">{</span>eq1[<span class="dv">0</span>]<span class="sc">:.2f}</span><span class="ss">, 균형 거래량: </span><span class="sc">{</span>eq1[<span class="dv">1</span>]<span class="sc">:.2f}</span><span class="ss">"</span>)</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a><span class="co"># 2. 모듈에서 특정 함수만 import 하기</span></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> market_models <span class="im">import</span> quantity_demanded, find_equilibrium</span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a><span class="co"># 함수 이름으로 직접 호출 가능</span></span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>qd1 <span class="op">=</span> quantity_demanded(price<span class="op">=</span><span class="dv">15</span>, a<span class="op">=</span><span class="dv">100</span>, b<span class="op">=</span><span class="dv">2</span>)</span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>eq2 <span class="op">=</span> find_equilibrium(a<span class="op">=</span><span class="dv">150</span>, b<span class="op">=</span><span class="dv">3</span>, c<span class="op">=</span><span class="dv">30</span>, d<span class="op">=</span><span class="dv">2</span>)</span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"(from import) 가격 15일 때 수요량: </span><span class="sc">{</span>qd1<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> eq2[<span class="dv">0</span>] <span class="kw">is</span> <span class="kw">not</span> <span class="va">None</span>:</span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"(from import) 균형 가격: </span><span class="sc">{</span>eq2[<span class="dv">0</span>]<span class="sc">:.2f}</span><span class="ss">, 균형 거래량: </span><span class="sc">{</span>eq2[<span class="dv">1</span>]<span class="sc">:.2f}</span><span class="ss">"</span>)</span>
+<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a><span class="co"># 3. 모듈에 별명(alias) 붙여서 사용하기 (자주 사용됨!)</span></span>
+<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> market_models <span class="im">as</span> mm <span class="co"># mm 이라는 별명으로 사용</span></span>
+<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a>eq3 <span class="op">=</span> mm.find_equilibrium(a<span class="op">=</span><span class="dv">50</span>, b<span class="op">=</span><span class="dv">1</span>, c<span class="op">=</span><span class="dv">5</span>, d<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb5-23"><a href="#cb5-23" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> eq3[<span class="dv">0</span>] <span class="kw">is</span> <span class="kw">not</span> <span class="va">None</span>:</span>
+<span id="cb5-24"><a href="#cb5-24" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"(import as 별명) 균형 가격: </span><span class="sc">{</span>eq3[<span class="dv">0</span>]<span class="sc">:.2f}</span><span class="ss">, 균형 거래량: </span><span class="sc">{</span>eq3[<span class="dv">1</span>]<span class="sc">:.2f}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>(import 모듈 전체) 균형 가격: 18.00, 균형 거래량: 64.00
+(from import) 가격 15일 때 수요량: 70
+(from import) 균형 가격: 24.00, 균형 거래량: 78.00
+(import as 별명) 균형 가격: 22.50, 균형 거래량: 27.50</code></pre>
+</div>
+</div>
+</section>
+<section id="코드를-더욱-체계적으로-패키지package-구성하기" class="level3">
+<h3 class="anchored" data-anchor-id="코드를-더욱-체계적으로-패키지package-구성하기">3. 코드를 더욱 체계적으로: 패키지(Package) 구성하기</h3>
+<p>이전 섹션에서 우리는 관련된 함수들을 하나의 <code>.py</code> 파일(모듈)로 묶어 재사용하는 방법을 배웠습니다 (<code>market_models.py</code> 예시). 프로젝트의 규모가 커지면, 단순히 모듈 하나만으로는 부족할 수 있습니다. 예를 들어, 시장 모델 자체를 정의하는 함수들, 그 모델을 분석하는 함수들, 분석 결과를 시각화하는 함수들 등 기능별로 코드를 더 세분화하여 관리하고 싶을 수 있습니다.</p>
+<p>이럴 때 사용하는 것이 바로 <strong>패키지(Package)</strong> 입니다. 패키지는 관련된 <strong>모듈들을 담는 디렉토리(폴더)</strong> 라고 생각할 수 있습니다. 패키지를 사용하면 다음과 같은 장점이 있습니다.</p>
+<ul>
+<li><strong>계층적 구조:</strong> 관련 기능별로 하위 디렉토리를 만들어 코드를 더욱 체계적으로 구성할 수 있습니다 (예: 모델 정의는 <code>models</code> 폴더, 분석 코드는 <code>analysis</code> 폴더).</li>
+<li><strong>이름 충돌 방지 (Namespace Management):</strong> 서로 다른 패키지나 모듈 안에 같은 이름의 함수가 있더라도, <code>패키지명.모듈명.함수명</code> 형태로 구분하여 사용할 수 있으므로 이름 충돌을 피할 수 있습니다.</li>
+<li><strong>배포 및 공유 용이:</strong> 잘 만들어진 패키지는 다른 사람들과 쉽게 공유하고 설치하여 사용할 수 있습니다 (오늘 다루지는 않지만 <code>pip install ...</code> 과 관련됩니다).</li>
+</ul>
+<p><strong>패키지 구성의 핵심: <code>__init__.py</code> 파일</strong></p>
+<p>파이썬이 어떤 디렉토리를 패키지로 인식하게 하려면, 그 디렉토리 안에 <code>__init__.py</code> 라는 이름의 <strong>특별한 파일</strong>이 반드시 있어야 합니다. 이 파일은 비어 있어도 괜찮지만, 존재 자체가 “이 디렉토리는 파이썬 패키지입니다” 라고 알려주는 역할을 합니다. (패키지 초기화 코드를 넣을 수도 있습니다.)</p>
+<p><strong>예시: 수요/공급 분석 코드를 패키지로 구성하기</strong></p>
+<p>Week 6 실습 2에서는 수요 또는 공급 변화 후 새로운 균형점을 계산하고 원래 균형과 비교하는 분석을 했습니다. 이 분석 과정을 가상의 <code>econo_analyzer</code> 라는 패키지로 구성해 봅시다.</p>
+<p><strong>패키지 구조:</strong></p>
+<pre><code>econo_analyzer/              &lt;-- 최상위 패키지 디렉토리
+|-- __init__.py              &lt;-- 이 디렉토리가 패키지임을 알림
+|-- models/                  &lt;-- 모델 정의 관련 모듈들을 담을 하위 디렉토리(서브 패키지)
+|   |-- __init__.py          &lt;-- 이 디렉토리도 패키지임을 알림
+|   |-- market.py          &lt;-- 수요(Qd), 공급(Qs), 균형점(find_equilibrium) 함수 정의
+|-- analysis/                &lt;-- 분석 관련 모듈들을 담을 하위 디렉토리(서브 패키지)
+|   |-- __init__.py          &lt;-- 이 디렉토리도 패키지임을 알림
+|   |-- shifts.py          &lt;-- 수요/공급 변화(shift) 분석 함수 정의
+|-- utils/                   &lt;-- (선택 사항) 보조 기능 모듈 (예: 시각화)
+|   |-- __init__.py
+|   |-- plotting.py</code></pre>
+<p><strong>각 파일의 역할 (가상):</strong></p>
+<ul>
+<li><code>econo_analyzer/__init__.py</code>: <code>econo_analyzer</code> 를 패키지로 만듭니다. (비어 있어도 됨)</li>
+<li><code>econo_analyzer/models/__init__.py</code>: <code>models</code> 를 서브 패키지로 만듭니다.</li>
+<li><code>econo_analyzer/models/market.py</code>: 이전 보충 자료의 <code>market_models.py</code> 내용과 같이 <code>quantity_demanded</code>, <code>quantity_supplied</code>, <code>find_equilibrium</code> 함수를 포함합니다.</li>
+<li><code>econo_analyzer/analysis/__init__.py</code>: <code>analysis</code> 를 서브 패키지로 만듭니다.</li>
+<li><code>econo_analyzer/analysis/shifts.py</code>: <strong>(실습 2 관련)</strong> 수요 또는 공급 변화 전후의 파라미터를 받아 두 균형점을 계산하고 비교/분석하는 함수 (예: <code>analyze_demand_shift</code>, <code>analyze_supply_shift</code> 또는 <code>compare_equilibria</code>)를 포함합니다.</li>
+<li><code>econo_analyzer/utils/plotting.py</code>: (선택) 수요/공급 곡선 및 균형점을 그리는 함수를 분리하여 포함할 수 있습니다.</li>
+</ul>
+<p><strong>Colab에서 패키지 구조 만들기 (명령어 사용):</strong></p>
+<p>Colab 노트북 환경에서는 실제 디렉토리와 파일을 직접 만들기 어렵기 때문에, 터미널 명령어(앞에 <code>!</code>를 붙여 실행)와 <code>%%writefile</code> 매직 명령어를 사용하여 가상으로 구조를 만들어 볼 수 있습니다.</p>
+<p><strong>1단계: 디렉토리 생성</strong></p>
+<pre class="{bash}"><code>!mkdir -p econo_analyzer/models  # econo_analyzer 디렉토리와 그 하위 models 디렉토리 생성 (-p 옵션)
+!mkdir -p econo_analyzer/analysis # econo_analyzer 하위 analysis 디렉토리 생성
+# !mkdir -p econo_analyzer/utils # 필요하다면 utils 디렉토리도 생성</code></pre>
+<p><strong>2단계: <code>__init__.py</code> 파일 생성 (빈 파일)</strong></p>
+<pre class="{bash}"><code>!touch econo_analyzer/__init__.py
+!touch econo_analyzer/models/__init__.py
+!touch econo_analyzer/analysis/__init__.py
+# !touch econo_analyzer/utils/__init__.py # 필요하다면</code></pre>
+<p>(<code>!touch</code> 명령어는 빈 파일을 생성합니다.)</p>
+<p><strong>3단계: 모듈 파일 내용 작성 (<code>%%writefile</code>)</strong></p>
+<ul>
+<li><strong><code>market.py</code> 파일 작성:</strong></li>
+</ul>
+<div id="dd3cafb3" class="cell" data-execution_count="10">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="op">%%</span>writefile econo_analyzer<span class="op">/</span>models<span class="op">/</span>market.py</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="co"># 이 셀의 내용은 econo_analyzer/models/market.py 파일로 저장됩니다.</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="co">"""</span></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a><span class="co">시장 수요, 공급, 균형점 계산 관련 함수들을 모아놓은 모듈</span></span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a><span class="co">"""</span></span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> quantity_demanded(price, a, b):</span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""선형 수요 함수 Qd = a - bP 를 계산합니다."""</span></span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> b <span class="op">&lt;=</span> <span class="dv">0</span>: <span class="cf">raise</span> <span class="pp">ValueError</span>(<span class="st">"수요 곡선 기울기(b)는 양수여야 합니다."</span>)</span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a>    q_d <span class="op">=</span> a <span class="op">-</span> b <span class="op">*</span> price</span>
+<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="bu">max</span>(<span class="dv">0</span>, q_d)</span>
+<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> quantity_supplied(price, c, d):</span>
+<span id="cb10-15"><a href="#cb10-15" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""선형 공급 함수 Qs = c + dP 를 계산합니다."""</span></span>
+<span id="cb10-16"><a href="#cb10-16" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> d <span class="op">&lt;=</span> <span class="dv">0</span>: <span class="cf">raise</span> <span class="pp">ValueError</span>(<span class="st">"공급 곡선 기울기(d)는 양수여야 합니다."</span>)</span>
+<span id="cb10-17"><a href="#cb10-17" aria-hidden="true" tabindex="-1"></a>    q_s <span class="op">=</span> c <span class="op">+</span> d <span class="op">*</span> price</span>
+<span id="cb10-18"><a href="#cb10-18" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="bu">max</span>(<span class="dv">0</span>, q_s)</span>
+<span id="cb10-19"><a href="#cb10-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-20"><a href="#cb10-20" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> find_equilibrium(a, b, c, d):</span>
+<span id="cb10-21"><a href="#cb10-21" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""선형 수요/공급 함수의 균형 가격(P*)과 균형 거래량(Q*)을 계산하여 튜플로 반환합니다."""</span></span>
+<span id="cb10-22"><a href="#cb10-22" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> b <span class="op">&lt;=</span> <span class="dv">0</span> <span class="kw">or</span> d <span class="op">&lt;=</span> <span class="dv">0</span>: <span class="cf">raise</span> <span class="pp">ValueError</span>(<span class="st">"수요/공급 곡선 기울기(b, d)는 양수여야 합니다."</span>)</span>
+<span id="cb10-23"><a href="#cb10-23" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> (b <span class="op">+</span> d) <span class="op">==</span> <span class="dv">0</span>: <span class="cf">raise</span> <span class="pp">ValueError</span>(<span class="st">"수요와 공급 곡선 기울기 합이 0입니다. 평행선."</span>)</span>
+<span id="cb10-24"><a href="#cb10-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-25"><a href="#cb10-25" aria-hidden="true" tabindex="-1"></a>    p_star <span class="op">=</span> (a <span class="op">-</span> c) <span class="op">/</span> (b <span class="op">+</span> d)</span>
+<span id="cb10-26"><a href="#cb10-26" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> p_star <span class="op">&lt;</span> <span class="dv">0</span>: <span class="cf">return</span> (<span class="va">None</span>, <span class="va">None</span>) <span class="co"># 음수 가격</span></span>
+<span id="cb10-27"><a href="#cb10-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-28"><a href="#cb10-28" aria-hidden="true" tabindex="-1"></a>    q_star <span class="op">=</span> quantity_demanded(p_star, a, b)</span>
+<span id="cb10-29"><a href="#cb10-29" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> p_star, q_star</span>
+<span id="cb10-30"><a href="#cb10-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-31"><a href="#cb10-31" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"econo_analyzer.models.market 모듈 로드됨"</span>) <span class="co"># 모듈 로드 확인용 (선택 사항)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Writing econo_analyzer/models/market.py</code></pre>
+</div>
+</div>
+<ul>
+<li><strong><code>shifts.py</code> 파일 작성 (실습 2 분석 기능 구현):</strong></li>
+</ul>
+<div id="56165058" class="cell" data-execution_count="11">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="op">%%</span>writefile econo_analyzer<span class="op">/</span>analysis<span class="op">/</span>shifts.py</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="co"># 이 셀의 내용은 econo_analyzer/analysis/shifts.py 파일로 저장됩니다.</span></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a><span class="co">"""</span></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a><span class="co">수요 또는 공급 변화 분석 함수 모듈</span></span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a><span class="co">"""</span></span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a><span class="co"># 다른 모듈의 함수를 사용하기 위해 import</span></span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> econo_analyzer.models <span class="im">import</span> market <span class="co"># 같은 패키지 내 models 폴더의 market 모듈 import</span></span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> compare_equilibria(params_old, params_new):</span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""</span></span>
+<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a><span class="co">    변화 전후의 파라미터 딕셔너리를 받아 두 균형점을 계산하고 비교 결과를 반환합니다.</span></span>
+<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a><span class="co">    파라미터 딕셔너리 예시: {'a': 150, 'b': 3, 'c': 30, 'd': 2}</span></span>
+<span id="cb12-14"><a href="#cb12-14" aria-hidden="true" tabindex="-1"></a><span class="co">    """</span></span>
+<span id="cb12-15"><a href="#cb12-15" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 원래 균형점 계산</span></span>
+<span id="cb12-16"><a href="#cb12-16" aria-hidden="true" tabindex="-1"></a>    p_old, q_old <span class="op">=</span> market.find_equilibrium(params_old[<span class="st">'a'</span>], params_old[<span class="st">'b'</span>], params_old[<span class="st">'c'</span>], params_old[<span class="st">'d'</span>])</span>
+<span id="cb12-17"><a href="#cb12-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-18"><a href="#cb12-18" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 새로운 균형점 계산</span></span>
+<span id="cb12-19"><a href="#cb12-19" aria-hidden="true" tabindex="-1"></a>    p_new, q_new <span class="op">=</span> market.find_equilibrium(params_new[<span class="st">'a'</span>], params_new[<span class="st">'b'</span>], params_new[<span class="st">'c'</span>], params_new[<span class="st">'d'</span>])</span>
+<span id="cb12-20"><a href="#cb12-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-21"><a href="#cb12-21" aria-hidden="true" tabindex="-1"></a>    results <span class="op">=</span> {</span>
+<span id="cb12-22"><a href="#cb12-22" aria-hidden="true" tabindex="-1"></a>        <span class="st">"old_equilibrium"</span>: (p_old, q_old),</span>
+<span id="cb12-23"><a href="#cb12-23" aria-hidden="true" tabindex="-1"></a>        <span class="st">"new_equilibrium"</span>: (p_new, q_new),</span>
+<span id="cb12-24"><a href="#cb12-24" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb12-25"><a href="#cb12-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-26"><a href="#cb12-26" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 변화 설명 추가 (선택 사항)</span></span>
+<span id="cb12-27"><a href="#cb12-27" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> p_old <span class="kw">is</span> <span class="kw">not</span> <span class="va">None</span> <span class="kw">and</span> p_new <span class="kw">is</span> <span class="kw">not</span> <span class="va">None</span>:</span>
+<span id="cb12-28"><a href="#cb12-28" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> p_new <span class="op">&gt;</span> p_old: results[<span class="st">"price_change"</span>] <span class="op">=</span> <span class="st">"상승"</span></span>
+<span id="cb12-29"><a href="#cb12-29" aria-hidden="true" tabindex="-1"></a>        <span class="cf">elif</span> p_new <span class="op">&lt;</span> p_old: results[<span class="st">"price_change"</span>] <span class="op">=</span> <span class="st">"하락"</span></span>
+<span id="cb12-30"><a href="#cb12-30" aria-hidden="true" tabindex="-1"></a>        <span class="cf">else</span>: results[<span class="st">"price_change"</span>] <span class="op">=</span> <span class="st">"변동 없음"</span></span>
+<span id="cb12-31"><a href="#cb12-31" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span>: results[<span class="st">"price_change"</span>] <span class="op">=</span> <span class="st">"비교 불가"</span></span>
+<span id="cb12-32"><a href="#cb12-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-33"><a href="#cb12-33" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> q_old <span class="kw">is</span> <span class="kw">not</span> <span class="va">None</span> <span class="kw">and</span> q_new <span class="kw">is</span> <span class="kw">not</span> <span class="va">None</span>:</span>
+<span id="cb12-34"><a href="#cb12-34" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> q_new <span class="op">&gt;</span> q_old: results[<span class="st">"quantity_change"</span>] <span class="op">=</span> <span class="st">"증가"</span></span>
+<span id="cb12-35"><a href="#cb12-35" aria-hidden="true" tabindex="-1"></a>        <span class="cf">elif</span> q_new <span class="op">&lt;</span> q_old: results[<span class="st">"quantity_change"</span>] <span class="op">=</span> <span class="st">"감소"</span></span>
+<span id="cb12-36"><a href="#cb12-36" aria-hidden="true" tabindex="-1"></a>        <span class="cf">else</span>: results[<span class="st">"quantity_change"</span>] <span class="op">=</span> <span class="st">"변동 없음"</span></span>
+<span id="cb12-37"><a href="#cb12-37" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span>: results[<span class="st">"quantity_change"</span>] <span class="op">=</span> <span class="st">"비교 불가"</span></span>
+<span id="cb12-38"><a href="#cb12-38" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-39"><a href="#cb12-39" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> results</span>
+<span id="cb12-40"><a href="#cb12-40" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-41"><a href="#cb12-41" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"econo_analyzer.analysis.shifts 모듈 로드됨"</span>) <span class="co"># 모듈 로드 확인용 (선택 사항)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Writing econo_analyzer/analysis/shifts.py</code></pre>
+</div>
+</div>
+<p><strong>패키지 사용하기:</strong></p>
+<p>이제 위에서 만든 패키지의 함수들을 import 해서 사용할 수 있습니다.</p>
+<div id="2dea596f" class="cell" data-execution_count="12">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 패키지 및 모듈 import</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> econo_analyzer.models <span class="im">import</span> market</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> econo_analyzer.analysis <span class="im">import</span> shifts</span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a><span class="co"># 실습 2-1의 파라미터 설정</span></span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>params_initial <span class="op">=</span> {<span class="st">'a'</span>: <span class="dv">150</span>, <span class="st">'b'</span>: <span class="dv">3</span>, <span class="st">'c'</span>: <span class="dv">30</span>, <span class="st">'d'</span>: <span class="dv">2</span>} <span class="co"># 원래 상태</span></span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>params_demand_decrease <span class="op">=</span> {<span class="st">'a'</span>: <span class="dv">120</span>, <span class="st">'b'</span>: <span class="dv">3</span>, <span class="st">'c'</span>: <span class="dv">30</span>, <span class="st">'d'</span>: <span class="dv">2</span>} <span class="co"># 수요 감소 후 상태</span></span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a><span class="co"># 변화 분석 함수 호출</span></span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a>comparison_result <span class="op">=</span> shifts.compare_equilibria(params_initial, params_demand_decrease)</span>
+<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a><span class="co"># 결과 출력</span></span>
+<span id="cb14-13"><a href="#cb14-13" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">--- 수요 감소 효과 분석 결과 (패키지 사용) ---"</span>)</span>
+<span id="cb14-14"><a href="#cb14-14" aria-hidden="true" tabindex="-1"></a>p_old, q_old <span class="op">=</span> comparison_result[<span class="st">"old_equilibrium"</span>]</span>
+<span id="cb14-15"><a href="#cb14-15" aria-hidden="true" tabindex="-1"></a>p_new, q_new <span class="op">=</span> comparison_result[<span class="st">"new_equilibrium"</span>]</span>
+<span id="cb14-16"><a href="#cb14-16" aria-hidden="true" tabindex="-1"></a>price_change_desc <span class="op">=</span> comparison_result[<span class="st">"price_change"</span>]</span>
+<span id="cb14-17"><a href="#cb14-17" aria-hidden="true" tabindex="-1"></a>quantity_change_desc <span class="op">=</span> comparison_result[<span class="st">"quantity_change"</span>]</span>
+<span id="cb14-18"><a href="#cb14-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-19"><a href="#cb14-19" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"원래 균형점: P*=</span><span class="sc">{</span>p_old<span class="sc">:.2f}</span><span class="ss">, Q*=</span><span class="sc">{</span>q_old<span class="sc">:.2f}</span><span class="ss">"</span>)</span>
+<span id="cb14-20"><a href="#cb14-20" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"새로운 균형점: P*=</span><span class="sc">{</span>p_new<span class="sc">:.2f}</span><span class="ss">, Q*=</span><span class="sc">{</span>q_new<span class="sc">:.2f}</span><span class="ss">"</span>)</span>
+<span id="cb14-21"><a href="#cb14-21" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"균형 가격 변화: </span><span class="sc">{</span>price_change_desc<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb14-22"><a href="#cb14-22" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"균형 거래량 변화: </span><span class="sc">{</span>quantity_change_desc<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb14-23"><a href="#cb14-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-24"><a href="#cb14-24" aria-hidden="true" tabindex="-1"></a><span class="co"># market 모듈의 함수도 직접 사용 가능</span></span>
+<span id="cb14-25"><a href="#cb14-25" aria-hidden="true" tabindex="-1"></a>p_test <span class="op">=</span> <span class="dv">20</span></span>
+<span id="cb14-26"><a href="#cb14-26" aria-hidden="true" tabindex="-1"></a>qd_test <span class="op">=</span> market.quantity_demanded(p_test, params_initial[<span class="st">'a'</span>], params_initial[<span class="st">'b'</span>])</span>
+<span id="cb14-27"><a href="#cb14-27" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"</span><span class="ch">\n</span><span class="ss">(market 모듈 직접 호출) 가격 </span><span class="sc">{</span>p_test<span class="sc">}</span><span class="ss">에서 수요량: </span><span class="sc">{</span>qd_test<span class="sc">}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>econo_analyzer.models.market 모듈 로드됨
+econo_analyzer.analysis.shifts 모듈 로드됨
+
+--- 수요 감소 효과 분석 결과 (패키지 사용) ---
+원래 균형점: P*=24.00, Q*=78.00
+새로운 균형점: P*=18.00, Q*=66.00
+균형 가격 변화: 하락
+균형 거래량 변화: 감소
+
+(market 모듈 직접 호출) 가격 20에서 수요량: 90</code></pre>
+</div>
+</div>
+<p><strong>정리:</strong></p>
+<p>패키지는 여러 모듈들을 체계적으로 구성하여 더 크고 복잡한 프로젝트를 관리할 수 있게 해주는 중요한 개념입니다. 비록 Colab 환경에서는 실제 로컬 환경처럼 패키지를 다루기에는 제약이 따르지만, <code>!mkdir</code>, <code>!touch</code>, <code>%%writefile</code> 등을 이용해 그 구조와 사용법을 경험해 볼 수 있습니다. 기능별로 코드를 분리하고(<code>market.py</code>, <code>shifts.py</code>), <code>__init__.py</code>를 통해 디렉토리를 패키지로 인식시키며, <code>import</code> 구문을 통해 필요한 기능을 가져다 쓰는 이 방식은 여러분이 앞으로 더 큰 규모의 파이썬 프로젝트를 접하게 될 때 매우 유용할 것입니다.</p>
+<hr>
+<p><strong>정리:</strong></p>
+<p><code>argparse</code>는 파이썬 스크립트를 명령줄에서 더 유연하게 실행할 수 있게 도와주고, 모듈과 패키지는 코드를 체계적으로 구성하고 재사용성을 높여 더 크고 복잡한 프로젝트를 가능하게 합니다. 노트북 환경을 넘어서 실제 파이썬 프로그램을 개발할 때 매우 중요한 개념들이니, 이런 것이 있다는 것을 기억해두시면 좋겠습니다.</p>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+        const codeEl = trigger.previousElementSibling.cloneNode(true);
+        for (const childEl of codeEl.children) {
+          if (isCodeAnnotation(childEl)) {
+            childEl.remove();
+          }
+        }
+        return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./week6.html" class="pagination-link" aria-label="6주차: 시장의 작동 원리 파헤치기 (수요와 공급 모델링 및 균형 찾기)">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">6주차: 시장의 작동 원리 파헤치기 (수요와 공급 모델링 및 균형 찾기)</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./week7.html" class="pagination-link" aria-label="7주차: 백문이 불여일견! 데이터 시각화 기초 (Matplotlib)">
+        <span class="nav-page-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">7주차: 백문이 불여일견! 데이터 시각화 기초 (Matplotlib)</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+<p>Economic Freshman Python (1e) was written by JunhaPark.</p>
+</div>   
+    <div class="nav-footer-center">
+      &nbsp;
+    </div>
+    <div class="nav-footer-right">
+<p>This book was built with <a href="https://quarto.org/">Quarto</a>.</p>
+</div>
+  </div>
+</footer>
+
+
+
+
+</body></html>

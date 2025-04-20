@@ -1,0 +1,1440 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.7.24">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>6&nbsp; 6주차: 시장의 작동 원리 파헤치기 (수요와 공급 모델링 및 균형 찾기) – economics_000</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./week6-a.html" rel="next">
+<link href="./week5.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-a37c72dd2dbac68997fcdc15a3622e78.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-806c95bdecf85540f7beab145150c922.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+</head>
+
+<body class="nav-sidebar floating quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./Introduction.html">Curriculum</a></li><li class="breadcrumb-item"><a href="./week6.html"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">6주차: 시장의 작동 원리 파헤치기 (수요와 공급 모델링 및 균형 찾기)</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">economics_000</a> 
+        <div class="sidebar-tools-main tools-wide">
+    <a href="https://github.com/voidmain443" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
+    <div class="dropdown">
+      <a href="" title="Share" id="quarto-navigation-tool-dropdown-0" class="quarto-navigation-tool dropdown-toggle px-1" data-bs-toggle="dropdown" aria-expanded="false" role="link" aria-label="Share"><i class="bi bi-share"></i></a>
+      <ul class="dropdown-menu" aria-labelledby="quarto-navigation-tool-dropdown-0">
+          <li>
+            <a class="dropdown-item sidebar-tools-main-item" href="https://twitter.com/intent/tweet?url=|url|">
+              <i class="bi bi-twitter pe-1"></i>
+            Twitter
+            </a>
+          </li>
+          <li>
+            <a class="dropdown-item sidebar-tools-main-item" href="https://www.facebook.com/sharer/sharer.php?u=|url|">
+              <i class="bi bi-facebook pe-1"></i>
+            Facebook
+            </a>
+          </li>
+      </ul>
+    </div>
+  <a href="" class="quarto-reader-toggle quarto-navigation-tool px-1" onclick="window.quartoToggleReader(); return false;" title="Toggle reader mode">
+  <div class="quarto-reader-toggle-btn">
+  <i class="bi"></i>
+  </div>
+</a>
+</div>
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Preface</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">Curriculum</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Introduction.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">week1. Introduction to python</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./week2.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">week2. Variables</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./week3.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">3주차: 똑똑한 프로그램 만들기 (조건문 If)</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./week4.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">4주차: 반복 작업은 컴퓨터에게! (반복문 for 와 리스트 활용)</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./week5.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">5주차: 코드를 재사용하는 마법 (함수와 딕셔너리 활용)</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./week6.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">6주차: 시장의 작동 원리 파헤치기 (수요와 공급 모델링 및 균형 찾기)</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./week6-a.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">보충 학습: 파이썬 스크립트와 코드 재사용 심화 (Advanced Topic)</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./week7.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">7주차: 백문이 불여일견! 데이터 시각화 기초 (Matplotlib)</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./week8.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">8주차: 파이썬으로 경제 분석하기 (종합 응용 및 마무리)</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./references.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">References</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#경제-모델링과-파이썬-수요와-공급-복습" id="toc-경제-모델링과-파이썬-수요와-공급-복습" class="nav-link active" data-scroll-target="#경제-모델링과-파이썬-수요와-공급-복습"><span class="header-section-number">6.1</span> 1. 경제 모델링과 파이썬: 수요와 공급 복습</a></li>
+  <li><a href="#수요와-공급-함수-정의하기-파이썬-함수-활용" id="toc-수요와-공급-함수-정의하기-파이썬-함수-활용" class="nav-link" data-scroll-target="#수요와-공급-함수-정의하기-파이썬-함수-활용"><span class="header-section-number">6.2</span> 2. 수요와 공급 함수 정의하기 (파이썬 함수 활용)</a></li>
+  <li><a href="#시장-균형-찾기-대수적-방법" id="toc-시장-균형-찾기-대수적-방법" class="nav-link" data-scroll-target="#시장-균형-찾기-대수적-방법"><span class="header-section-number">6.3</span> 3. 시장 균형 찾기 (대수적 방법)</a></li>
+  <li><a href="#눈으로-보는-시장-균형-수요와-공급-그래프-그리기" id="toc-눈으로-보는-시장-균형-수요와-공급-그래프-그리기" class="nav-link" data-scroll-target="#눈으로-보는-시장-균형-수요와-공급-그래프-그리기"><span class="header-section-number">6.4</span> 4. 눈으로 보는 시장 균형: 수요와 공급 그래프 그리기</a>
+  <ul class="collapse">
+  <li><a href="#실습-1-균형점-계산-및-시각화" id="toc-실습-1-균형점-계산-및-시각화" class="nav-link" data-scroll-target="#실습-1-균형점-계산-및-시각화">[실습 1] 균형점 계산 및 시각화</a></li>
+  </ul></li>
+  <li><a href="#수요와-공급의-변화-분석하기-곡선-이동" id="toc-수요와-공급의-변화-분석하기-곡선-이동" class="nav-link" data-scroll-target="#수요와-공급의-변화-분석하기-곡선-이동"><span class="header-section-number">6.5</span> 5. 수요와 공급의 변화 분석하기 (곡선 이동)</a>
+  <ul class="collapse">
+  <li><a href="#실습-2-수요공급-변화-분석" id="toc-실습-2-수요공급-변화-분석" class="nav-link" data-scroll-target="#실습-2-수요공급-변화-분석">[실습 2] 수요/공급 변화 분석</a></li>
+  </ul></li>
+  <li><a href="#마무리-및-다음-시간-예고" id="toc-마무리-및-다음-시간-예고" class="nav-link" data-scroll-target="#마무리-및-다음-시간-예고"><span class="header-section-number">6.6</span> 6. 마무리 및 다음 시간 예고</a></li>
+  <li><a href="#여섯-번째-주차-과제" id="toc-여섯-번째-주차-과제" class="nav-link" data-scroll-target="#여섯-번째-주차-과제"><span class="header-section-number">6.7</span> 여섯 번째 주차 과제</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./Introduction.html">Curriculum</a></li><li class="breadcrumb-item"><a href="./week6.html"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">6주차: 시장의 작동 원리 파헤치기 (수요와 공급 모델링 및 균형 찾기)</span></a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">6주차: 시장의 작동 원리 파헤치기 (수요와 공급 모델링 및 균형 찾기)</span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<p><strong>강의 개요:</strong></p>
+<p>지난 5주차에는 코드를 재사용하고 구조화하는 강력한 도구인 <strong>함수(Function)</strong> 에 대해 배웠습니다. 함수를 통해 우리는 수요량 계산, 비용 계산 등 특정 경제 개념이나 계산 로직을 하나의 독립된 단위로 묶을 수 있었습니다. 또한, 딕셔너리를 활용하여 구조화된 데이터를 함수와 함께 사용하는 방법도 익혔습니다.</p>
+<p>이번 주에는 우리가 배운 파이썬 지식, 특히 <strong>함수</strong>와 <strong>데이터 구조(리스트)</strong>, 그리고 <strong>시각화(맛보기)</strong> 를 총동원하여 경제학의 가장 핵심적인 모델 중 하나인 <strong>수요와 공급 모형(Supply and Demand Model)</strong> 을 직접 구현하고 분석해 볼 것입니다. 파이썬 함수를 이용해 수요 곡선과 공급 곡선을 표현하고, 두 곡선이 만나는 <strong>시장 균형점(Market Equilibrium)</strong> 을 찾는 방법을 배웁니다. 더 나아가, 수요나 공급에 변화가 생겼을 때(곡선 이동) 시장 균형이 어떻게 변하는지 코드를 통해 시뮬레이션하고 시각적으로 확인해 보겠습니다. 이를 통해 파이썬이 어떻게 경제 모델을 분석하고 시장의 작동 원리를 이해하는 데 강력한 도구가 될 수 있는지 체감하게 될 것입니다.</p>
+<p><strong>이번 시간 학습 목표:</strong></p>
+<ol type="1">
+<li>수요와 공급 모델의 기본 원리(수요/공급의 법칙, 시장 균형)를 복습하고 이해합니다.</li>
+<li>파이썬 <strong>함수</strong>를 사용하여 수요 함수(<span class="math inline">\(Q_d = f(P)\)</span>)와 공급 함수(<span class="math inline">\(Q_s = g(P)\)</span>)를 정의할 수 있습니다.</li>
+<li>간단한 선형 수요/공급 함수가 주어졌을 때, <strong>대수적 방법</strong>으로 시장 균형 가격(<span class="math inline">\(P^*\)</span>)과 균형 거래량(<span class="math inline">\(Q^*\)</span>)을 계산하는 로직을 이해하고 파이썬 함수로 구현할 수 있습니다.</li>
+<li><code>matplotlib</code> 라이브러리를 사용하여 수요 곡선과 공급 곡선을 <strong>하나의 그래프</strong>에 그리고, 계산된 시장 균형점을 시각적으로 표시할 수 있습니다.</li>
+<li>수요 또는 공급 곡선의 <strong>이동(shift)</strong> 이 시장 균형(가격, 거래량)에 미치는 영향을 파이썬 코드 수정 및 시각화를 통해 분석하고 설명할 수 있습니다.</li>
+</ol>
+<hr>
+<section id="경제-모델링과-파이썬-수요와-공급-복습" class="level2" data-number="6.1">
+<h2 data-number="6.1" class="anchored" data-anchor-id="경제-모델링과-파이썬-수요와-공급-복습"><span class="header-section-number">6.1</span> 1. 경제 모델링과 파이썬: 수요와 공급 복습</h2>
+<p>우리가 파이썬 프로그래밍을 배우는 중요한 이유 중 하나는 바로 <strong>경제 모델(Economic Model)</strong> 을 직접 만들고 분석하기 위해서입니다. 경제 모델은 복잡한 현실 세계를 단순화하여 경제 현상의 작동 원리를 이해하고 예측하는 데 도움을 주는 틀입니다.</p>
+<p>그중에서도 <strong>수요와 공급 모델</strong>은 미시경제학의 가장 기본적이면서도 중요한 모델입니다.</p>
+<ul>
+<li><strong>수요(Demand):</strong> 특정 가격 수준에서 소비자들이 원하는 재화나 서비스의 양입니다. 일반적으로 가격이 오르면 수요량은 감소하고, 가격이 내리면 수요량은 증가합니다 (<strong>수요의 법칙, Law of Demand</strong>). 이는 보통 <strong>우하향하는 수요 곡선</strong>으로 표현됩니다.</li>
+<li><strong>공급(Supply):</strong> 특정 가격 수준에서 생산자들이 판매하려는 재화나 서비스의 양입니다. 일반적으로 가격이 오르면 공급량은 증가하고, 가격이 내리면 공급량은 감소합니다 (<strong>공급의 법칙, Law of Supply</strong>). 이는 보통 <strong>우상향하는 공급 곡선</strong>으로 표현됩니다.</li>
+<li><strong>시장 균형(Market Equilibrium):</strong> 수요량과 공급량이 일치하는 지점입니다 (<span class="math inline">\(Q_d = Q_s\)</span>). 이 지점에서의 가격을 <strong>균형 가격(<span class="math inline">\(P^*\)</span>)</strong>, 거래량을 <strong>균형 거래량(<span class="math inline">\(Q^*\)</span>)</strong> 이라고 합니다. 시장은 보이지 않는 손에 의해 이 균형점을 향해 움직이는 경향이 있습니다.</li>
+</ul>
+<p>이제 파이썬을 이용해 이 모델을 어떻게 표현하고 분석할 수 있는지 살펴봅시다.</p>
+<hr>
+</section>
+<section id="수요와-공급-함수-정의하기-파이썬-함수-활용" class="level2" data-number="6.2">
+<h2 data-number="6.2" class="anchored" data-anchor-id="수요와-공급-함수-정의하기-파이썬-함수-활용"><span class="header-section-number">6.2</span> 2. 수요와 공급 함수 정의하기 (파이썬 함수 활용)</h2>
+<p>지난주에 함수를 배웠으니, 수요량과 공급량을 계산하는 함수를 만들어 봅시다. 가장 간단한 형태인 선형(Linear) 함수를 사용하겠습니다.</p>
+<ul>
+<li><strong>선형 수요 함수:</strong> <span class="math inline">\(Q_d = a - bP\)</span>
+<ul>
+<li><span class="math inline">\(Q_d\)</span>: 수요량</li>
+<li><span class="math inline">\(P\)</span>: 가격</li>
+<li><span class="math inline">\(a\)</span>: 수요 곡선의 y절편 (가격이 0일 때 수요량, <span class="math inline">\(a &gt; 0\)</span>). 소득, 취향 등 가격 외 요인 변화 시 <span class="math inline">\(a\)</span> 값 변동.</li>
+<li><span class="math inline">\(b\)</span>: 수요 곡선 기울기의 절댓값 (<span class="math inline">\(b &gt; 0\)</span>). 가격 변화에 대한 수요량의 민감도.</li>
+</ul></li>
+<li><strong>선형 공급 함수:</strong> <span class="math inline">\(Q_s = c + dP\)</span>
+<ul>
+<li><span class="math inline">\(Q_s\)</span>: 공급량</li>
+<li><span class="math inline">\(P\)</span>: 가격</li>
+<li><span class="math inline">\(c\)</span>: 공급 곡선의 y절편 (가격이 0일 때 공급량, <span class="math inline">\(c\)</span>는 양수, 0, 또는 음수일 수 있음. 생산 기술, 요소 가격 등 가격 외 요인 변화 시 <span class="math inline">\(c\)</span> 값 변동).</li>
+<li><span class="math inline">\(d\)</span>: 공급 곡선의 기울기 (<span class="math inline">\(d &gt; 0\)</span>). 가격 변화에 대한 공급량의 민감도.</li>
+</ul></li>
+</ul>
+<p>이제 이 함수들을 파이썬 코드로 정의해 봅시다.</p>
+<div id="2bae6459" class="cell" data-execution_count="1">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> quantity_demanded(price, a, b):</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  <span class="co">"""선형 수요 함수 Q_d = a - bP 를 계산합니다."""</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  <span class="co"># 가격이나 파라미터가 음수가 되는 비현실적인 경우를 고려할 수 있으나, 여기서는 단순화</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> b <span class="op">&lt;=</span> <span class="dv">0</span>:</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>      <span class="bu">print</span>(<span class="st">"오류: 수요 곡선 기울기(b)는 양수여야 합니다."</span>)</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>      <span class="cf">return</span> <span class="va">None</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>  q_d <span class="op">=</span> a <span class="op">-</span> b <span class="op">*</span> price</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> <span class="bu">max</span>(<span class="dv">0</span>, q_d) <span class="co"># 수요량은 0 이상이어야 함</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> quantity_supplied(price, c, d):</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>  <span class="co">"""선형 공급 함수 Q_s = c + dP 를 계산합니다."""</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> d <span class="op">&lt;=</span> <span class="dv">0</span>:</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>      <span class="bu">print</span>(<span class="st">"오류: 공급 곡선 기울기(d)는 양수여야 합니다."</span>)</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>      <span class="cf">return</span> <span class="va">None</span></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>  q_s <span class="op">=</span> c <span class="op">+</span> d <span class="op">*</span> price</span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> <span class="bu">max</span>(<span class="dv">0</span>, q_s) <span class="co"># 공급량은 0 이상이어야 함</span></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a><span class="co"># 예시 파라미터 설정 (가상 시장)</span></span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a><span class="co"># 수요: Qd = 100 - 2P</span></span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>demand_a <span class="op">=</span> <span class="dv">100</span></span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>demand_b <span class="op">=</span> <span class="dv">2</span></span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a><span class="co"># 공급: Qs = 10 + 3P</span></span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>supply_c <span class="op">=</span> <span class="dv">10</span></span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>supply_d <span class="op">=</span> <span class="dv">3</span></span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a><span class="co"># 특정 가격에서 수요량 및 공급량 계산 테스트</span></span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a>test_price <span class="op">=</span> <span class="dv">15</span></span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a>qd_at_15 <span class="op">=</span> quantity_demanded(test_price, demand_a, demand_b)</span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a>qs_at_15 <span class="op">=</span> quantity_supplied(test_price, supply_c, supply_d)</span>
+<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"가격이 </span><span class="sc">{</span>test_price<span class="sc">}</span><span class="ss">일 때:"</span>)</span>
+<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"  수요량(Qd): </span><span class="sc">{</span>qd_at_15<span class="sc">}</span><span class="ss">"</span>) <span class="co"># 100 - 2*15 = 70</span></span>
+<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"  공급량(Qs): </span><span class="sc">{</span>qs_at_15<span class="sc">}</span><span class="ss">"</span>) <span class="co"># 10 + 3*15 = 55</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>가격이 15일 때:
+  수요량(Qd): 70
+  공급량(Qs): 55</code></pre>
+</div>
+</div>
+<hr>
+</section>
+<section id="시장-균형-찾기-대수적-방법" class="level2" data-number="6.3">
+<h2 data-number="6.3" class="anchored" data-anchor-id="시장-균형-찾기-대수적-방법"><span class="header-section-number">6.3</span> 3. 시장 균형 찾기 (대수적 방법)</h2>
+<p>시장 균형은 수요량(<span class="math inline">\(Q_d\)</span>)과 공급량(<span class="math inline">\(Q_s\)</span>)이 같아지는 지점입니다. 즉, <span class="math inline">\(Q_d = Q_s\)</span> 를 만족하는 가격(<span class="math inline">\(P^*\)</span>)과 거래량(<span class="math inline">\(Q^*\)</span>)을 찾는 것입니다.</p>
+<p>선형 함수의 경우, 이 방정식을 <span class="math inline">\(P\)</span>에 대해 풀면 균형 가격 <span class="math inline">\(P^*\)</span>를 구할 수 있습니다.</p>
+<p><span class="math inline">\(Q_d = a - bP\)</span> <span class="math inline">\(Q_s = c + dP\)</span></p>
+<p>균형점에서 <span class="math inline">\(Q_d = Q_s\)</span> 이므로, <span class="math inline">\(a - bP^* = c + dP^*\)</span> <span class="math inline">\(a - c = bP^* + dP^*\)</span> <span class="math inline">\(a - c = (b + d)P^*\)</span></p>
+<p>따라서, 균형 가격 <span class="math inline">\(P^*\)</span>는: <span class="math inline">\(P^* = \frac{a - c}{b + d}\)</span></p>
+<p>균형 가격 <span class="math inline">\(P^*\)</span>를 구한 뒤, 이를 수요 함수나 공급 함수 중 하나에 대입하면 균형 거래량 <span class="math inline">\(Q^*\)</span>를 얻을 수 있습니다. <span class="math inline">\(Q^* = a - bP^*\)</span> 또는 <span class="math inline">\(Q^* = c + dP^*\)</span></p>
+<p><strong>주의:</strong> * 분모 <span class="math inline">\((b + d)\)</span> 가 0이 되면 안 됩니다. (보통 <span class="math inline">\(b&gt;0, d&gt;0\)</span> 이므로 이 경우는 드뭅니다.) * 계산된 <span class="math inline">\(P^*\)</span> 또는 <span class="math inline">\(Q^*\)</span> 가 음수가 나오면, 해당 시장에서는 (주어진 함수 형태 하에서) 경제적으로 의미 있는 균형이 존재하지 않을 수 있습니다.</p>
+<p>이제 이 계산 과정을 파이썬 함수로 만들어 봅시다.</p>
+<div id="28a7ed87" class="cell" data-execution_count="2">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> find_equilibrium(a, b, c, d):</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="co">"""선형 수요(Qd=a-bP)와 공급(Qs=c+dP) 함수의 파라미터를 받아</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="co">  균형 가격(P*)과 균형 거래량(Q*)을 계산하여 튜플로 반환합니다.</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="co">  균형이 없거나 계산할 수 없는 경우 None을 반환합니다.</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="co">  """</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>  <span class="co"># 파라미터 유효성 검사 (기울기는 양수여야 함)</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> b <span class="op">&lt;=</span> <span class="dv">0</span> <span class="kw">or</span> d <span class="op">&lt;=</span> <span class="dv">0</span>:</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"오류: 수요/공급 곡선 기울기(b, d)는 양수여야 합니다."</span>)</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="va">None</span></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>  <span class="co"># 분모 (b+d)가 0인지 확인 (이론상 발생하기 어려움)</span></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (b <span class="op">+</span> d) <span class="op">==</span> <span class="dv">0</span>:</span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"오류: 수요와 공급 곡선 기울기 합이 0입니다. 균형 계산 불가."</span>)</span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="va">None</span></span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>  <span class="co"># 균형 가격 계산</span></span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>  p_star <span class="op">=</span> (a <span class="op">-</span> c) <span class="op">/</span> (b <span class="op">+</span> d)</span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a>  <span class="co"># 균형 가격이 음수이면 의미 있는 균형 없음</span></span>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> p_star <span class="op">&lt;</span> <span class="dv">0</span>:</span>
+<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"계산된 균형 가격이 음수입니다. 시장 균형이 존재하지 않을 수 있습니다."</span>)</span>
+<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="va">None</span></span>
+<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a>  <span class="co"># 균형 거래량 계산 (수요 함수 사용)</span></span>
+<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a>  q_star <span class="op">=</span> quantity_demanded(p_star, a, b) <span class="co"># 앞서 정의한 함수 사용</span></span>
+<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a>  <span class="co"># 또는 q_star = quantity_supplied(p_star, c, d) 사용해도 결과는 동일 (오차 제외)</span></span>
+<span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-28"><a href="#cb3-28" aria-hidden="true" tabindex="-1"></a>  <span class="co"># 균형 거래량이 (계산 오차 감안하여) 0보다 작은 경우도 체크 가능</span></span>
+<span id="cb3-29"><a href="#cb3-29" aria-hidden="true" tabindex="-1"></a>  <span class="co"># if q_star &lt; -1e-9: # 아주 작은 음수까지는 허용 (부동소수점 오차)</span></span>
+<span id="cb3-30"><a href="#cb3-30" aria-hidden="true" tabindex="-1"></a>  <span class="co">#     print("계산된 균형 거래량이 음수입니다. 시장 균형이 존재하지 않을 수 있습니다.")</span></span>
+<span id="cb3-31"><a href="#cb3-31" aria-hidden="true" tabindex="-1"></a>  <span class="co">#     return None</span></span>
+<span id="cb3-32"><a href="#cb3-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-33"><a href="#cb3-33" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> p_star, q_star <span class="co"># 균형 가격과 균형 거래량을 튜플로 반환</span></span>
+<span id="cb3-34"><a href="#cb3-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-35"><a href="#cb3-35" aria-hidden="true" tabindex="-1"></a><span class="co"># 앞서 설정한 파라미터로 균형점 찾기</span></span>
+<span id="cb3-36"><a href="#cb3-36" aria-hidden="true" tabindex="-1"></a><span class="co"># Qd = 100 - 2P, Qs = 10 + 3P</span></span>
+<span id="cb3-37"><a href="#cb3-37" aria-hidden="true" tabindex="-1"></a>equilibrium <span class="op">=</span> find_equilibrium(demand_a, demand_b, supply_c, supply_d)</span>
+<span id="cb3-38"><a href="#cb3-38" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-39"><a href="#cb3-39" aria-hidden="true" tabindex="-1"></a><span class="co"># 결과 출력</span></span>
+<span id="cb3-40"><a href="#cb3-40" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> equilibrium: <span class="co"># 반환값이 None이 아닐 경우 (즉, 균형점을 찾은 경우)</span></span>
+<span id="cb3-41"><a href="#cb3-41" aria-hidden="true" tabindex="-1"></a>    p_eq, q_eq <span class="op">=</span> equilibrium <span class="co"># 튜플 언패킹 (결과를 각 변수에 할당)</span></span>
+<span id="cb3-42"><a href="#cb3-42" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"</span><span class="ch">\n</span><span class="ss">--- 시장 균형점 ---"</span>)</span>
+<span id="cb3-43"><a href="#cb3-43" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"균형 가격 (P*): </span><span class="sc">{</span>p_eq<span class="sc">:.2f}</span><span class="ss">"</span>) <span class="co"># P* = (100-10)/(2+3) = 90/5 = 18</span></span>
+<span id="cb3-44"><a href="#cb3-44" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"균형 거래량 (Q*): </span><span class="sc">{</span>q_eq<span class="sc">:.2f}</span><span class="ss">"</span>) <span class="co"># Q* = 100 - 2*18 = 64 (또는 10 + 3*18 = 64)</span></span>
+<span id="cb3-45"><a href="#cb3-45" aria-hidden="true" tabindex="-1"></a><span class="cf">else</span>:</span>
+<span id="cb3-46"><a href="#cb3-46" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">시장 균형점을 찾을 수 없습니다."</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+--- 시장 균형점 ---
+균형 가격 (P*): 18.00
+균형 거래량 (Q*): 64.00</code></pre>
+</div>
+</div>
+<hr>
+</section>
+<section id="눈으로-보는-시장-균형-수요와-공급-그래프-그리기" class="level2" data-number="6.4">
+<h2 data-number="6.4" class="anchored" data-anchor-id="눈으로-보는-시장-균형-수요와-공급-그래프-그리기"><span class="header-section-number">6.4</span> 4. 눈으로 보는 시장 균형: 수요와 공급 그래프 그리기</h2>
+<p>수요/공급 곡선과 균형점을 그래프로 시각화하면 시장의 작동 원리를 훨씬 직관적으로 이해할 수 있습니다. <code>matplotlib</code> 라이브러리를 사용하여 그래프를 그려봅시다.</p>
+<p><strong>경제학 그래프 vs 일반 그래프:</strong> 보통 수학이나 프로그래밍에서는 x축을 가로, y축을 세로로 그립니다. 하지만 경제학에서는 관례적으로 <strong>가격을 세로축(y축)</strong>, <strong>수량(거래량)을 가로축(x축)</strong> 에 놓고 그립니다. 이를 반영하여 그래프를 그려보겠습니다. 즉, <span class="math inline">\(P = f(Q)\)</span> 형태의 함수를 그려야 합니다.</p>
+<p>우리가 정의한 함수는 <span class="math inline">\(Q = f(P)\)</span> 형태이므로, 그래프를 그리려면: 1. 가격(P) 범위를 정합니다. 2. 각 가격(P)에 대해 수요량(<span class="math inline">\(Q_d\)</span>)과 공급량(<span class="math inline">\(Q_s\)</span>)을 계산하여 리스트에 저장합니다. 3. <strong>가로축에 수량 리스트, 세로축에 가격 리스트</strong>를 넣어 <code>plt.plot()</code> 함수를 호출합니다.</p>
+<div id="d2b64fcc" class="cell" data-execution_count="3">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np <span class="co"># 수치 계산 및 배열 생성을 위해 NumPy 사용 (없으면 range로 대체 가능)</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> platform</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="co"># 한글 폰트 설정 (이전 셀에서 실행했다고 가정)</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="cf">try</span>:</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> platform.system() <span class="op">==</span> <span class="st">'Linux'</span>: plt.rc(<span class="st">'font'</span>, family<span class="op">=</span><span class="st">'NanumBarunGothic'</span>)</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">elif</span> platform.system() <span class="op">==</span> <span class="st">'Windows'</span>: plt.rc(<span class="st">'font'</span>, family<span class="op">=</span><span class="st">'Malgun Gothic'</span>)</span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>    <span class="cf">elif</span> platform.system() <span class="op">==</span> <span class="st">'Darwin'</span>: plt.rc(<span class="st">'font'</span>, family<span class="op">=</span><span class="st">'AppleGothic'</span>)</span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a><span class="cf">except</span> <span class="pp">NameError</span>: <span class="cf">pass</span></span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a><span class="cf">except</span> <span class="pp">FileNotFoundError</span>: <span class="bu">print</span>(<span class="st">"한글 폰트를 찾을 수 없습니다."</span>)</span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>plt.rcParams[<span class="st">'axes.unicode_minus'</span>] <span class="op">=</span> <span class="va">False</span></span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a><span class="co"># --- 그래프를 위한 데이터 생성 ---</span></span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a><span class="co"># 파라미터 (이전 예제와 동일)</span></span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>a, b <span class="op">=</span> <span class="dv">100</span>, <span class="dv">2</span> <span class="co"># Qd = 100 - 2P</span></span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a>c, d <span class="op">=</span> <span class="dv">10</span>, <span class="dv">3</span>  <span class="co"># Qs = 10 + 3P</span></span>
+<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a><span class="co"># 1. 가격(P) 범위 설정 (균형 가격 근처 포함하도록)</span></span>
+<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a><span class="co"># NumPy의 linspace(시작, 끝, 개수) 사용하면 편리. 또는 list(range(...)) 활용 가능</span></span>
+<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a>p_max_demand <span class="op">=</span> a <span class="op">/</span> b <span class="co"># 수요량이 0이 되는 가격 (100/2 = 50)</span></span>
+<span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a>price_range <span class="op">=</span> np.linspace(<span class="dv">0</span>, p_max_demand, <span class="dv">50</span>) <span class="co"># 0부터 50까지 50개 가격 생성</span></span>
+<span id="cb5-23"><a href="#cb5-23" aria-hidden="true" tabindex="-1"></a><span class="co"># 만약 NumPy가 없다면: price_range = list(range(0, 51, 1)) # 0부터 50까지 1단위 가격</span></span>
+<span id="cb5-24"><a href="#cb5-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-25"><a href="#cb5-25" aria-hidden="true" tabindex="-1"></a><span class="co"># 2. 각 가격에 대한 수요량(Qd) 및 공급량(Qs) 계산</span></span>
+<span id="cb5-26"><a href="#cb5-26" aria-hidden="true" tabindex="-1"></a>qd_values <span class="op">=</span> [quantity_demanded(p, a, b) <span class="cf">for</span> p <span class="kw">in</span> price_range]</span>
+<span id="cb5-27"><a href="#cb5-27" aria-hidden="true" tabindex="-1"></a>qs_values <span class="op">=</span> [quantity_supplied(p, c, d) <span class="cf">for</span> p <span class="kw">in</span> price_range]</span>
+<span id="cb5-28"><a href="#cb5-28" aria-hidden="true" tabindex="-1"></a><span class="co"># 위 코드는 리스트 컴프리헨션(List Comprehension)으로, 아래 for문과 동일</span></span>
+<span id="cb5-29"><a href="#cb5-29" aria-hidden="true" tabindex="-1"></a><span class="co"># qd_values = []</span></span>
+<span id="cb5-30"><a href="#cb5-30" aria-hidden="true" tabindex="-1"></a><span class="co"># for p in price_range:</span></span>
+<span id="cb5-31"><a href="#cb5-31" aria-hidden="true" tabindex="-1"></a><span class="co">#     qd_values.append(quantity_demanded(p, a, b))</span></span>
+<span id="cb5-32"><a href="#cb5-32" aria-hidden="true" tabindex="-1"></a><span class="co"># (qs_values도 동일하게 생성 가능)</span></span>
+<span id="cb5-33"><a href="#cb5-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-34"><a href="#cb5-34" aria-hidden="true" tabindex="-1"></a><span class="co"># 3. 균형점 계산</span></span>
+<span id="cb5-35"><a href="#cb5-35" aria-hidden="true" tabindex="-1"></a>equilibrium <span class="op">=</span> find_equilibrium(a, b, c, d)</span>
+<span id="cb5-36"><a href="#cb5-36" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> equilibrium:</span>
+<span id="cb5-37"><a href="#cb5-37" aria-hidden="true" tabindex="-1"></a>    p_eq, q_eq <span class="op">=</span> equilibrium</span>
+<span id="cb5-38"><a href="#cb5-38" aria-hidden="true" tabindex="-1"></a><span class="cf">else</span>: <span class="co"># 균형점 계산 실패 시 그래프에 표시하지 않음</span></span>
+<span id="cb5-39"><a href="#cb5-39" aria-hidden="true" tabindex="-1"></a>    p_eq, q_eq <span class="op">=</span> <span class="va">None</span>, <span class="va">None</span></span>
+<span id="cb5-40"><a href="#cb5-40" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-41"><a href="#cb5-41" aria-hidden="true" tabindex="-1"></a><span class="co"># --- 그래프 그리기 ---</span></span>
+<span id="cb5-42"><a href="#cb5-42" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">10</span>, <span class="dv">7</span>))</span>
+<span id="cb5-43"><a href="#cb5-43" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-44"><a href="#cb5-44" aria-hidden="true" tabindex="-1"></a><span class="co"># 수요 곡선 플롯 (X축: 수량 Qd, Y축: 가격 P)</span></span>
+<span id="cb5-45"><a href="#cb5-45" aria-hidden="true" tabindex="-1"></a>plt.plot(qd_values, price_range, label<span class="op">=</span><span class="st">'수요 곡선 (Demand)'</span>, color<span class="op">=</span><span class="st">'blue'</span>)</span>
+<span id="cb5-46"><a href="#cb5-46" aria-hidden="true" tabindex="-1"></a><span class="co"># 공급 곡선 플롯 (X축: 수량 Qs, Y축: 가격 P)</span></span>
+<span id="cb5-47"><a href="#cb5-47" aria-hidden="true" tabindex="-1"></a>plt.plot(qs_values, price_range, label<span class="op">=</span><span class="st">'공급 곡선 (Supply)'</span>, color<span class="op">=</span><span class="st">'red'</span>)</span>
+<span id="cb5-48"><a href="#cb5-48" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-49"><a href="#cb5-49" aria-hidden="true" tabindex="-1"></a><span class="co"># 균형점 표시 (균형점이 계산되었을 경우)</span></span>
+<span id="cb5-50"><a href="#cb5-50" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> p_eq <span class="kw">is</span> <span class="kw">not</span> <span class="va">None</span> <span class="kw">and</span> q_eq <span class="kw">is</span> <span class="kw">not</span> <span class="va">None</span>:</span>
+<span id="cb5-51"><a href="#cb5-51" aria-hidden="true" tabindex="-1"></a>    plt.scatter(q_eq, p_eq, color<span class="op">=</span><span class="st">'black'</span>, zorder<span class="op">=</span><span class="dv">5</span>, s<span class="op">=</span><span class="dv">100</span>, label<span class="op">=</span><span class="ss">f'균형점 E (</span><span class="sc">{</span>q_eq<span class="sc">:.1f}</span><span class="ss">, </span><span class="sc">{</span>p_eq<span class="sc">:.1f}</span><span class="ss">)'</span>)</span>
+<span id="cb5-52"><a href="#cb5-52" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 균형점까지 점선 추가 (선택 사항)</span></span>
+<span id="cb5-53"><a href="#cb5-53" aria-hidden="true" tabindex="-1"></a>    plt.plot([q_eq, q_eq], [<span class="dv">0</span>, p_eq], color<span class="op">=</span><span class="st">'grey'</span>, linestyle<span class="op">=</span><span class="st">'--'</span>, linewidth<span class="op">=</span><span class="fl">0.8</span>)</span>
+<span id="cb5-54"><a href="#cb5-54" aria-hidden="true" tabindex="-1"></a>    plt.plot([<span class="dv">0</span>, q_eq], [p_eq, p_eq], color<span class="op">=</span><span class="st">'grey'</span>, linestyle<span class="op">=</span><span class="st">'--'</span>, linewidth<span class="op">=</span><span class="fl">0.8</span>)</span>
+<span id="cb5-55"><a href="#cb5-55" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-56"><a href="#cb5-56" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-57"><a href="#cb5-57" aria-hidden="true" tabindex="-1"></a><span class="co"># 그래프 제목 및 축 레이블 (경제학 관례에 맞게)</span></span>
+<span id="cb5-58"><a href="#cb5-58" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'시장 수요와 공급 곡선 및 균형점'</span>, fontsize<span class="op">=</span><span class="dv">15</span>)</span>
+<span id="cb5-59"><a href="#cb5-59" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'수량 (Quantity)'</span>, fontsize<span class="op">=</span><span class="dv">12</span>)</span>
+<span id="cb5-60"><a href="#cb5-60" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'가격 (Price)'</span>, fontsize<span class="op">=</span><span class="dv">12</span>)</span>
+<span id="cb5-61"><a href="#cb5-61" aria-hidden="true" tabindex="-1"></a>plt.legend() <span class="co"># 범례 표시</span></span>
+<span id="cb5-62"><a href="#cb5-62" aria-hidden="true" tabindex="-1"></a>plt.grid(<span class="va">True</span>, linestyle<span class="op">=</span><span class="st">'--'</span>, alpha<span class="op">=</span><span class="fl">0.6</span>) <span class="co"># 그리드 표시</span></span>
+<span id="cb5-63"><a href="#cb5-63" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-64"><a href="#cb5-64" aria-hidden="true" tabindex="-1"></a><span class="co"># 축 범위 설정 (0 이상으로)</span></span>
+<span id="cb5-65"><a href="#cb5-65" aria-hidden="true" tabindex="-1"></a>plt.xlim(left<span class="op">=</span><span class="dv">0</span>)</span>
+<span id="cb5-66"><a href="#cb5-66" aria-hidden="true" tabindex="-1"></a>plt.ylim(bottom<span class="op">=</span><span class="dv">0</span>)</span>
+<span id="cb5-67"><a href="#cb5-67" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-68"><a href="#cb5-68" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="week6_files/figure-html/cell-4-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>그래프를 보면 파란색 수요 곡선과 빨간색 공급 곡선이 만나는 검은색 점이 정확히 우리가 앞에서 계산한 균형점(<span class="math inline">\(Q^* \approx 64, P^* = 18\)</span>)과 일치하는 것을 확인할 수 있습니다!</p>
+<hr>
+<section id="실습-1-균형점-계산-및-시각화" class="level3">
+<h3 class="anchored" data-anchor-id="실습-1-균형점-계산-및-시각화">[실습 1] 균형점 계산 및 시각화</h3>
+<p>어떤 가상 상품 시장의 수요와 공급 함수가 다음과 같다고 가정합니다. * 수요 함수: <span class="math inline">\(Q_d = 150 - 3P\)</span> * 공급 함수: <span class="math inline">\(Q_s = 30 + 2P\)</span></p>
+<ol type="1">
+<li>위 수요/공급 함수를 나타내는 파이썬 함수 <code>quantity_demanded_ex1</code> 와 <code>quantity_supplied_ex1</code> 을 정의하세요. (파라미터 a, b, c, d 값 확인!)</li>
+<li>앞서 정의한 <code>find_equilibrium</code> 함수를 사용하여 이 시장의 균형 가격(<span class="math inline">\(P^*\)</span>)과 균형 거래량(<span class="math inline">\(Q^*\)</span>)을 계산하고 출력하세요.</li>
+<li>NumPy 또는 <code>range</code>를 이용하여 적절한 가격 범위를 설정하고, 각 가격에 대한 수요량과 공급량 리스트를 만드세요.</li>
+<li><code>matplotlib</code>을 이용하여 수요 곡선과 공급 곡선을 그리고, 계산된 균형점을 그래프에 표시하세요. (X축: 수량, Y축: 가격)</li>
+</ol>
+<hr>
+<div id="e318f5e3" class="cell" data-execution_count="4">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 실습 1-1: 함수 정의 (기존 함수 재사용)</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="co"># quantity_demanded 함수와 quantity_supplied 함수는 이미 위에서 정의됨</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="co"># 파라미터 설정</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>a_ex1, b_ex1 <span class="op">=</span> <span class="dv">150</span>, <span class="dv">3</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>c_ex1, d_ex1 <span class="op">=</span> <span class="dv">30</span>, <span class="dv">2</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="ea62ef1a" class="cell" data-execution_count="5">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 실습 1-2: 균형점 계산</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>equilibrium_ex1 <span class="op">=</span> find_equilibrium(a_ex1, b_ex1, c_ex1, d_ex1)</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> equilibrium_ex1:</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>    p_eq_ex1, q_eq_ex1 <span class="op">=</span> equilibrium_ex1</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"--- 실습 1 시장 균형점 ---"</span>)</span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"균형 가격 (P*): </span><span class="sc">{</span>p_eq_ex1<span class="sc">:.2f}</span><span class="ss">"</span>) <span class="co"># (150-30)/(3+2) = 120/5 = 24</span></span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"균형 거래량 (Q*): </span><span class="sc">{</span>q_eq_ex1<span class="sc">:.2f}</span><span class="ss">"</span>) <span class="co"># 150 - 3*24 = 78 (또는 30 + 2*24 = 78)</span></span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a><span class="cf">else</span>:</span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"시장 균형점을 찾을 수 없습니다."</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>--- 실습 1 시장 균형점 ---
+균형 가격 (P*): 24.00
+균형 거래량 (Q*): 78.00</code></pre>
+</div>
+</div>
+<div id="2b2b4a7a" class="cell" data-execution_count="6">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 실습 1-3: 시각화를 위한 데이터 생성</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a><span class="co"># a, b, c, d 값 설정 (이미 위에서 함)</span></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a><span class="co"># a_ex1, b_ex1 = 150, 3</span></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a><span class="co"># c_ex1, d_ex1 = 30, 2</span></span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a><span class="co"># 적절한 가격 범위 설정</span></span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>p_max_demand_ex1 <span class="op">=</span> a_ex1 <span class="op">/</span> b_ex1</span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>price_range_ex1 <span class="op">=</span> np.linspace(<span class="dv">0</span>, p_max_demand_ex1, <span class="dv">50</span>)</span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a><span class="co"># 수요량 및 공급량 리스트 계산</span></span>
+<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a>qd_values_ex1 <span class="op">=</span> [quantity_demanded(p, a_ex1, b_ex1) <span class="cf">for</span> p <span class="kw">in</span> price_range_ex1]</span>
+<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a>qs_values_ex1 <span class="op">=</span> [quantity_supplied(p, c_ex1, d_ex1) <span class="cf">for</span> p <span class="kw">in</span> price_range_ex1]</span>
+<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a><span class="co"># 균형점 다시 계산 (그래프 표시용)</span></span>
+<span id="cb9-18"><a href="#cb9-18" aria-hidden="true" tabindex="-1"></a><span class="co"># equilibrium_ex1 = find_equilibrium(a_ex1, b_ex1, c_ex1, d_ex1) # 이미 위에서 함</span></span>
+<span id="cb9-19"><a href="#cb9-19" aria-hidden="true" tabindex="-1"></a><span class="co"># p_eq_ex1, q_eq_ex1 = (None, None) # 초기화</span></span>
+<span id="cb9-20"><a href="#cb9-20" aria-hidden="true" tabindex="-1"></a><span class="co"># if equilibrium_ex1:</span></span>
+<span id="cb9-21"><a href="#cb9-21" aria-hidden="true" tabindex="-1"></a><span class="co">#     p_eq_ex1, q_eq_ex1 = equilibrium_ex1 # 이미 위에서 함</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="3e0c2c95" class="cell" data-execution_count="7">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 실습 1-4: 그래프 그리기</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="co"># 한글 폰트 설정 등은 이전 셀에서 적용되었다고 가정</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">10</span>, <span class="dv">7</span>))</span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>plt.plot(qd_values_ex1, price_range_ex1, label<span class="op">=</span><span class="st">'수요 곡선 (D)'</span>, color<span class="op">=</span><span class="st">'blue'</span>)</span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>plt.plot(qs_values_ex1, price_range_ex1, label<span class="op">=</span><span class="st">'공급 곡선 (S)'</span>, color<span class="op">=</span><span class="st">'red'</span>)</span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> p_eq_ex1 <span class="kw">is</span> <span class="kw">not</span> <span class="va">None</span> <span class="kw">and</span> q_eq_ex1 <span class="kw">is</span> <span class="kw">not</span> <span class="va">None</span>:</span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>    plt.scatter(q_eq_ex1, p_eq_ex1, color<span class="op">=</span><span class="st">'black'</span>, zorder<span class="op">=</span><span class="dv">5</span>, s<span class="op">=</span><span class="dv">100</span>, label<span class="op">=</span><span class="ss">f'균형점 E (</span><span class="sc">{</span>q_eq_ex1<span class="sc">:.1f}</span><span class="ss">, </span><span class="sc">{</span>p_eq_ex1<span class="sc">:.1f}</span><span class="ss">)'</span>)</span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>    plt.plot([q_eq_ex1, q_eq_ex1], [<span class="dv">0</span>, p_eq_ex1], color<span class="op">=</span><span class="st">'grey'</span>, linestyle<span class="op">=</span><span class="st">'--'</span>, linewidth<span class="op">=</span><span class="fl">0.8</span>)</span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a>    plt.plot([<span class="dv">0</span>, q_eq_ex1], [p_eq_ex1, p_eq_ex1], color<span class="op">=</span><span class="st">'grey'</span>, linestyle<span class="op">=</span><span class="st">'--'</span>, linewidth<span class="op">=</span><span class="fl">0.8</span>)</span>
+<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'실습 1: 시장 수요와 공급 및 균형점'</span>, fontsize<span class="op">=</span><span class="dv">15</span>)</span>
+<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'수량 (Quantity)'</span>, fontsize<span class="op">=</span><span class="dv">12</span>)</span>
+<span id="cb10-15"><a href="#cb10-15" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'가격 (Price)'</span>, fontsize<span class="op">=</span><span class="dv">12</span>)</span>
+<span id="cb10-16"><a href="#cb10-16" aria-hidden="true" tabindex="-1"></a>plt.legend()</span>
+<span id="cb10-17"><a href="#cb10-17" aria-hidden="true" tabindex="-1"></a>plt.grid(<span class="va">True</span>, linestyle<span class="op">=</span><span class="st">'--'</span>, alpha<span class="op">=</span><span class="fl">0.6</span>)</span>
+<span id="cb10-18"><a href="#cb10-18" aria-hidden="true" tabindex="-1"></a>plt.xlim(left<span class="op">=</span><span class="dv">0</span>)</span>
+<span id="cb10-19"><a href="#cb10-19" aria-hidden="true" tabindex="-1"></a>plt.ylim(bottom<span class="op">=</span><span class="dv">0</span>)</span>
+<span id="cb10-20"><a href="#cb10-20" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="week6_files/figure-html/cell-8-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<hr>
+</section>
+</section>
+<section id="수요와-공급의-변화-분석하기-곡선-이동" class="level2" data-number="6.5">
+<h2 data-number="6.5" class="anchored" data-anchor-id="수요와-공급의-변화-분석하기-곡선-이동"><span class="header-section-number">6.5</span> 5. 수요와 공급의 변화 분석하기 (곡선 이동)</h2>
+<p>수요와 공급 곡선은 고정된 것이 아니라, 가격 외 다른 요인들에 의해 <strong>이동(shift)</strong> 할 수 있습니다.</p>
+<ul>
+<li><strong>수요 곡선 이동 요인:</strong> 소득 변화, 연관재 가격 변화, 소비자의 취향 변화, 미래 가격 예상 변화, 인구 변화 등</li>
+<li><strong>공급 곡선 이동 요인:</strong> 기술 발전, 생산 요소 가격 변화, 정부 정책(세금, 보조금), 미래 가격 예상 변화, 공급자 수 변화 등</li>
+</ul>
+<p>파이썬 함수를 이용하면 이러한 변화를 <strong>파라미터 수정</strong>으로 쉽게 반영하고, 새로운 균형점을 계산하며 시각화를 통해 그 효과를 직관적으로 확인할 수 있습니다.</p>
+<p><strong>예제 1: 수요 증가 시뮬레이션</strong></p>
+<p>소득 증가로 인해 수요 함수의 <span class="math inline">\(a\)</span> 값이 100에서 120으로 증가했다고 가정해 봅시다. (<span class="math inline">\(Q_d = 120 - 2P\)</span>, 공급은 <span class="math inline">\(Q_s = 10 + 3P\)</span> 로 동일)</p>
+<div id="717977e6" class="cell" data-execution_count="8">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># --- 수요 증가 시뮬레이션 ---</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="co"># 원래 파라미터</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>a_old, b_old <span class="op">=</span> <span class="dv">100</span>, <span class="dv">2</span></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>c_old, d_old <span class="op">=</span> <span class="dv">10</span>, <span class="dv">3</span></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a><span class="co"># 수요 증가 후 새 파라미터 (a만 변경)</span></span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>a_new <span class="op">=</span> <span class="dv">120</span></span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>b_new <span class="op">=</span> b_old <span class="co"># b는 그대로</span></span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>c_new, d_new <span class="op">=</span> c_old, d_old <span class="co"># 공급은 그대로</span></span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a><span class="co"># 1. 새로운 균형점 계산</span></span>
+<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a>equilibrium_new_demand <span class="op">=</span> find_equilibrium(a_new, b_new, c_new, d_new)</span>
+<span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> equilibrium_new_demand:</span>
+<span id="cb11-14"><a href="#cb11-14" aria-hidden="true" tabindex="-1"></a>    p_eq_new_d, q_eq_new_d <span class="op">=</span> equilibrium_new_demand</span>
+<span id="cb11-15"><a href="#cb11-15" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"--- 수요 증가 후 새로운 균형점 ---"</span>)</span>
+<span id="cb11-16"><a href="#cb11-16" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"새 균형 가격 (P*'): </span><span class="sc">{</span>p_eq_new_d<span class="sc">:.2f}</span><span class="ss">"</span>) <span class="co"># (120-10)/(2+3) = 110/5 = 22</span></span>
+<span id="cb11-17"><a href="#cb11-17" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"새 균형 거래량 (Q*'): </span><span class="sc">{</span>q_eq_new_d<span class="sc">:.2f}</span><span class="ss">"</span>) <span class="co"># 120 - 2*22 = 76</span></span>
+<span id="cb11-18"><a href="#cb11-18" aria-hidden="true" tabindex="-1"></a><span class="cf">else</span>:</span>
+<span id="cb11-19"><a href="#cb11-19" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"새로운 균형점을 찾을 수 없습니다."</span>)</span>
+<span id="cb11-20"><a href="#cb11-20" aria-hidden="true" tabindex="-1"></a>    p_eq_new_d, q_eq_new_d <span class="op">=</span> <span class="va">None</span>, <span class="va">None</span> <span class="co"># 시각화를 위해 초기화</span></span>
+<span id="cb11-21"><a href="#cb11-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-22"><a href="#cb11-22" aria-hidden="true" tabindex="-1"></a><span class="co"># 2. 시각화: 이전 곡선과 새 수요 곡선, 새 균형점 표시</span></span>
+<span id="cb11-23"><a href="#cb11-23" aria-hidden="true" tabindex="-1"></a>price_range_shift <span class="op">=</span> np.linspace(<span class="dv">0</span>, a_new <span class="op">/</span> b_new, <span class="dv">50</span>) <span class="co"># 새 수요에 맞춰 가격 범위 조정</span></span>
+<span id="cb11-24"><a href="#cb11-24" aria-hidden="true" tabindex="-1"></a>qd_values_old <span class="op">=</span> [quantity_demanded(p, a_old, b_old) <span class="cf">for</span> p <span class="kw">in</span> price_range_shift]</span>
+<span id="cb11-25"><a href="#cb11-25" aria-hidden="true" tabindex="-1"></a>qs_values_shift <span class="op">=</span> [quantity_supplied(p, c_new, d_new) <span class="cf">for</span> p <span class="kw">in</span> price_range_shift]</span>
+<span id="cb11-26"><a href="#cb11-26" aria-hidden="true" tabindex="-1"></a>qd_values_new <span class="op">=</span> [quantity_demanded(p, a_new, b_new) <span class="cf">for</span> p <span class="kw">in</span> price_range_shift]</span>
+<span id="cb11-27"><a href="#cb11-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-28"><a href="#cb11-28" aria-hidden="true" tabindex="-1"></a><span class="co"># 원래 균형점 (위에서 계산된 값 사용)</span></span>
+<span id="cb11-29"><a href="#cb11-29" aria-hidden="true" tabindex="-1"></a><span class="co"># p_eq, q_eq</span></span>
+<span id="cb11-30"><a href="#cb11-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-31"><a href="#cb11-31" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">10</span>, <span class="dv">7</span>))</span>
+<span id="cb11-32"><a href="#cb11-32" aria-hidden="true" tabindex="-1"></a><span class="co"># 원래 수요(파선), 공급 곡선</span></span>
+<span id="cb11-33"><a href="#cb11-33" aria-hidden="true" tabindex="-1"></a>plt.plot(qd_values_old, price_range_shift, label<span class="op">=</span><span class="st">'원래 수요 (D0)'</span>, color<span class="op">=</span><span class="st">'blue'</span>, linestyle<span class="op">=</span><span class="st">'--'</span>)</span>
+<span id="cb11-34"><a href="#cb11-34" aria-hidden="true" tabindex="-1"></a>plt.plot(qs_values_shift, price_range_shift, label<span class="op">=</span><span class="st">'공급 (S)'</span>, color<span class="op">=</span><span class="st">'red'</span>)</span>
+<span id="cb11-35"><a href="#cb11-35" aria-hidden="true" tabindex="-1"></a><span class="co"># 새로운 수요 곡선 (실선)</span></span>
+<span id="cb11-36"><a href="#cb11-36" aria-hidden="true" tabindex="-1"></a>plt.plot(qd_values_new, price_range_shift, label<span class="op">=</span><span class="st">'새로운 수요 (D1)'</span>, color<span class="op">=</span><span class="st">'blue'</span>, linestyle<span class="op">=</span><span class="st">'-'</span>)</span>
+<span id="cb11-37"><a href="#cb11-37" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-38"><a href="#cb11-38" aria-hidden="true" tabindex="-1"></a><span class="co"># 원래 균형점 표시</span></span>
+<span id="cb11-39"><a href="#cb11-39" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> p_eq <span class="kw">is</span> <span class="kw">not</span> <span class="va">None</span> <span class="kw">and</span> q_eq <span class="kw">is</span> <span class="kw">not</span> <span class="va">None</span>:</span>
+<span id="cb11-40"><a href="#cb11-40" aria-hidden="true" tabindex="-1"></a>    plt.scatter(q_eq, p_eq, color<span class="op">=</span><span class="st">'grey'</span>, zorder<span class="op">=</span><span class="dv">5</span>, s<span class="op">=</span><span class="dv">80</span>, label<span class="op">=</span><span class="ss">f'원래 균형 E0 (</span><span class="sc">{</span>q_eq<span class="sc">:.1f}</span><span class="ss">, </span><span class="sc">{</span>p_eq<span class="sc">:.1f}</span><span class="ss">)'</span>)</span>
+<span id="cb11-41"><a href="#cb11-41" aria-hidden="true" tabindex="-1"></a><span class="co"># 새로운 균형점 표시</span></span>
+<span id="cb11-42"><a href="#cb11-42" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> p_eq_new_d <span class="kw">is</span> <span class="kw">not</span> <span class="va">None</span> <span class="kw">and</span> q_eq_new_d <span class="kw">is</span> <span class="kw">not</span> <span class="va">None</span>:</span>
+<span id="cb11-43"><a href="#cb11-43" aria-hidden="true" tabindex="-1"></a>    plt.scatter(q_eq_new_d, p_eq_new_d, color<span class="op">=</span><span class="st">'black'</span>, zorder<span class="op">=</span><span class="dv">5</span>, s<span class="op">=</span><span class="dv">100</span>, label<span class="op">=</span><span class="ss">f'새 균형 E1 (</span><span class="sc">{</span>q_eq_new_d<span class="sc">:.1f}</span><span class="ss">, </span><span class="sc">{</span>p_eq_new_d<span class="sc">:.1f}</span><span class="ss">)'</span>)</span>
+<span id="cb11-44"><a href="#cb11-44" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-45"><a href="#cb11-45" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'수요 증가 시 균형점 변화'</span>, fontsize<span class="op">=</span><span class="dv">15</span>)</span>
+<span id="cb11-46"><a href="#cb11-46" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'수량 (Quantity)'</span>, fontsize<span class="op">=</span><span class="dv">12</span>)</span>
+<span id="cb11-47"><a href="#cb11-47" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'가격 (Price)'</span>, fontsize<span class="op">=</span><span class="dv">12</span>)</span>
+<span id="cb11-48"><a href="#cb11-48" aria-hidden="true" tabindex="-1"></a>plt.legend()</span>
+<span id="cb11-49"><a href="#cb11-49" aria-hidden="true" tabindex="-1"></a>plt.grid(<span class="va">True</span>, linestyle<span class="op">=</span><span class="st">'--'</span>, alpha<span class="op">=</span><span class="fl">0.6</span>)</span>
+<span id="cb11-50"><a href="#cb11-50" aria-hidden="true" tabindex="-1"></a>plt.xlim(left<span class="op">=</span><span class="dv">0</span>)</span>
+<span id="cb11-51"><a href="#cb11-51" aria-hidden="true" tabindex="-1"></a>plt.ylim(bottom<span class="op">=</span><span class="dv">0</span>)</span>
+<span id="cb11-52"><a href="#cb11-52" aria-hidden="true" tabindex="-1"></a>plt.show()</span>
+<span id="cb11-53"><a href="#cb11-53" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-54"><a href="#cb11-54" aria-hidden="true" tabindex="-1"></a><span class="co"># 결과 해석</span></span>
+<span id="cb11-55"><a href="#cb11-55" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">결과 해석: 수요 증가는 균형 가격과 균형 거래량을 모두 상승시킵니다."</span>)</span>
+<span id="cb11-56"><a href="#cb11-56" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"(P: </span><span class="sc">{</span>p_eq<span class="sc">:.1f}</span><span class="ss"> -&gt; </span><span class="sc">{</span>p_eq_new_d<span class="sc">:.1f}</span><span class="ss">), (Q: </span><span class="sc">{</span>q_eq<span class="sc">:.1f}</span><span class="ss"> -&gt; </span><span class="sc">{</span>q_eq_new_d<span class="sc">:.1f}</span><span class="ss">)"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>--- 수요 증가 후 새로운 균형점 ---
+새 균형 가격 (P*'): 22.00
+새 균형 거래량 (Q*'): 76.00</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="week6_files/figure-html/cell-9-output-2.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+결과 해석: 수요 증가는 균형 가격과 균형 거래량을 모두 상승시킵니다.
+(P: 18.0 -&gt; 22.0), (Q: 64.0 -&gt; 76.0)</code></pre>
+</div>
+</div>
+<p>그래프에서 수요 곡선이 오른쪽으로 이동(D0 -&gt; D1)하면서 균형점(E0 -&gt; E1)이 오른쪽 위로 이동하여 가격과 거래량 모두 증가하는 것을 명확히 볼 수 있습니다.</p>
+<p><strong>예제 2: 공급 증가 시뮬레이션 (기술 발전)</strong></p>
+<p>기술 발전으로 공급 곡선의 <span class="math inline">\(c\)</span> 값이 10에서 30으로 증가했다고 가정해 봅시다. (<span class="math inline">\(Q_s = 30 + 3P\)</span>, 수요는 <span class="math inline">\(Q_d = 100 - 2P\)</span> 로 동일)</p>
+<div id="8bd4da0e" class="cell" data-execution_count="10">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># --- 공급 증가 시뮬레이션 ---</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="co"># 원래 파라미터</span></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>a_old, b_old <span class="op">=</span> <span class="dv">100</span>, <span class="dv">2</span></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>c_old, d_old <span class="op">=</span> <span class="dv">10</span>, <span class="dv">3</span></span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a><span class="co"># 공급 증가 후 새 파라미터 (c만 변경)</span></span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>a_new_s <span class="op">=</span> a_old</span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>b_new_s <span class="op">=</span> b_old <span class="co"># 수요는 그대로</span></span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a>c_new_s <span class="op">=</span> <span class="dv">30</span> <span class="co"># c 값 증가</span></span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a>d_new_s <span class="op">=</span> d_old <span class="co"># d는 그대로</span></span>
+<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a><span class="co"># 1. 새로운 균형점 계산</span></span>
+<span id="cb14-13"><a href="#cb14-13" aria-hidden="true" tabindex="-1"></a>equilibrium_new_supply <span class="op">=</span> find_equilibrium(a_new_s, b_new_s, c_new_s, d_new_s)</span>
+<span id="cb14-14"><a href="#cb14-14" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> equilibrium_new_supply:</span>
+<span id="cb14-15"><a href="#cb14-15" aria-hidden="true" tabindex="-1"></a>    p_eq_new_s, q_eq_new_s <span class="op">=</span> equilibrium_new_supply</span>
+<span id="cb14-16"><a href="#cb14-16" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"--- 공급 증가 후 새로운 균형점 ---"</span>)</span>
+<span id="cb14-17"><a href="#cb14-17" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"새 균형 가격 (P*''): </span><span class="sc">{</span>p_eq_new_s<span class="sc">:.2f}</span><span class="ss">"</span>) <span class="co"># (100-30)/(2+3) = 70/5 = 14</span></span>
+<span id="cb14-18"><a href="#cb14-18" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"새 균형 거래량 (Q*''): </span><span class="sc">{</span>q_eq_new_s<span class="sc">:.2f}</span><span class="ss">"</span>) <span class="co"># 100 - 2*14 = 72</span></span>
+<span id="cb14-19"><a href="#cb14-19" aria-hidden="true" tabindex="-1"></a><span class="cf">else</span>:</span>
+<span id="cb14-20"><a href="#cb14-20" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"새로운 균형점을 찾을 수 없습니다."</span>)</span>
+<span id="cb14-21"><a href="#cb14-21" aria-hidden="true" tabindex="-1"></a>    p_eq_new_s, q_eq_new_s <span class="op">=</span> <span class="va">None</span>, <span class="va">None</span></span>
+<span id="cb14-22"><a href="#cb14-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-23"><a href="#cb14-23" aria-hidden="true" tabindex="-1"></a><span class="co"># 2. 시각화: 이전 곡선과 새 공급 곡선, 새 균형점 표시</span></span>
+<span id="cb14-24"><a href="#cb14-24" aria-hidden="true" tabindex="-1"></a>price_range_shift_s <span class="op">=</span> np.linspace(<span class="dv">0</span>, a_new_s <span class="op">/</span> b_new_s, <span class="dv">50</span>)</span>
+<span id="cb14-25"><a href="#cb14-25" aria-hidden="true" tabindex="-1"></a>qd_values_shift_s <span class="op">=</span> [quantity_demanded(p, a_new_s, b_new_s) <span class="cf">for</span> p <span class="kw">in</span> price_range_shift_s]</span>
+<span id="cb14-26"><a href="#cb14-26" aria-hidden="true" tabindex="-1"></a>qs_values_old <span class="op">=</span> [quantity_supplied(p, c_old, d_old) <span class="cf">for</span> p <span class="kw">in</span> price_range_shift_s]</span>
+<span id="cb14-27"><a href="#cb14-27" aria-hidden="true" tabindex="-1"></a>qs_values_new <span class="op">=</span> [quantity_supplied(p, c_new_s, d_new_s) <span class="cf">for</span> p <span class="kw">in</span> price_range_shift_s]</span>
+<span id="cb14-28"><a href="#cb14-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-29"><a href="#cb14-29" aria-hidden="true" tabindex="-1"></a><span class="co"># 원래 균형점 (이전 계산 값 사용)</span></span>
+<span id="cb14-30"><a href="#cb14-30" aria-hidden="true" tabindex="-1"></a><span class="co"># p_eq, q_eq</span></span>
+<span id="cb14-31"><a href="#cb14-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-32"><a href="#cb14-32" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">10</span>, <span class="dv">7</span>))</span>
+<span id="cb14-33"><a href="#cb14-33" aria-hidden="true" tabindex="-1"></a><span class="co"># 수요 곡선, 원래 공급 곡선(파선)</span></span>
+<span id="cb14-34"><a href="#cb14-34" aria-hidden="true" tabindex="-1"></a>plt.plot(qd_values_shift_s, price_range_shift_s, label<span class="op">=</span><span class="st">'수요 (D)'</span>, color<span class="op">=</span><span class="st">'blue'</span>)</span>
+<span id="cb14-35"><a href="#cb14-35" aria-hidden="true" tabindex="-1"></a>plt.plot(qs_values_old, price_range_shift_s, label<span class="op">=</span><span class="st">'원래 공급 (S0)'</span>, color<span class="op">=</span><span class="st">'red'</span>, linestyle<span class="op">=</span><span class="st">'--'</span>)</span>
+<span id="cb14-36"><a href="#cb14-36" aria-hidden="true" tabindex="-1"></a><span class="co"># 새로운 공급 곡선 (실선)</span></span>
+<span id="cb14-37"><a href="#cb14-37" aria-hidden="true" tabindex="-1"></a>plt.plot(qs_values_new, price_range_shift_s, label<span class="op">=</span><span class="st">'새로운 공급 (S1)'</span>, color<span class="op">=</span><span class="st">'red'</span>, linestyle<span class="op">=</span><span class="st">'-'</span>)</span>
+<span id="cb14-38"><a href="#cb14-38" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-39"><a href="#cb14-39" aria-hidden="true" tabindex="-1"></a><span class="co"># 원래 균형점 표시</span></span>
+<span id="cb14-40"><a href="#cb14-40" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> p_eq <span class="kw">is</span> <span class="kw">not</span> <span class="va">None</span> <span class="kw">and</span> q_eq <span class="kw">is</span> <span class="kw">not</span> <span class="va">None</span>:</span>
+<span id="cb14-41"><a href="#cb14-41" aria-hidden="true" tabindex="-1"></a>    plt.scatter(q_eq, p_eq, color<span class="op">=</span><span class="st">'grey'</span>, zorder<span class="op">=</span><span class="dv">5</span>, s<span class="op">=</span><span class="dv">80</span>, label<span class="op">=</span><span class="ss">f'원래 균형 E0 (</span><span class="sc">{</span>q_eq<span class="sc">:.1f}</span><span class="ss">, </span><span class="sc">{</span>p_eq<span class="sc">:.1f}</span><span class="ss">)'</span>)</span>
+<span id="cb14-42"><a href="#cb14-42" aria-hidden="true" tabindex="-1"></a><span class="co"># 새로운 균형점 표시</span></span>
+<span id="cb14-43"><a href="#cb14-43" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> p_eq_new_s <span class="kw">is</span> <span class="kw">not</span> <span class="va">None</span> <span class="kw">and</span> q_eq_new_s <span class="kw">is</span> <span class="kw">not</span> <span class="va">None</span>:</span>
+<span id="cb14-44"><a href="#cb14-44" aria-hidden="true" tabindex="-1"></a>    plt.scatter(q_eq_new_s, p_eq_new_s, color<span class="op">=</span><span class="st">'black'</span>, zorder<span class="op">=</span><span class="dv">5</span>, s<span class="op">=</span><span class="dv">100</span>, label<span class="op">=</span><span class="ss">f'새 균형 E1 (</span><span class="sc">{</span>q_eq_new_s<span class="sc">:.1f}</span><span class="ss">, </span><span class="sc">{</span>p_eq_new_s<span class="sc">:.1f}</span><span class="ss">)'</span>)</span>
+<span id="cb14-45"><a href="#cb14-45" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-46"><a href="#cb14-46" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'공급 증가 시 균형점 변화'</span>, fontsize<span class="op">=</span><span class="dv">15</span>)</span>
+<span id="cb14-47"><a href="#cb14-47" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'수량 (Quantity)'</span>, fontsize<span class="op">=</span><span class="dv">12</span>)</span>
+<span id="cb14-48"><a href="#cb14-48" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'가격 (Price)'</span>, fontsize<span class="op">=</span><span class="dv">12</span>)</span>
+<span id="cb14-49"><a href="#cb14-49" aria-hidden="true" tabindex="-1"></a>plt.legend()</span>
+<span id="cb14-50"><a href="#cb14-50" aria-hidden="true" tabindex="-1"></a>plt.grid(<span class="va">True</span>, linestyle<span class="op">=</span><span class="st">'--'</span>, alpha<span class="op">=</span><span class="fl">0.6</span>)</span>
+<span id="cb14-51"><a href="#cb14-51" aria-hidden="true" tabindex="-1"></a>plt.xlim(left<span class="op">=</span><span class="dv">0</span>)</span>
+<span id="cb14-52"><a href="#cb14-52" aria-hidden="true" tabindex="-1"></a>plt.ylim(bottom<span class="op">=</span><span class="dv">0</span>)</span>
+<span id="cb14-53"><a href="#cb14-53" aria-hidden="true" tabindex="-1"></a>plt.show()</span>
+<span id="cb14-54"><a href="#cb14-54" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-55"><a href="#cb14-55" aria-hidden="true" tabindex="-1"></a><span class="co"># 결과 해석</span></span>
+<span id="cb14-56"><a href="#cb14-56" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">결과 해석: 공급 증가는 균형 가격을 하락시키고 균형 거래량을 상승시킵니다."</span>)</span>
+<span id="cb14-57"><a href="#cb14-57" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"(P: </span><span class="sc">{</span>p_eq<span class="sc">:.1f}</span><span class="ss"> -&gt; </span><span class="sc">{</span>p_eq_new_s<span class="sc">:.1f}</span><span class="ss">), (Q: </span><span class="sc">{</span>q_eq<span class="sc">:.1f}</span><span class="ss"> -&gt; </span><span class="sc">{</span>q_eq_new_s<span class="sc">:.1f}</span><span class="ss">)"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>--- 공급 증가 후 새로운 균형점 ---
+새 균형 가격 (P*''): 14.00
+새 균형 거래량 (Q*''): 72.00</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="week6_files/figure-html/cell-10-output-2.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+결과 해석: 공급 증가는 균형 가격을 하락시키고 균형 거래량을 상승시킵니다.
+(P: 18.0 -&gt; 14.0), (Q: 64.0 -&gt; 72.0)</code></pre>
+</div>
+</div>
+<p>그래프에서 공급 곡선이 오른쪽으로 이동(S0 -&gt; S1)하면서 균형점(E0 -&gt; E1)이 오른쪽 아래로 이동하여 가격은 하락하고 거래량은 증가하는 것을 명확히 볼 수 있습니다.</p>
+<hr>
+<section id="실습-2-수요공급-변화-분석" class="level3">
+<h3 class="anchored" data-anchor-id="실습-2-수요공급-변화-분석">[실습 2] 수요/공급 변화 분석</h3>
+<p>실습 1의 시장(<span class="math inline">\(Q_d = 150 - 3P\)</span>, <span class="math inline">\(Q_s = 30 + 2P\)</span>)을 기준으로 다음 변화의 효과를 분석하세요.</p>
+<ol type="1">
+<li><strong>수요 감소:</strong> 소비자들의 선호도 감소로 수요 함수의 <span class="math inline">\(a\)</span> 값이 150에서 120으로 감소했습니다 (<span class="math inline">\(Q_d = 120 - 3P\)</span>). 공급 함수는 그대로입니다. 새로운 균형 가격과 거래량을 계산하고, 원래 균형과 비교하여 가격과 거래량이 어떻게 변했는지 설명하세요.</li>
+<li><strong>(선택) 시각화:</strong> 위 수요 감소 상황을 시각화하세요. 원래 수요/공급 곡선과 <strong>변경된 수요 곡선</strong>, 그리고 원래 균형점과 <strong>새로운 균형점</strong>을 하나의 그래프에 표시하세요.</li>
+</ol>
+<hr>
+<ol type="1">
+<li>힌트 템플릿</li>
+</ol>
+<pre class="{python3}"><code># 실습 2-1: 수요 감소 후 새 균형점 계산 및 변화 설명
+# 원래 파라미터 (실습 1 기준)
+a_ex1_old, b_ex1_old = 150, 3
+c_ex1_old, d_ex1_old = 30, 2
+
+# 수요 감소 후 새 파라미터
+a_ex1_new = 120
+b_ex1_new = b_ex1_old
+c_ex1_new, d_ex1_new = c_ex1_old, d_ex1_old
+
+# 새로운 균형점 계산
+equilibrium_new_demand_ex1 = # find_equilibrium 호출
+p_eq_new_d_ex1, q_eq_new_d_ex1 = None, None
+if equilibrium_new_demand_ex1:
+    p_eq_new_d_ex1, q_eq_new_d_ex1 = equilibrium_new_demand_ex1
+    print("--- 수요 감소 후 새로운 균형점 ---")
+    # 새 균형 가격과 거래량 출력
+
+# 원래 균형점 (실습 1 정답 값 활용)
+# p_eq_ex1, q_eq_ex1 = 24, 78
+
+# 변화 설명 출력
+# 여기에 가격과 거래량이 어떻게 변했는지 설명하는 print 문 작성</code></pre>
+<ol start="2" type="1">
+<li>힌트 템플릿</li>
+</ol>
+<pre class="{python3}"><code># 실습 2-2 (선택): 수요 감소 시각화
+# import numpy as np # 필요시
+# import matplotlib.pyplot as plt # 필요시
+
+# 파라미터 설정 (old, new)
+# ...
+
+# 가격 범위 설정
+# price_range_ex1_shift = ...
+
+# 수요/공급량 리스트 계산 (원래 S, 원래 D, 새로운 D)
+# qd_values_ex1_old = ...
+# qs_values_ex1_shift = ...
+# qd_values_ex1_new = ...
+
+# 균형점 정보 (원래, 새로운)
+# p_eq_ex1, q_eq_ex1 = ...
+# p_eq_new_d_ex1, q_eq_new_d_ex1 = ...
+
+# 그래프 그리기
+# plt.figure(...)
+# plt.plot(..., label='원래 수요 (D0)', linestyle='--')
+# plt.plot(..., label='공급 (S)', ...)
+# plt.plot(..., label='새로운 수요 (D1)', linestyle='-')
+# plt.scatter(원래 균형점)
+# plt.scatter(새로운 균형점)
+# ... (제목, 레이블, 범례, 그리드, 축 범위, show)</code></pre>
+<div id="7deaa3e3" class="cell" data-execution_count="14">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 실습 2-1: 수요 감소 후 새 균형점 계산 및 변화 설명</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="co"># 원래 파라미터 (실습 1 기준)</span></span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>a_ex1_old, b_ex1_old <span class="op">=</span> <span class="dv">150</span>, <span class="dv">3</span></span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>c_ex1_old, d_ex1_old <span class="op">=</span> <span class="dv">30</span>, <span class="dv">2</span></span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a><span class="co"># 수요 감소 후 새 파라미터</span></span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a>a_ex1_new <span class="op">=</span> <span class="dv">120</span></span>
+<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a>b_ex1_new <span class="op">=</span> b_ex1_old</span>
+<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a>c_ex1_new, d_ex1_new <span class="op">=</span> c_ex1_old, d_ex1_old</span>
+<span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-11"><a href="#cb19-11" aria-hidden="true" tabindex="-1"></a><span class="co"># 새로운 균형점 계산</span></span>
+<span id="cb19-12"><a href="#cb19-12" aria-hidden="true" tabindex="-1"></a>equilibrium_new_demand_ex1 <span class="op">=</span> find_equilibrium(a_ex1_new, b_ex1_new, c_ex1_new, d_ex1_new)</span>
+<span id="cb19-13"><a href="#cb19-13" aria-hidden="true" tabindex="-1"></a>p_eq_new_d_ex1, q_eq_new_d_ex1 <span class="op">=</span> <span class="va">None</span>, <span class="va">None</span></span>
+<span id="cb19-14"><a href="#cb19-14" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> equilibrium_new_demand_ex1:</span>
+<span id="cb19-15"><a href="#cb19-15" aria-hidden="true" tabindex="-1"></a>    p_eq_new_d_ex1, q_eq_new_d_ex1 <span class="op">=</span> equilibrium_new_demand_ex1</span>
+<span id="cb19-16"><a href="#cb19-16" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"--- 수요 감소 후 새로운 균형점 ---"</span>)</span>
+<span id="cb19-17"><a href="#cb19-17" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"새 균형 가격 (P*'): </span><span class="sc">{</span>p_eq_new_d_ex1<span class="sc">:.2f}</span><span class="ss">"</span>) <span class="co"># (120-30)/(3+2) = 90/5 = 18</span></span>
+<span id="cb19-18"><a href="#cb19-18" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"새 균형 거래량 (Q*'): </span><span class="sc">{</span>q_eq_new_d_ex1<span class="sc">:.2f}</span><span class="ss">"</span>) <span class="co"># 120 - 3*18 = 66</span></span>
+<span id="cb19-19"><a href="#cb19-19" aria-hidden="true" tabindex="-1"></a><span class="cf">else</span>:</span>
+<span id="cb19-20"><a href="#cb19-20" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"새로운 균형점을 찾을 수 없습니다."</span>)</span>
+<span id="cb19-21"><a href="#cb19-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-22"><a href="#cb19-22" aria-hidden="true" tabindex="-1"></a><span class="co"># 원래 균형점 (실습 1 정답 값)</span></span>
+<span id="cb19-23"><a href="#cb19-23" aria-hidden="true" tabindex="-1"></a>p_eq_ex1, q_eq_ex1 <span class="op">=</span> <span class="dv">24</span>, <span class="dv">78</span></span>
+<span id="cb19-24"><a href="#cb19-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-25"><a href="#cb19-25" aria-hidden="true" tabindex="-1"></a><span class="co"># 변화 설명 출력</span></span>
+<span id="cb19-26"><a href="#cb19-26" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">--- 균형점 변화 분석 ---"</span>)</span>
+<span id="cb19-27"><a href="#cb19-27" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> p_eq_new_d_ex1 <span class="kw">is</span> <span class="kw">not</span> <span class="va">None</span> <span class="kw">and</span> q_eq_new_d_ex1 <span class="kw">is</span> <span class="kw">not</span> <span class="va">None</span>:</span>
+<span id="cb19-28"><a href="#cb19-28" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"수요 감소는 원래 균형점(P=24, Q=78)과 비교하여"</span>)</span>
+<span id="cb19-29"><a href="#cb19-29" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"균형 가격을 </span><span class="sc">{</span>p_eq_ex1<span class="sc">:.1f}</span><span class="ss">에서 </span><span class="sc">{</span>p_eq_new_d_ex1<span class="sc">:.1f}</span><span class="ss">로 하락시키고,"</span>)</span>
+<span id="cb19-30"><a href="#cb19-30" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"균형 거래량을 </span><span class="sc">{</span>q_eq_ex1<span class="sc">:.1f}</span><span class="ss">에서 </span><span class="sc">{</span>q_eq_new_d_ex1<span class="sc">:.1f}</span><span class="ss">로 감소시킵니다."</span>)</span>
+<span id="cb19-31"><a href="#cb19-31" aria-hidden="true" tabindex="-1"></a><span class="cf">else</span>:</span>
+<span id="cb19-32"><a href="#cb19-32" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"원래 또는 새로운 균형점을 계산할 수 없어 변화를 분석할 수 없습니다."</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>--- 수요 감소 후 새로운 균형점 ---
+새 균형 가격 (P*'): 18.00
+새 균형 거래량 (Q*'): 66.00
+
+--- 균형점 변화 분석 ---
+수요 감소는 원래 균형점(P=24, Q=78)과 비교하여
+균형 가격을 24.0에서 18.0로 하락시키고,
+균형 거래량을 78.0에서 66.0로 감소시킵니다.</code></pre>
+</div>
+</div>
+<div id="4cb2c7e0" class="cell" data-execution_count="15">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 실습 2-2 (선택): 수요 감소 시각화</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a><span class="co"># 파라미터 설정 (old, new)</span></span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>a_ex1_old, b_ex1_old <span class="op">=</span> <span class="dv">150</span>, <span class="dv">3</span></span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a>c_ex1_old, d_ex1_old <span class="op">=</span> <span class="dv">30</span>, <span class="dv">2</span></span>
+<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a>a_ex1_new <span class="op">=</span> <span class="dv">120</span></span>
+<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a>b_ex1_new <span class="op">=</span> b_ex1_old</span>
+<span id="cb21-10"><a href="#cb21-10" aria-hidden="true" tabindex="-1"></a>c_ex1_new, d_ex1_new <span class="op">=</span> c_ex1_old, d_ex1_old</span>
+<span id="cb21-11"><a href="#cb21-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-12"><a href="#cb21-12" aria-hidden="true" tabindex="-1"></a><span class="co"># 가격 범위 설정</span></span>
+<span id="cb21-13"><a href="#cb21-13" aria-hidden="true" tabindex="-1"></a>p_max_demand_ex1_old <span class="op">=</span> a_ex1_old <span class="op">/</span> b_ex1_old</span>
+<span id="cb21-14"><a href="#cb21-14" aria-hidden="true" tabindex="-1"></a>p_max_demand_ex1_new <span class="op">=</span> a_ex1_new <span class="op">/</span> b_ex1_new</span>
+<span id="cb21-15"><a href="#cb21-15" aria-hidden="true" tabindex="-1"></a>price_range_ex1_shift <span class="op">=</span> np.linspace(<span class="dv">0</span>, p_max_demand_ex1_old, <span class="dv">50</span>) <span class="co"># 더 넓은 범위 사용</span></span>
+<span id="cb21-16"><a href="#cb21-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-17"><a href="#cb21-17" aria-hidden="true" tabindex="-1"></a><span class="co"># 수요/공급량 리스트 계산</span></span>
+<span id="cb21-18"><a href="#cb21-18" aria-hidden="true" tabindex="-1"></a>qd_values_ex1_old <span class="op">=</span> [quantity_demanded(p, a_ex1_old, b_ex1_old) <span class="cf">for</span> p <span class="kw">in</span> price_range_ex1_shift]</span>
+<span id="cb21-19"><a href="#cb21-19" aria-hidden="true" tabindex="-1"></a>qs_values_ex1_shift <span class="op">=</span> [quantity_supplied(p, c_ex1_new, d_ex1_new) <span class="cf">for</span> p <span class="kw">in</span> price_range_ex1_shift]</span>
+<span id="cb21-20"><a href="#cb21-20" aria-hidden="true" tabindex="-1"></a>qd_values_ex1_new <span class="op">=</span> [quantity_demanded(p, a_ex1_new, b_ex1_new) <span class="cf">for</span> p <span class="kw">in</span> price_range_ex1_shift]</span>
+<span id="cb21-21"><a href="#cb21-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-22"><a href="#cb21-22" aria-hidden="true" tabindex="-1"></a><span class="co"># 균형점 정보 (원래, 새로운 - 위 셀에서 계산됨)</span></span>
+<span id="cb21-23"><a href="#cb21-23" aria-hidden="true" tabindex="-1"></a><span class="co"># p_eq_ex1, q_eq_ex1 = 24, 78</span></span>
+<span id="cb21-24"><a href="#cb21-24" aria-hidden="true" tabindex="-1"></a><span class="co"># p_eq_new_d_ex1, q_eq_new_d_ex1 = 18, 66</span></span>
+<span id="cb21-25"><a href="#cb21-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-26"><a href="#cb21-26" aria-hidden="true" tabindex="-1"></a><span class="co"># 그래프 그리기</span></span>
+<span id="cb21-27"><a href="#cb21-27" aria-hidden="true" tabindex="-1"></a><span class="co"># 한글 폰트 설정 등은 이전에 적용되었다고 가정</span></span>
+<span id="cb21-28"><a href="#cb21-28" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">10</span>, <span class="dv">7</span>))</span>
+<span id="cb21-29"><a href="#cb21-29" aria-hidden="true" tabindex="-1"></a>plt.plot(qd_values_ex1_old, price_range_ex1_shift, label<span class="op">=</span><span class="st">'원래 수요 (D0)'</span>, color<span class="op">=</span><span class="st">'blue'</span>, linestyle<span class="op">=</span><span class="st">'--'</span>)</span>
+<span id="cb21-30"><a href="#cb21-30" aria-hidden="true" tabindex="-1"></a>plt.plot(qs_values_ex1_shift, price_range_ex1_shift, label<span class="op">=</span><span class="st">'공급 (S)'</span>, color<span class="op">=</span><span class="st">'red'</span>)</span>
+<span id="cb21-31"><a href="#cb21-31" aria-hidden="true" tabindex="-1"></a>plt.plot(qd_values_ex1_new, price_range_ex1_shift, label<span class="op">=</span><span class="st">'새로운 수요 (D1)'</span>, color<span class="op">=</span><span class="st">'blue'</span>, linestyle<span class="op">=</span><span class="st">'-'</span>)</span>
+<span id="cb21-32"><a href="#cb21-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-33"><a href="#cb21-33" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> p_eq_ex1 <span class="kw">is</span> <span class="kw">not</span> <span class="va">None</span> <span class="kw">and</span> q_eq_ex1 <span class="kw">is</span> <span class="kw">not</span> <span class="va">None</span>:</span>
+<span id="cb21-34"><a href="#cb21-34" aria-hidden="true" tabindex="-1"></a>    plt.scatter(q_eq_ex1, p_eq_ex1, color<span class="op">=</span><span class="st">'grey'</span>, zorder<span class="op">=</span><span class="dv">5</span>, s<span class="op">=</span><span class="dv">80</span>, label<span class="op">=</span><span class="ss">f'원래 균형 E0 (</span><span class="sc">{</span>q_eq_ex1<span class="sc">:.1f}</span><span class="ss">, </span><span class="sc">{</span>p_eq_ex1<span class="sc">:.1f}</span><span class="ss">)'</span>)</span>
+<span id="cb21-35"><a href="#cb21-35" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> p_eq_new_d_ex1 <span class="kw">is</span> <span class="kw">not</span> <span class="va">None</span> <span class="kw">and</span> q_eq_new_d_ex1 <span class="kw">is</span> <span class="kw">not</span> <span class="va">None</span>:</span>
+<span id="cb21-36"><a href="#cb21-36" aria-hidden="true" tabindex="-1"></a>    plt.scatter(q_eq_new_d_ex1, p_eq_new_d_ex1, color<span class="op">=</span><span class="st">'black'</span>, zorder<span class="op">=</span><span class="dv">5</span>, s<span class="op">=</span><span class="dv">100</span>, label<span class="op">=</span><span class="ss">f'새 균형 E1 (</span><span class="sc">{</span>q_eq_new_d_ex1<span class="sc">:.1f}</span><span class="ss">, </span><span class="sc">{</span>p_eq_new_d_ex1<span class="sc">:.1f}</span><span class="ss">)'</span>)</span>
+<span id="cb21-37"><a href="#cb21-37" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-38"><a href="#cb21-38" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'수요 감소 시 균형점 변화'</span>, fontsize<span class="op">=</span><span class="dv">15</span>)</span>
+<span id="cb21-39"><a href="#cb21-39" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'수량 (Quantity)'</span>, fontsize<span class="op">=</span><span class="dv">12</span>)</span>
+<span id="cb21-40"><a href="#cb21-40" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'가격 (Price)'</span>, fontsize<span class="op">=</span><span class="dv">12</span>)</span>
+<span id="cb21-41"><a href="#cb21-41" aria-hidden="true" tabindex="-1"></a>plt.legend()</span>
+<span id="cb21-42"><a href="#cb21-42" aria-hidden="true" tabindex="-1"></a>plt.grid(<span class="va">True</span>, linestyle<span class="op">=</span><span class="st">'--'</span>, alpha<span class="op">=</span><span class="fl">0.6</span>)</span>
+<span id="cb21-43"><a href="#cb21-43" aria-hidden="true" tabindex="-1"></a>plt.xlim(left<span class="op">=</span><span class="dv">0</span>)</span>
+<span id="cb21-44"><a href="#cb21-44" aria-hidden="true" tabindex="-1"></a>plt.ylim(bottom<span class="op">=</span><span class="dv">0</span>)</span>
+<span id="cb21-45"><a href="#cb21-45" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="week6_files/figure-html/cell-12-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<hr>
+</section>
+</section>
+<section id="마무리-및-다음-시간-예고" class="level2" data-number="6.6">
+<h2 data-number="6.6" class="anchored" data-anchor-id="마무리-및-다음-시간-예고"><span class="header-section-number">6.6</span> 6. 마무리 및 다음 시간 예고</h2>
+<p>오늘은 파이썬 함수와 기본 로직을 활용하여 경제학의 핵심 모델인 <strong>수요와 공급 모형</strong>을 구현하고 분석하는 방법을 배웠습니다. 함수로 수요와 공급 관계를 표현하고, 대수적으로 <strong>시장 균형점</strong>을 계산했으며, <code>matplotlib</code>을 이용해 이를 <strong>시각화</strong>하여 눈으로 확인했습니다. 또한, 수요나 공급 곡선이 <strong>이동</strong>했을 때 새로운 균형점이 어떻게 변하는지 시뮬레이션하고 그 결과를 그래프로 분석하는 과정까지 경험했습니다. 이를 통해 파이썬이 단순한 코딩 도구를 넘어, <strong>경제 이론을 검증하고 시장 현상을 분석하는 강력한 도구</strong>가 될 수 있음을 확인하셨기를 바랍니다.</p>
+<p><strong>다음 시간에는:</strong></p>
+<p>이번 주까지 파이썬의 기본적인 문법과 자료 구조, 제어 흐름, 함수, 그리고 간단한 모델링 및 시각화까지 경험했습니다. 다음 주에는 본격적으로 <strong>데이터 시각화(Data Visualization)</strong> 에 초점을 맞추어 <code>matplotlib</code> 라이브러리의 다양한 기능을 좀 더 체계적으로 배우는 시간을 갖겠습니다. 여러 종류의 그래프(선, 막대, 산점도 등)를 그리는 방법, 그래프의 축, 제목, 범례 등을 꾸미는 방법 등을 익혀서 데이터를 더욱 효과적으로 표현하고 전달하는 능력을 키울 것입니다.</p>
+<hr>
+</section>
+<section id="여섯-번째-주차-과제" class="level2" data-number="6.7">
+<h2 data-number="6.7" class="anchored" data-anchor-id="여섯-번째-주차-과제"><span class="header-section-number">6.7</span> 여섯 번째 주차 과제</h2>
+<p>오늘 배운 수요/공급 모델링 및 분석을 연습하기 위해 다음 과제를 Colab에서 새 노트(<code>Week6_Assignment.ipynb</code> 등)에 풀어보세요.</p>
+<ol type="1">
+<li><strong>새로운 시장 분석:</strong> 어떤 시장의 수요 함수가 <span class="math inline">\(Q_d = 200 - 4P\)</span> 이고, 공급 함수가 <span class="math inline">\(Q_s = 50 + P\)</span> 라고 합니다.
+<ul>
+<li>이 시장의 균형 가격(<span class="math inline">\(P^*\)</span>)과 균형 거래량(<span class="math inline">\(Q^*\)</span>)을 계산하세요. (함수 정의 및 <code>find_equilibrium</code> 활용)</li>
+<li>(선택) 계산된 균형점을 포함하여 수요/공급 곡선을 시각화하세요.</li>
+</ul></li>
+<li><strong>공급 감소 분석:</strong> 위 1번 시장에서, 생산 비용 증가로 공급 함수가 <span class="math inline">\(Q_s = 20 + P\)</span> 로 변했다고 가정합니다 (<span class="math inline">\(c\)</span> 값이 50에서 20으로 감소). 수요 함수는 그대로입니다.
+<ul>
+<li>새로운 균형 가격과 거래량을 계산하세요.</li>
+<li>공급 감소가 균형 가격과 거래량에 어떤 영향을 미쳤는지 원래 균형과 비교하여 설명하세요.</li>
+<li>(선택) 원래 수요/공급 곡선과 <strong>변경된 공급 곡선</strong>, 그리고 원래 균형점과 <strong>새로운 균형점</strong>을 하나의 그래프에 시각화하세요.</li>
+</ul></li>
+<li><strong>수요/공급 동시 변화 (생각해보기):</strong> 만약 위 1번 시장에서 소득 증가로 수요가 <span class="math inline">\(Q_d = 220 - 4P\)</span> 로 증가하는 <strong>동시에</strong>, 기술 발전으로 공급이 <span class="math inline">\(Q_s = 60 + P\)</span> 로 증가했다면, 새로운 균형 가격과 거래량은 어떻게 변할지 계산해보고, 원래 균형과 비교하여 설명해보세요. (시각화는 선택)</li>
+</ol>
+<hr>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+        const codeEl = trigger.previousElementSibling.cloneNode(true);
+        for (const childEl of codeEl.children) {
+          if (isCodeAnnotation(childEl)) {
+            childEl.remove();
+          }
+        }
+        return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./week5.html" class="pagination-link" aria-label="5주차: 코드를 재사용하는 마법 (함수와 딕셔너리 활용)">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">5주차: 코드를 재사용하는 마법 (함수와 딕셔너리 활용)</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./week6-a.html" class="pagination-link" aria-label="보충 학습: 파이썬 스크립트와 코드 재사용 심화 (Advanced Topic)">
+        <span class="nav-page-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">보충 학습: 파이썬 스크립트와 코드 재사용 심화 (Advanced Topic)</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+<p>Economic Freshman Python (1e) was written by JunhaPark.</p>
+</div>   
+    <div class="nav-footer-center">
+      &nbsp;
+    </div>
+    <div class="nav-footer-right">
+<p>This book was built with <a href="https://quarto.org/">Quarto</a>.</p>
+</div>
+  </div>
+</footer>
+
+
+
+
+</body></html>

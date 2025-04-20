@@ -1,0 +1,1377 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.7.24">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>5&nbsp; 5주차: 코드를 재사용하는 마법 (함수와 딕셔너리 활용) – economics_000</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./week6.html" rel="next">
+<link href="./week4.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-a37c72dd2dbac68997fcdc15a3622e78.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-806c95bdecf85540f7beab145150c922.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+</head>
+
+<body class="nav-sidebar floating quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./Introduction.html">Curriculum</a></li><li class="breadcrumb-item"><a href="./week5.html"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">5주차: 코드를 재사용하는 마법 (함수와 딕셔너리 활용)</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">economics_000</a> 
+        <div class="sidebar-tools-main tools-wide">
+    <a href="https://github.com/voidmain443" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
+    <div class="dropdown">
+      <a href="" title="Share" id="quarto-navigation-tool-dropdown-0" class="quarto-navigation-tool dropdown-toggle px-1" data-bs-toggle="dropdown" aria-expanded="false" role="link" aria-label="Share"><i class="bi bi-share"></i></a>
+      <ul class="dropdown-menu" aria-labelledby="quarto-navigation-tool-dropdown-0">
+          <li>
+            <a class="dropdown-item sidebar-tools-main-item" href="https://twitter.com/intent/tweet?url=|url|">
+              <i class="bi bi-twitter pe-1"></i>
+            Twitter
+            </a>
+          </li>
+          <li>
+            <a class="dropdown-item sidebar-tools-main-item" href="https://www.facebook.com/sharer/sharer.php?u=|url|">
+              <i class="bi bi-facebook pe-1"></i>
+            Facebook
+            </a>
+          </li>
+      </ul>
+    </div>
+  <a href="" class="quarto-reader-toggle quarto-navigation-tool px-1" onclick="window.quartoToggleReader(); return false;" title="Toggle reader mode">
+  <div class="quarto-reader-toggle-btn">
+  <i class="bi"></i>
+  </div>
+</a>
+</div>
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Preface</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">Curriculum</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Introduction.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">week1. Introduction to python</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./week2.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">week2. Variables</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./week3.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">3주차: 똑똑한 프로그램 만들기 (조건문 If)</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./week4.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">4주차: 반복 작업은 컴퓨터에게! (반복문 for 와 리스트 활용)</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./week5.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">5주차: 코드를 재사용하는 마법 (함수와 딕셔너리 활용)</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./week6.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">6주차: 시장의 작동 원리 파헤치기 (수요와 공급 모델링 및 균형 찾기)</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./week6-a.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">보충 학습: 파이썬 스크립트와 코드 재사용 심화 (Advanced Topic)</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./week7.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">7주차: 백문이 불여일견! 데이터 시각화 기초 (Matplotlib)</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./week8.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">8주차: 파이썬으로 경제 분석하기 (종합 응용 및 마무리)</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./references.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">References</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#함수란-무엇이고-왜-사용할까요-코드-재사용과-구조화" id="toc-함수란-무엇이고-왜-사용할까요-코드-재사용과-구조화" class="nav-link active" data-scroll-target="#함수란-무엇이고-왜-사용할까요-코드-재사용과-구조화"><span class="header-section-number">5.1</span> 1. 함수란 무엇이고 왜 사용할까요? : 코드 재사용과 구조화</a></li>
+  <li><a href="#함수-만들기-정의-와-사용하기-호출" id="toc-함수-만들기-정의-와-사용하기-호출" class="nav-link" data-scroll-target="#함수-만들기-정의-와-사용하기-호출"><span class="header-section-number">5.2</span> 2. 함수 만들기 (정의) 와 사용하기 (호출)</a></li>
+  <li><a href="#간단한-함수-예제-경제회계-맥락" id="toc-간단한-함수-예제-경제회계-맥락" class="nav-link" data-scroll-target="#간단한-함수-예제-경제회계-맥락"><span class="header-section-number">5.3</span> 3. 간단한 함수 예제 (경제/회계 맥락)</a></li>
+  <li><a href="#함수로-경제-개념-표현하기" id="toc-함수로-경제-개념-표현하기" class="nav-link" data-scroll-target="#함수로-경제-개념-표현하기"><span class="header-section-number">5.4</span> 4. 함수로 경제 개념 표현하기</a>
+  <ul class="collapse">
+  <li><a href="#실습-1-함수-정의-및-호출-연습" id="toc-실습-1-함수-정의-및-호출-연습" class="nav-link" data-scroll-target="#실습-1-함수-정의-및-호출-연습">[실습 1] 함수 정의 및 호출 연습</a></li>
+  </ul></li>
+  <li><a href="#함수와-찰떡궁합-딕셔너리-활용-심화" id="toc-함수와-찰떡궁합-딕셔너리-활용-심화" class="nav-link" data-scroll-target="#함수와-찰떡궁합-딕셔너리-활용-심화"><span class="header-section-number">5.5</span> 5. 함수와 찰떡궁합: 딕셔너리 활용 심화</a></li>
+  <li><a href="#잠깐-순서는-있는데-수정은-안돼요-튜플-tuple---선택-사항" id="toc-잠깐-순서는-있는데-수정은-안돼요-튜플-tuple---선택-사항" class="nav-link" data-scroll-target="#잠깐-순서는-있는데-수정은-안돼요-튜플-tuple---선택-사항"><span class="header-section-number">5.6</span> 6. 잠깐! 순서는 있는데 수정은 안돼요: 튜플 (Tuple) - 선택 사항</a>
+  <ul class="collapse">
+  <li><a href="#실습-2-딕셔너리와-튜플-연습" id="toc-실습-2-딕셔너리와-튜플-연습" class="nav-link" data-scroll-target="#실습-2-딕셔너리와-튜플-연습">[실습 2] 딕셔너리와 튜플 연습</a></li>
+  </ul></li>
+  <li><a href="#sec-function-visualization" id="toc-sec-function-visualization" class="nav-link" data-scroll-target="#sec-function-visualization"><span class="header-section-number">5.7</span> 7. 함수와 시각화의 만남 : 함수로 그린 수요 곡선</a></li>
+  <li><a href="#마무리-및-다음-시간-예고" id="toc-마무리-및-다음-시간-예고" class="nav-link" data-scroll-target="#마무리-및-다음-시간-예고"><span class="header-section-number">5.8</span> 8. 마무리 및 다음 시간 예고</a></li>
+  <li><a href="#다섯-번째-주차-과제" id="toc-다섯-번째-주차-과제" class="nav-link" data-scroll-target="#다섯-번째-주차-과제"><span class="header-section-number">5.9</span> 다섯 번째 주차 과제</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./Introduction.html">Curriculum</a></li><li class="breadcrumb-item"><a href="./week5.html"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">5주차: 코드를 재사용하는 마법 (함수와 딕셔너리 활용)</span></a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">5주차: 코드를 재사용하는 마법 (함수와 딕셔너리 활용)</span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<p><strong>강의 개요:</strong></p>
+<p>지난 4주차에는 <code>for</code> 반복문을 사용하여 리스트의 모든 요소를 처리하거나 특정 작업을 여러 번 반복하는 방법을 배웠습니다. 이를 통해 우리는 데이터를 순회하며 합계나 평균을 계산하고, 조건에 맞는 데이터를 필터링하는 등 훨씬 효율적인 코드 작성이 가능해졌죠. 반복문 덕분에 코드의 길이가 획기적으로 줄어드는 것을 경험했을 겁니다.</p>
+<p>하지만 코드를 작성하다 보면, 반복문만으로는 해결되지 않는 또 다른 문제에 직면하게 됩니다. 바로 <strong>코드의 중복</strong>입니다. 예를 들어, 특정 계산 로직( скажем, 1인당 GDP 계산, 이익률 계산)이 프로그램의 여러 부분에서 필요할 수 있습니다. 이때마다 해당 코드를 복사해서 붙여넣는다면, 코드가 길어지고 수정이 필요할 때 모든 복사본을 찾아 고쳐야 하는 불편함이 발생합니다.</p>
+<p>이번 주에는 이러한 코드의 중복을 방지하고, 코드를 <strong>재사용 가능한 부품(모듈)</strong> 으로 만드는 강력한 방법인 <strong>함수(Function)</strong> 에 대해 배웁니다. 함수를 사용하면 특정 작업을 수행하는 코드 블록에 이름을 붙여두고, 필요할 때마다 그 이름만 불러서 사용할 수 있습니다. 이를 통해 코드는 훨씬 <strong>간결하고, 체계적이며, 유지보수가 쉬워집니다.</strong> (이것을 프로그래밍에서는 <strong>DRY 원칙: Don’t Repeat Yourself</strong> 라고 부르기도 합니다).</p>
+<p>또한, 지난주에 잠시 맛보았던 <strong>딕셔너리(Dictionary)</strong> 에 대해 좀 더 깊이 알아보고, 함수와 함께 어떻게 효과적으로 활용될 수 있는지 경제/회계 예제를 통해 살펴볼 것입니다.</p>
+<p><strong>이번 시간 학습 목표:</strong></p>
+<ol type="1">
+<li>함수가 왜 필요한지(코드 재사용, 구조화) 이해하고, DRY 원칙의 의미를 설명할 수 있습니다.</li>
+<li><code>def</code> 키워드를 사용하여 함수를 정의하고, 매개변수(parameter)와 반환값(<code>return</code>)의 개념을 이해합니다.</li>
+<li>함수를 올바르게 호출하고, 인자(argument)를 전달하는 방법을 익힙니다.</li>
+<li>기본적인 경제 계산(이익, 수요량, 총비용, 1인당 GDP 등)을 수행하는 함수를 직접 정의하고 사용할 수 있습니다.</li>
+<li>딕셔너리를 함수 인자로 전달하거나 함수 내에서 생성/활용하는 방법을 이해하고, 딕셔너리 순회(<code>items()</code> 등) 방법을 익힙니다.</li>
+<li><strong>(맛보기)</strong> 함수를 이용해 생성된 데이터(예: 수요 곡선 데이터)를 시각화하는 과정을 이해합니다.</li>
+<li>(선택) 순서가 있고 변경 불가능한 자료구조인 튜플(Tuple)의 기본 개념을 이해합니다.</li>
+</ol>
+<hr>
+<section id="함수란-무엇이고-왜-사용할까요-코드-재사용과-구조화" class="level2" data-number="5.1">
+<h2 data-number="5.1" class="anchored" data-anchor-id="함수란-무엇이고-왜-사용할까요-코드-재사용과-구조화"><span class="header-section-number">5.1</span> 1. 함수란 무엇이고 왜 사용할까요? : 코드 재사용과 구조화</h2>
+<p><strong>함수(Function)</strong> 는 특정 작업을 수행하는 <strong>독립적인 코드 블록에 이름을 붙인 것</strong>입니다. 마치 우리가 자주 사용하는 도구나 레시피에 이름을 붙여놓고 필요할 때마다 꺼내 쓰는 것과 비슷합니다.</p>
+<p><strong>왜 함수를 사용할까요?</strong></p>
+<ul>
+<li><strong>재사용성 (Reusability):</strong> 한번 잘 만들어 둔 함수는 프로그램의 여러 곳에서 필요할 때마다 <strong>이름만 불러서(호출하여)</strong> 쉽게 재사용할 수 있습니다. 똑같은 코드를 여러 번 작성할 필요가 없어지죠.
+<ul>
+<li><em>경제학 예시:</em> 여러 국가의 1인당 GDP를 계산해야 할 때, 1인당 GDP를 계산하는 함수 <code>calculate_gdp_per_capita()</code> 를 한 번만 만들어 두면, 각 국가의 GDP와 인구 데이터만 바꿔 넣으면서 함수를 호출하여 쉽게 계산할 수 있습니다.</li>
+</ul></li>
+<li><strong>코드 구조화 및 가독성 향상:</strong> 복잡한 작업을 여러 개의 작은 함수로 나누어 구현하면, 전체 코드의 구조가 명확해지고 이해하기 쉬워집니다. 각 함수는 특정 기능만 담당하므로, 코드를 읽거나 수정할 때 해당 함수만 집중해서 보면 됩니다.
+<ul>
+<li><em>회계 예시:</em> 재무제표 분석 프로그램을 만들 때, ‘매출 총이익 계산 함수’, ‘영업 이익 계산 함수’, ‘부채 비율 계산 함수’ 등으로 기능을 나누어 구현하면 전체 로직을 파악하기 쉽습니다.</li>
+</ul></li>
+<li><strong>유지보수 용이성:</strong> 특정 기능에 수정이 필요할 때, 해당 기능을 담당하는 함수 내부만 고치면 됩니다. 함수를 사용하지 않고 코드를 복사-붙여넣기 했다면, 관련된 모든 부분을 찾아서 수정해야 하는 번거로움이 있습니다.</li>
+</ul>
+<hr>
+</section>
+<section id="함수-만들기-정의-와-사용하기-호출" class="level2" data-number="5.2">
+<h2 data-number="5.2" class="anchored" data-anchor-id="함수-만들기-정의-와-사용하기-호출"><span class="header-section-number">5.2</span> 2. 함수 만들기 (정의) 와 사용하기 (호출)</h2>
+<p><strong>함수 정의 (Defining a Function):</strong></p>
+<p>파이썬에서 함수를 만들 때는 <code>def</code> 키워드를 사용합니다.</p>
+<pre><code>def 함수이름(매개변수1, 매개변수2, ...):
+    """
+    이 함수는 무엇을 하는 함수인지 설명하는 공간입니다. (Docstring)
+    여러 줄로 작성할 수도 있습니다.
+    """
+    # 함수가 수행할 코드 블록 (★반드시 들여쓰기★)
+    # ... 코드 ...
+    # [선택 사항] 결과를 반환할 때는 return 키워드 사용
+    # return 결과값
+</code></pre>
+<ul>
+<li><strong><code>def</code></strong>: “함수를 정의(define)한다”는 키워드입니다.</li>
+<li><strong><code>함수이름</code></strong>: 함수를 식별하는 이름입니다. 변수 이름 규칙과 동일하게 짓습니다 (보통 소문자 스네이크 케이스). 함수가 하는 일을 잘 나타내는 동사 형태의 이름(예: <code>calculate_average</code>, <code>print_report</code>)을 많이 사용합니다.</li>
+<li><strong><code>매개변수(Parameter)</code></strong>: 함수가 작업을 수행하는 데 필요한 <strong>입력값</strong>을 받는 변수입니다. 괄호 <code>()</code> 안에 쉼표로 구분하여 적습니다. 매개변수가 필요 없으면 <code>()</code>만 씁니다. 함수 내부에서 일반 변수처럼 사용됩니다.</li>
+<li><strong>콜론(<code>:</code>)</strong>: 함수 정의부 끝에는 반드시 콜론을 붙입니다.</li>
+<li><strong><code>Docstring (문서 문자열)</code></strong>: 함수 정의 바로 아래 따옴표 세 개(<code>"""Docstring"""</code> 또는 <code>'''Docstring'''</code>)로 감싸서 함수에 대한 설명을 적는 부분입니다. 필수는 아니지만, 함수가 어떤 기능을 하고, 어떤 매개변수를 받으며, 무엇을 반환하는지 등을 적어두면 매우 유용합니다 (협업 및 코드 유지보수에 중요!).</li>
+<li><strong>함수 본문(Body)</strong>: 함수가 실제로 수행할 코드를 작성하는 부분입니다. 반드시 들여쓰기 해야 합니다.</li>
+<li><strong><code>return 결과값</code></strong>: 함수가 작업을 마친 후, 호출한 곳으로 <strong>결과를 돌려줄 때</strong> 사용합니다. <code>return</code> 문이 실행되면 함수는 즉시 종료되고 <code>결과값</code>이 반환됩니다. <code>return</code> 문이 없거나 <code>return</code> 만 쓰면 함수는 <code>None</code> 이라는 특별한 값을 반환합니다.</li>
+</ul>
+<p><strong>함수 호출 (Calling a Function):</strong></p>
+<p>함수를 정의했다고 해서 바로 실행되는 것은 아닙니다. 함수를 사용하려면 그 <strong>이름을 불러주어야(호출해야)</strong> 합니다.</p>
+<p><code>함수이름(인자1, 인자2, ...)</code></p>
+<ul>
+<li><strong><code>함수이름()</code></strong>: 사용할 함수의 이름을 적고 괄호 <code>()</code>를 붙입니다.</li>
+<li><strong><code>인자(Argument)</code></strong>: 함수를 호출할 때 <strong>실제로 전달하는 값</strong>입니다. 함수 정의 시 작성한 매개변수(parameter)의 순서와 개수에 맞게 전달해야 합니다.</li>
+</ul>
+<p><strong>매개변수(Parameter) vs 인자(Argument):</strong></p>
+<ul>
+<li><strong>매개변수:</strong> 함수를 정의할 때 괄호 안에 적는 <strong>입력 변수 이름</strong> (함수 내부에서 사용).</li>
+<li><strong>인자:</strong> 함수를 호출할 때 괄호 안에 <strong>실제로 전달하는 값</strong>.</li>
+</ul>
+<hr>
+</section>
+<section id="간단한-함수-예제-경제회계-맥락" class="level2" data-number="5.3">
+<h2 data-number="5.3" class="anchored" data-anchor-id="간단한-함수-예제-경제회계-맥락"><span class="header-section-number">5.3</span> 3. 간단한 함수 예제 (경제/회계 맥락)</h2>
+<p><strong>예제 1: 두 수의 합계를 계산하여 반환하는 함수</strong></p>
+<div id="ce4da066" class="cell" data-execution_count="1">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> calculate_sum(a, b):</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="co">"""두 개의 숫자를 입력받아 그 합계를 반환합니다."""</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  result <span class="op">=</span> a <span class="op">+</span> b</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> result <span class="co"># 계산 결과를 반환</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="co"># 함수 호출 및 결과 사용</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>num1 <span class="op">=</span> <span class="dv">150</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>num2 <span class="op">=</span> <span class="dv">350</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>total_sum <span class="op">=</span> calculate_sum(num1, num2) <span class="co"># a에 num1(150), b에 num2(350) 전달</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span>num1<span class="sc">}</span><span class="ss">와 </span><span class="sc">{</span>num2<span class="sc">}</span><span class="ss">의 합계는 </span><span class="sc">{</span>total_sum<span class="sc">}</span><span class="ss"> 입니다."</span>)</span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a><span class="co"># 다른 값으로 함수 재사용</span></span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>revenue_q1 <span class="op">=</span> <span class="dv">1200</span></span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>revenue_q2 <span class="op">=</span> <span class="dv">1500</span></span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>half_year_revenue <span class="op">=</span> calculate_sum(revenue_q1, revenue_q2)</span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"상반기 매출 합계: </span><span class="sc">{</span>half_year_revenue<span class="sc">}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>150와 350의 합계는 500 입니다.
+상반기 매출 합계: 2700</code></pre>
+</div>
+</div>
+<p><strong>예제 2: 간단한 이자 계산 함수 (결과를 print, 반환값 없음)</strong></p>
+<div id="16106d13" class="cell" data-execution_count="2">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> print_interest(principal, rate):</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="co">"""원금과 이자율을 받아 이자를 계산하고 출력합니다. (반환값 없음)"""</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  interest <span class="op">=</span> principal <span class="op">*</span> rate</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>  <span class="bu">print</span>(<span class="ss">f"원금 </span><span class="sc">{</span>principal<span class="sc">}</span><span class="ss">원에 대한 이자율 </span><span class="sc">{</span>rate<span class="op">*</span><span class="dv">100</span><span class="sc">}</span><span class="ss">%의 이자는 </span><span class="sc">{</span>interest<span class="sc">:.0f}</span><span class="ss">원 입니다."</span>)</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>  <span class="co"># return 문이 없으므로 None을 반환</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="co"># 함수 호출</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>principal_amount <span class="op">=</span> <span class="dv">1000000</span> <span class="co"># 100만원</span></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>interest_rate <span class="op">=</span> <span class="fl">0.04</span> <span class="co"># 4%</span></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>result_value <span class="op">=</span> print_interest(principal_amount, interest_rate)</span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"함수 반환값:"</span>, result_value) <span class="co"># None 출력됨</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>원금 1000000원에 대한 이자율 4.0%의 이자는 40000원 입니다.
+함수 반환값: None</code></pre>
+</div>
+</div>
+<p><strong>예제 3: 기본 매개변수 값을 가지는 함수 (환율 변환)</strong></p>
+<p>함수를 정의할 때 매개변수에 기본값을 설정해 둘 수 있습니다. 함수 호출 시 해당 인자가 생략되면 기본값이 사용됩니다.</p>
+<div id="b2d5a15a" class="cell" data-execution_count="3">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> convert_usd_to_krw(usd_amount, exchange_rate<span class="op">=</span><span class="fl">1350.0</span>):</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="co">"""USD 금액을 KRW로 변환합니다. 환율 미지정시 기본값 1350.0 사용."""</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  krw_amount <span class="op">=</span> usd_amount <span class="op">*</span> exchange_rate</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> krw_amount</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="co"># 기본 환율(1350.0) 사용</span></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>krw1 <span class="op">=</span> convert_usd_to_krw(<span class="dv">100</span>) <span class="co"># usd_amount에 100 전달, exchange_rate는 기본값 사용</span></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"100 USD는 </span><span class="sc">{</span>krw1<span class="sc">:.0f}</span><span class="ss"> KRW 입니다. (기본 환율 적용)"</span>)</span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a><span class="co"># 특정 환율 지정</span></span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>krw2 <span class="op">=</span> convert_usd_to_krw(<span class="dv">100</span>, <span class="fl">1400.5</span>) <span class="co"># exchange_rate에 1400.5 전달</span></span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"100 USD는 </span><span class="sc">{</span>krw2<span class="sc">:.0f}</span><span class="ss"> KRW 입니다. (환율 1400.5 적용)"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>100 USD는 135000 KRW 입니다. (기본 환율 적용)
+100 USD는 140050 KRW 입니다. (환율 1400.5 적용)</code></pre>
+</div>
+</div>
+<hr>
+</section>
+<section id="함수로-경제-개념-표현하기" class="level2" data-number="5.4">
+<h2 data-number="5.4" class="anchored" data-anchor-id="함수로-경제-개념-표현하기"><span class="header-section-number">5.4</span> 4. 함수로 경제 개념 표현하기</h2>
+<p>이제 함수를 사용하여 좀 더 구체적인 경제 개념을 코드로 구현해 봅시다.</p>
+<p><strong>예제 4: 수요 함수 (Linear Demand Function)</strong></p>
+<p>경제학 원론에서 배우는 가장 기본적인 수요 함수 <span class="math inline">\(Q_d = a - bP\)</span> 를 함수로 만들어 봅시다. (<span class="math inline">\(Q_d\)</span>: 수요량, <span class="math inline">\(P\)</span>: 가격, <span class="math inline">\(a, b\)</span>: 상수)</p>
+<div id="75d7b776" class="cell" data-execution_count="4">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> quantity_demanded(price, a<span class="op">=</span><span class="dv">100</span>, b<span class="op">=</span><span class="dv">2</span>):</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  <span class="co">"""선형 수요 함수 Q_d = a - bP 에 따라 주어진 가격(price)에서의 수요량을 계산합니다.</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="co">  a와 b는 함수의 파라미터(절편, 기울기)이며 기본값을 가집니다.</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="co">  """</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>  <span class="co"># 수요량이 음수가 될 수 없으므로, 0보다 작으면 0으로 처리</span></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>  q_d <span class="op">=</span> a <span class="op">-</span> b <span class="op">*</span> price</span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> q_d <span class="op">&lt;</span> <span class="dv">0</span>:</span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="dv">0</span> <span class="co"># 0을 반환하고 함수 종료</span></span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>  <span class="cf">else</span>:</span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> q_d</span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a><span class="co"># 가격이 10일 때 수요량</span></span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a>demand_at_10 <span class="op">=</span> quantity_demanded(<span class="dv">10</span>)</span>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"가격이 10일 때 수요량: </span><span class="sc">{</span>demand_at_10<span class="sc">}</span><span class="ss">"</span>) <span class="co"># Q_d = 100 - 2*10 = 80</span></span>
+<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a><span class="co"># 가격이 40일 때 수요량</span></span>
+<span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a>demand_at_40 <span class="op">=</span> quantity_demanded(<span class="dv">40</span>)</span>
+<span id="cb8-18"><a href="#cb8-18" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"가격이 40일 때 수요량: </span><span class="sc">{</span>demand_at_40<span class="sc">}</span><span class="ss">"</span>) <span class="co"># Q_d = 100 - 2*40 = 20</span></span>
+<span id="cb8-19"><a href="#cb8-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-20"><a href="#cb8-20" aria-hidden="true" tabindex="-1"></a><span class="co"># 가격이 60일 때 수요량 (음수가 되지만 함수 내에서 0으로 처리됨)</span></span>
+<span id="cb8-21"><a href="#cb8-21" aria-hidden="true" tabindex="-1"></a>demand_at_60 <span class="op">=</span> quantity_demanded(<span class="dv">60</span>)</span>
+<span id="cb8-22"><a href="#cb8-22" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"가격이 60일 때 수요량: </span><span class="sc">{</span>demand_at_60<span class="sc">}</span><span class="ss">"</span>) <span class="co"># Q_d = 100 - 2*60 = -20 -&gt; 0 반환</span></span>
+<span id="cb8-23"><a href="#cb8-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-24"><a href="#cb8-24" aria-hidden="true" tabindex="-1"></a><span class="co"># 다른 파라미터(a=120, b=3)를 가진 수요 함수</span></span>
+<span id="cb8-25"><a href="#cb8-25" aria-hidden="true" tabindex="-1"></a>demand_scenario2 <span class="op">=</span> quantity_demanded(<span class="dv">15</span>, a<span class="op">=</span><span class="dv">120</span>, b<span class="op">=</span><span class="dv">3</span>)</span>
+<span id="cb8-26"><a href="#cb8-26" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"다른 수요 함수 (a=120, b=3)에서 가격이 15일 때 수요량: </span><span class="sc">{</span>demand_scenario2<span class="sc">}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>가격이 10일 때 수요량: 80
+가격이 40일 때 수요량: 20
+가격이 60일 때 수요량: 0
+다른 수요 함수 (a=120, b=3)에서 가격이 15일 때 수요량: 75</code></pre>
+</div>
+</div>
+<p><strong>예제 5: 간단한 총비용 함수 (Linear Total Cost Function)</strong></p>
+<p>총비용 <span class="math inline">\(TC = FC + VC(Q) = FC + v \times Q\)</span> 를 계산하는 함수를 만들어 봅시다. (<span class="math inline">\(TC\)</span>: 총비용, <span class="math inline">\(FC\)</span>: 고정비용, <span class="math inline">\(VC\)</span>: 가변비용, <span class="math inline">\(Q\)</span>: 생산량, <span class="math inline">\(v\)</span>: 단위당 가변비용)</p>
+<div id="19dec605" class="cell" data-execution_count="5">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> total_cost(quantity, fixed_cost<span class="op">=</span><span class="dv">500</span>, variable_cost_per_unit<span class="op">=</span><span class="dv">20</span>):</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  <span class="co">"""고정비용(fixed_cost)과 단위당 가변비용(variable_cost_per_unit)을 바탕으로</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="co">  주어진 생산량(quantity)에서의 총비용(TC)을 계산합니다.</span></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="co">  """</span></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>  tc <span class="op">=</span> fixed_cost <span class="op">+</span> (variable_cost_per_unit <span class="op">*</span> quantity)</span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> tc</span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a><span class="co"># 생산량이 100일 때 총비용</span></span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>cost_at_100 <span class="op">=</span> total_cost(<span class="dv">100</span>)</span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"생산량이 100일 때 총비용: </span><span class="sc">{</span>cost_at_100<span class="sc">}</span><span class="ss">"</span>) <span class="co"># TC = 500 + 20*100 = 2500</span></span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a><span class="co"># 생산량이 200일 때 총비용</span></span>
+<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a>cost_at_200 <span class="op">=</span> total_cost(<span class="dv">200</span>)</span>
+<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"생산량이 200일 때 총비용: </span><span class="sc">{</span>cost_at_200<span class="sc">}</span><span class="ss">"</span>) <span class="co"># TC = 500 + 20*200 = 4500</span></span>
+<span id="cb10-15"><a href="#cb10-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-16"><a href="#cb10-16" aria-hidden="true" tabindex="-1"></a><span class="co"># 고정비용이 1000, 단위당 가변비용이 15인 다른 경우</span></span>
+<span id="cb10-17"><a href="#cb10-17" aria-hidden="true" tabindex="-1"></a>cost_scenario2 <span class="op">=</span> total_cost(<span class="dv">150</span>, fixed_cost<span class="op">=</span><span class="dv">1000</span>, variable_cost_per_unit<span class="op">=</span><span class="dv">15</span>)</span>
+<span id="cb10-18"><a href="#cb10-18" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"다른 비용 구조에서 생산량 150일 때 총비용: </span><span class="sc">{</span>cost_scenario2<span class="sc">}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>생산량이 100일 때 총비용: 2500
+생산량이 200일 때 총비용: 4500
+다른 비용 구조에서 생산량 150일 때 총비용: 3250</code></pre>
+</div>
+</div>
+<p><strong>예제 6: 1인당 GDP 계산 함수 (오류 처리 포함)</strong></p>
+<div id="f1d80ee0" class="cell" data-execution_count="6">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> calculate_gdp_per_capita(total_gdp, population):</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>  <span class="co">"""총 GDP와 인구수를 입력받아 1인당 GDP를 계산합니다.</span></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="co">  인구가 0 이하인 경우 오류를 방지하고 None을 반환합니다.</span></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a><span class="co">  """</span></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> population <span class="op">&lt;=</span> <span class="dv">0</span>:</span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"오류: 인구는 0보다 커야 합니다."</span>)</span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="va">None</span> <span class="co"># 오류 발생 시 None 반환</span></span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>  gdp_pc <span class="op">=</span> total_gdp <span class="op">/</span> population</span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> gdp_pc</span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a><span class="co"># 한국 데이터 (예시: GDP 2200조 원, 인구 5170만 명)</span></span>
+<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a>korea_gdp <span class="op">=</span> <span class="dv">2200</span> <span class="op">*</span> <span class="dv">10</span><span class="op">**</span><span class="dv">12</span> <span class="co"># 조 단위를 원 단위로</span></span>
+<span id="cb12-14"><a href="#cb12-14" aria-hidden="true" tabindex="-1"></a>korea_population <span class="op">=</span> <span class="dv">51700000</span></span>
+<span id="cb12-15"><a href="#cb12-15" aria-hidden="true" tabindex="-1"></a>korea_gdp_pc <span class="op">=</span> calculate_gdp_per_capita(korea_gdp, korea_population)</span>
+<span id="cb12-16"><a href="#cb12-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-17"><a href="#cb12-17" aria-hidden="true" tabindex="-1"></a><span class="co"># 반환값이 None이 아닐 경우 (즉, 계산 성공 시) 출력</span></span>
+<span id="cb12-18"><a href="#cb12-18" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> korea_gdp_pc <span class="kw">is</span> <span class="kw">not</span> <span class="va">None</span>:</span>
+<span id="cb12-19"><a href="#cb12-19" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"한국의 1인당 GDP는 약 </span><span class="sc">{</span>korea_gdp_pc<span class="sc">:.0f}</span><span class="ss"> 원 입니다."</span>)</span>
+<span id="cb12-20"><a href="#cb12-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-21"><a href="#cb12-21" aria-hidden="true" tabindex="-1"></a><span class="co"># 인구가 0인 경우 테스트</span></span>
+<span id="cb12-22"><a href="#cb12-22" aria-hidden="true" tabindex="-1"></a>invalid_result <span class="op">=</span> calculate_gdp_per_capita(<span class="dv">1000</span>, <span class="dv">0</span>)</span>
+<span id="cb12-23"><a href="#cb12-23" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"잘못된 인구 입력 시 반환값: </span><span class="sc">{</span>invalid_result<span class="sc">}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>한국의 1인당 GDP는 약 42553191 원 입니다.
+오류: 인구는 0보다 커야 합니다.
+잘못된 인구 입력 시 반환값: None</code></pre>
+</div>
+</div>
+<hr>
+<section id="실습-1-함수-정의-및-호출-연습" class="level3">
+<h3 class="anchored" data-anchor-id="실습-1-함수-정의-및-호출-연습">[실습 1] 함수 정의 및 호출 연습</h3>
+<ol type="1">
+<li><strong>단순 이자 계산 함수:</strong> 원금(principal), 연 이율(rate, 소수점 형태), 기간(years, 정수)을 매개변수로 받아서 단리 이자(<span class="math inline">\(Interest = Principal \times Rate \times Years\)</span>)를 계산하여 반환하는 함수 <code>calculate_simple_interest()</code> 를 정의하고, 원금 1,000,000원, 연 이율 3%, 5년 기간의 이자를 계산하여 출력하세요.</li>
+<li><strong>공급 함수:</strong> <span class="math inline">\(Q_s = c + dP\)</span> 형태의 간단한 공급 함수를 파이썬 함수 <code>quantity_supplied(price, c=10, d=3)</code> 로 정의하세요. (c, d는 파라미터, 기본값 사용). 가격(P)이 20일 때의 공급량(Qs)을 계산하여 출력하세요.</li>
+<li><strong>통화 변환 함수 확장:</strong> 예제 3의 <code>convert_usd_to_krw()</code> 함수를 참고하여, 유로(EUR)를 원화(KRW)로 변환하는 함수 <code>convert_eur_to_krw(eur_amount, exchange_rate=1450.0)</code> 를 정의하고, 500 유로를 기본 환율로 변환했을 때 얼마인지 계산하여 출력하세요.</li>
+</ol>
+<hr>
+<div id="ff505075" class="cell" data-execution_count="7">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 실습 1-1: 단순 이자 계산 함수</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> calculate_simple_interest(principal, rate, years):</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>  <span class="co">"""원금, 연 이율, 기간을 받아 단리 이자를 계산하여 반환합니다."""</span></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>  interest <span class="op">=</span> principal <span class="op">*</span> rate <span class="op">*</span> years</span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> interest</span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a><span class="co"># 함수 호출</span></span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>p <span class="op">=</span> <span class="dv">1000000</span></span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a>r <span class="op">=</span> <span class="fl">0.03</span></span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> <span class="dv">5</span></span>
+<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a>simple_interest <span class="op">=</span> calculate_simple_interest(p, r, y)</span>
+<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"원금 </span><span class="sc">{</span>p<span class="sc">}</span><span class="ss">원, 연 이율 </span><span class="sc">{</span>r<span class="op">*</span><span class="dv">100</span><span class="sc">}</span><span class="ss">%, </span><span class="sc">{</span>y<span class="sc">}</span><span class="ss">년 기간의 단리 이자: </span><span class="sc">{</span>simple_interest<span class="sc">:.0f}</span><span class="ss">원"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>원금 1000000원, 연 이율 3.0%, 5년 기간의 단리 이자: 150000원</code></pre>
+</div>
+</div>
+<div id="8d2b8350" class="cell" data-execution_count="8">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 실습 1-2: 공급 함수</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> quantity_supplied(price, c<span class="op">=</span><span class="dv">10</span>, d<span class="op">=</span><span class="dv">3</span>):</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>  <span class="co">"""선형 공급 함수 Q_s = c + dP 에 따라 주어진 가격(price)에서의 공급량을 계산합니다."""</span></span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>  q_s <span class="op">=</span> c <span class="op">+</span> d <span class="op">*</span> price</span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>  <span class="co"># 공급량은 보통 음수가 되지 않지만, 여기선 그대로 반환 (필요시 if q_s &lt; 0: return 0 추가)</span></span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> q_s</span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a><span class="co"># 함수 호출</span></span>
+<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a>price_p <span class="op">=</span> <span class="dv">20</span></span>
+<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a>supply_at_20 <span class="op">=</span> quantity_supplied(price_p)</span>
+<span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"가격이 </span><span class="sc">{</span>price_p<span class="sc">}</span><span class="ss">일 때 공급량: </span><span class="sc">{</span>supply_at_20<span class="sc">}</span><span class="ss">"</span>) <span class="co"># Q_s = 10 + 3*20 = 70</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>가격이 20일 때 공급량: 70</code></pre>
+</div>
+</div>
+<div id="095dde57" class="cell" data-execution_count="9">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 실습 1-3: 유로 -&gt; 원화 변환 함수</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> convert_eur_to_krw(eur_amount, exchange_rate<span class="op">=</span><span class="fl">1450.0</span>):</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>  <span class="co">"""EUR 금액을 KRW로 변환합니다. 환율 미지정시 기본값 1450.0 사용."""</span></span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>  krw_amount <span class="op">=</span> eur_amount <span class="op">*</span> exchange_rate</span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> krw_amount</span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a><span class="co"># 함수 호출</span></span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a>eur_value <span class="op">=</span> <span class="dv">500</span></span>
+<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a>krw_converted <span class="op">=</span> convert_eur_to_krw(eur_value)</span>
+<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span>eur_value<span class="sc">}</span><span class="ss"> EUR는 </span><span class="sc">{</span>krw_converted<span class="sc">:.0f}</span><span class="ss"> KRW 입니다. (기본 환율 적용)"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>500 EUR는 725000 KRW 입니다. (기본 환율 적용)</code></pre>
+</div>
+</div>
+<hr>
+</section>
+</section>
+<section id="함수와-찰떡궁합-딕셔너리-활용-심화" class="level2" data-number="5.5">
+<h2 data-number="5.5" class="anchored" data-anchor-id="함수와-찰떡궁합-딕셔너리-활용-심화"><span class="header-section-number">5.5</span> 5. 함수와 찰떡궁합: 딕셔너리 활용 심화</h2>
+<p>함수는 종종 여러 관련 데이터를 담고 있는 딕셔너리와 함께 사용될 때 더욱 강력해집니다. 딕셔너리를 함수의 인자로 넘겨주거나, 함수가 처리 결과를 딕셔너리 형태로 반환할 수 있습니다.</p>
+<p><strong>딕셔너리를 함수 인자로 사용하기:</strong></p>
+<p><strong>예제 7: 기업 재무 정보 분석 함수</strong></p>
+<p>지난주에 만들었던 기업 재무 정보 딕셔너리를 받아서, 주요 지표를 계산하고 출력하는 함수를 만들어 봅시다.</p>
+<div id="812634f2" class="cell" data-execution_count="10">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> analyze_financials(financial_dict):</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>  <span class="co">"""기업 재무 정보 딕셔너리를 받아 주요 지표를 분석하고 출력합니다."""</span></span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>  <span class="bu">print</span>(<span class="ss">f"--- </span><span class="sc">{</span>financial_dict<span class="sc">.</span>get(<span class="st">'회사명'</span>, <span class="st">'정보 없음'</span>)<span class="sc">}</span><span class="ss"> 재무 분석 ---"</span>) <span class="co"># .get() 메소드는 키가 없을 때 기본값 반환</span></span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>  revenue <span class="op">=</span> financial_dict.get(<span class="st">"매출액(억 원)"</span>, <span class="dv">0</span>)</span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>  operating_profit <span class="op">=</span> financial_dict.get(<span class="st">"영업이익(억 원)"</span>, <span class="dv">0</span>)</span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>  <span class="co"># ... (다른 필요한 값들도 .get()으로 안전하게 가져오기)</span></span>
+<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a>  <span class="bu">print</span>(<span class="ss">f"매출액: </span><span class="sc">{</span>revenue<span class="sc">}</span><span class="ss"> 억 원"</span>)</span>
+<span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a>  <span class="bu">print</span>(<span class="ss">f"영업이익: </span><span class="sc">{</span>operating_profit<span class="sc">}</span><span class="ss"> 억 원"</span>)</span>
+<span id="cb20-11"><a href="#cb20-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-12"><a href="#cb20-12" aria-hidden="true" tabindex="-1"></a>  <span class="co"># 영업 이익률 계산 및 출력</span></span>
+<span id="cb20-13"><a href="#cb20-13" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> revenue <span class="op">&gt;</span> <span class="dv">0</span>:</span>
+<span id="cb20-14"><a href="#cb20-14" aria-hidden="true" tabindex="-1"></a>    margin <span class="op">=</span> (operating_profit <span class="op">/</span> revenue) <span class="op">*</span> <span class="dv">100</span></span>
+<span id="cb20-15"><a href="#cb20-15" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"영업 이익률: </span><span class="sc">{</span>margin<span class="sc">:.2f}</span><span class="ss">%"</span>)</span>
+<span id="cb20-16"><a href="#cb20-16" aria-hidden="true" tabindex="-1"></a>  <span class="cf">else</span>:</span>
+<span id="cb20-17"><a href="#cb20-17" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"영업 이익률: 계산 불가 (매출액 0)"</span>)</span>
+<span id="cb20-18"><a href="#cb20-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-19"><a href="#cb20-19" aria-hidden="true" tabindex="-1"></a>  <span class="co"># 필요하다면 다른 지표 분석 추가...</span></span>
+<span id="cb20-20"><a href="#cb20-20" aria-hidden="true" tabindex="-1"></a>  <span class="co"># 부채비율 등...</span></span>
+<span id="cb20-21"><a href="#cb20-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-22"><a href="#cb20-22" aria-hidden="true" tabindex="-1"></a><span class="co"># 분석할 딕셔너리 데이터</span></span>
+<span id="cb20-23"><a href="#cb20-23" aria-hidden="true" tabindex="-1"></a>company_a_finance <span class="op">=</span> {</span>
+<span id="cb20-24"><a href="#cb20-24" aria-hidden="true" tabindex="-1"></a>    <span class="st">"회사명"</span>: <span class="st">"가나다 기업"</span>,</span>
+<span id="cb20-25"><a href="#cb20-25" aria-hidden="true" tabindex="-1"></a>    <span class="st">"매출액(억 원)"</span>: <span class="dv">850</span>,</span>
+<span id="cb20-26"><a href="#cb20-26" aria-hidden="true" tabindex="-1"></a>    <span class="st">"영업이익(억 원)"</span>: <span class="fl">120.5</span>,</span>
+<span id="cb20-27"><a href="#cb20-27" aria-hidden="true" tabindex="-1"></a>    <span class="st">"부채비율(%)"</span>: <span class="fl">75.3</span></span>
+<span id="cb20-28"><a href="#cb20-28" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb20-29"><a href="#cb20-29" aria-hidden="true" tabindex="-1"></a>company_b_finance <span class="op">=</span> {</span>
+<span id="cb20-30"><a href="#cb20-30" aria-hidden="true" tabindex="-1"></a>    <span class="st">"회사명"</span>: <span class="st">"XYZ 물산"</span>,</span>
+<span id="cb20-31"><a href="#cb20-31" aria-hidden="true" tabindex="-1"></a>    <span class="st">"매출액(억 원)"</span>: <span class="dv">620</span>,</span>
+<span id="cb20-32"><a href="#cb20-32" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 영업이익 정보 누락 가정</span></span>
+<span id="cb20-33"><a href="#cb20-33" aria-hidden="true" tabindex="-1"></a>    <span class="st">"부채비율(%)"</span>: <span class="fl">185.2</span></span>
+<span id="cb20-34"><a href="#cb20-34" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb20-35"><a href="#cb20-35" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-36"><a href="#cb20-36" aria-hidden="true" tabindex="-1"></a><span class="co"># 함수 호출 (각 회사 딕셔너리 전달)</span></span>
+<span id="cb20-37"><a href="#cb20-37" aria-hidden="true" tabindex="-1"></a>analyze_financials(company_a_finance)</span>
+<span id="cb20-38"><a href="#cb20-38" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"-"</span> <span class="op">*</span> <span class="dv">20</span>) <span class="co"># 구분선</span></span>
+<span id="cb20-39"><a href="#cb20-39" aria-hidden="true" tabindex="-1"></a>analyze_financials(company_b_finance)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>--- 가나다 기업 재무 분석 ---
+매출액: 850 억 원
+영업이익: 120.5 억 원
+영업 이익률: 14.18%
+--------------------
+--- XYZ 물산 재무 분석 ---
+매출액: 620 억 원
+영업이익: 0 억 원
+영업 이익률: 0.00%</code></pre>
+</div>
+</div>
+<p><code>.get(key, default_value)</code> 메소드는 딕셔너리에 해당 <code>key</code>가 없을 경우 오류를 내는 대신 <code>default_value</code>(지정 안하면 <code>None</code>)를 반환하여 좀 더 안전하게 값을 가져올 수 있습니다.</p>
+<p><strong>함수에서 딕셔너리 반환하기:</strong></p>
+<p><strong>예제 8: GDP 구성 요소 계산 및 딕셔너리 반환</strong></p>
+<p>소비(C), 투자(I), 정부지출(G), 순수출(NX) 값을 받아서, 각 구성요소와 총 GDP를 포함하는 딕셔너리를 반환하는 함수를 만들어 봅시다.</p>
+<div id="e62d0383" class="cell" data-execution_count="11">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> calculate_gdp_components(c, i, g, nx):</span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>  <span class="co">"""소비(c), 투자(i), 정부지출(g), 순수출(nx) 값을 받아</span></span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a><span class="co">  각 구성요소와 총 GDP를 포함하는 딕셔너리를 반환합니다.</span></span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a><span class="co">  """</span></span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>  total_gdp <span class="op">=</span> c <span class="op">+</span> i <span class="op">+</span> g <span class="op">+</span> nx</span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a>  gdp_dict <span class="op">=</span> {</span>
+<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a>      <span class="st">"소비(C)"</span>: c,</span>
+<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a>      <span class="st">"투자(I)"</span>: i,</span>
+<span id="cb22-9"><a href="#cb22-9" aria-hidden="true" tabindex="-1"></a>      <span class="st">"정부지출(G)"</span>: g,</span>
+<span id="cb22-10"><a href="#cb22-10" aria-hidden="true" tabindex="-1"></a>      <span class="st">"순수출(NX)"</span>: nx,</span>
+<span id="cb22-11"><a href="#cb22-11" aria-hidden="true" tabindex="-1"></a>      <span class="st">"총 GDP(Y)"</span>: total_gdp</span>
+<span id="cb22-12"><a href="#cb22-12" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb22-13"><a href="#cb22-13" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> gdp_dict</span>
+<span id="cb22-14"><a href="#cb22-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-15"><a href="#cb22-15" aria-hidden="true" tabindex="-1"></a><span class="co"># 함수 호출 및 결과(딕셔너리) 받기</span></span>
+<span id="cb22-16"><a href="#cb22-16" aria-hidden="true" tabindex="-1"></a>consumption <span class="op">=</span> <span class="fl">1200.0</span></span>
+<span id="cb22-17"><a href="#cb22-17" aria-hidden="true" tabindex="-1"></a>investment <span class="op">=</span> <span class="fl">400.5</span></span>
+<span id="cb22-18"><a href="#cb22-18" aria-hidden="true" tabindex="-1"></a>government_spending <span class="op">=</span> <span class="fl">550.0</span></span>
+<span id="cb22-19"><a href="#cb22-19" aria-hidden="true" tabindex="-1"></a>net_exports <span class="op">=</span> <span class="op">-</span><span class="fl">50.8</span> <span class="co"># 순수출은 음수일 수도 있음</span></span>
+<span id="cb22-20"><a href="#cb22-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-21"><a href="#cb22-21" aria-hidden="true" tabindex="-1"></a>gdp_result_dict <span class="op">=</span> calculate_gdp_components(consumption, investment, government_spending, net_exports)</span>
+<span id="cb22-22"><a href="#cb22-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-23"><a href="#cb22-23" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"GDP 구성요소 및 총 GDP:"</span>)</span>
+<span id="cb22-24"><a href="#cb22-24" aria-hidden="true" tabindex="-1"></a><span class="co"># print(gdp_result_dict) # 딕셔너리 전체 출력</span></span>
+<span id="cb22-25"><a href="#cb22-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-26"><a href="#cb22-26" aria-hidden="true" tabindex="-1"></a><span class="co"># 결과 딕셔너리를 보기 좋게 출력 (딕셔너리 순회 활용)</span></span>
+<span id="cb22-27"><a href="#cb22-27" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> key, value <span class="kw">in</span> gdp_result_dict.items():</span>
+<span id="cb22-28"><a href="#cb22-28" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"  </span><span class="sc">{</span>key<span class="sc">}</span><span class="ss">: </span><span class="sc">{</span>value<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb22-29"><a href="#cb22-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-30"><a href="#cb22-30" aria-hidden="true" tabindex="-1"></a><span class="co"># 특정 값 접근</span></span>
+<span id="cb22-31"><a href="#cb22-31" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"</span><span class="ch">\n</span><span class="ss">계산된 총 GDP: </span><span class="sc">{</span>gdp_result_dict[<span class="st">'총 GDP(Y)'</span>]<span class="sc">}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>GDP 구성요소 및 총 GDP:
+  소비(C): 1200.0
+  투자(I): 400.5
+  정부지출(G): 550.0
+  순수출(NX): -50.8
+  총 GDP(Y): 2099.7
+
+계산된 총 GDP: 2099.7</code></pre>
+</div>
+</div>
+<p><strong>딕셔너리 순회 (Iteration):</strong></p>
+<p>딕셔너리에 있는 모든 키-값 쌍을 처리해야 할 때 <code>for</code> 반복문을 사용할 수 있습니다. <code>.items()</code> 메소드를 사용하면 편리합니다.</p>
+<ul>
+<li><strong><code>for key in my_dict:</code></strong>: 딕셔너리의 키(key)들을 순회합니다.</li>
+<li><strong><code>for value in my_dict.values():</code></strong>: 딕셔너리의 값(value)들을 순회합니다.</li>
+<li><strong><code>for key, value in my_dict.items():</code></strong>: 딕셔너리의 키-값 쌍(pair)을 순회합니다. 각 반복마다 <code>key</code> 변수에는 키가, <code>value</code> 변수에는 해당 값이 담깁니다. (가장 유용!)</li>
+</ul>
+<p><strong>예제 9: 딕셔너리 순회하며 출력하기</strong></p>
+<div id="c1f5c8c4" class="cell" data-execution_count="12">
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>exchange_rates <span class="op">=</span> {<span class="st">"USD"</span>: <span class="fl">1350.0</span>, <span class="st">"EUR"</span>: <span class="fl">1450.0</span>, <span class="st">"JPY"</span>: <span class="fl">9.5</span>}</span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">--- 주요 통화 환율 정보 (키-값 순회) ---"</span>)</span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> currency_code, rate <span class="kw">in</span> exchange_rates.items():</span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"통화: </span><span class="sc">{</span>currency_code<span class="sc">}</span><span class="ss">, 1 단위당 원화: </span><span class="sc">{</span>rate<span class="sc">}</span><span class="ss"> KRW"</span>)</span>
+<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">--- 환율 값만 출력 (값 순회) ---"</span>)</span>
+<span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> rate_value <span class="kw">in</span> exchange_rates.values():</span>
+<span id="cb24-9"><a href="#cb24-9" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(rate_value)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+--- 주요 통화 환율 정보 (키-값 순회) ---
+통화: USD, 1 단위당 원화: 1350.0 KRW
+통화: EUR, 1 단위당 원화: 1450.0 KRW
+통화: JPY, 1 단위당 원화: 9.5 KRW
+
+--- 환율 값만 출력 (값 순회) ---
+1350.0
+1450.0
+9.5</code></pre>
+</div>
+</div>
+<hr>
+</section>
+<section id="잠깐-순서는-있는데-수정은-안돼요-튜플-tuple---선택-사항" class="level2" data-number="5.6">
+<h2 data-number="5.6" class="anchored" data-anchor-id="잠깐-순서는-있는데-수정은-안돼요-튜플-tuple---선택-사항"><span class="header-section-number">5.6</span> 6. 잠깐! 순서는 있는데 수정은 안돼요: 튜플 (Tuple) - 선택 사항</h2>
+<p>파이썬에는 리스트와 비슷하지만 약간 다른 <strong>튜플(Tuple)</strong> 이라는 자료 구조도 있습니다.</p>
+<ul>
+<li><strong>특징:</strong>
+<ul>
+<li><strong>순서가 있다:</strong> 리스트처럼 인덱스로 요소에 접근 가능합니다.</li>
+<li><strong>변경 불가능(Immutable):</strong> <strong>★가장 큰 차이점!★</strong> 한번 생성되면 그 안의 요소를 <strong>바꾸거나 추가/삭제할 수 없습니다.</strong></li>
+</ul></li>
+<li><strong>생성:</strong> 소괄호 <code>()</code> 안에 요소들을 쉼표(<code>,</code>)로 구분하여 넣거나, 괄호 없이 쉼표로만 구분해도 됩니다. (단, 요소가 하나일 때는 <code>(요소,)</code> 처럼 뒤에 쉼표를 붙여야 튜플로 인식됩니다.)</li>
+</ul>
+<p><strong>튜플 예제:</strong></p>
+<div id="42146ec9" class="cell" data-execution_count="13">
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 튜플 생성</span></span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>coordinates <span class="op">=</span> (<span class="dv">10</span>, <span class="dv">20</span>) <span class="co"># x, y 좌표</span></span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>rgb_color <span class="op">=</span> <span class="dv">255</span>, <span class="dv">0</span>, <span class="dv">0</span> <span class="co"># 빨간색 (괄호 생략 가능)</span></span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>single_element_tuple <span class="op">=</span> (<span class="dv">2024</span>,) <span class="co"># 요소 하나일 때는 쉼표 필수!</span></span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"좌표 튜플:"</span>, coordinates, <span class="bu">type</span>(coordinates))</span>
+<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"RGB 색상 튜플:"</span>, rgb_color, <span class="bu">type</span>(rgb_color))</span>
+<span id="cb26-8"><a href="#cb26-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"단일 요소 튜플:"</span>, single_element_tuple, <span class="bu">type</span>(single_element_tuple))</span>
+<span id="cb26-9"><a href="#cb26-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-10"><a href="#cb26-10" aria-hidden="true" tabindex="-1"></a><span class="co"># 인덱싱 및 슬라이싱 (리스트와 동일)</span></span>
+<span id="cb26-11"><a href="#cb26-11" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"x 좌표:"</span>, coordinates[<span class="dv">0</span>])</span>
+<span id="cb26-12"><a href="#cb26-12" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"G, B 값:"</span>, rgb_color[<span class="dv">1</span>:])</span>
+<span id="cb26-13"><a href="#cb26-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-14"><a href="#cb26-14" aria-hidden="true" tabindex="-1"></a><span class="co"># 요소 변경 시도 (오류 발생!)</span></span>
+<span id="cb26-15"><a href="#cb26-15" aria-hidden="true" tabindex="-1"></a><span class="co"># coordinates[0] = 15 # TypeError 발생! 튜플은 변경 불가</span></span>
+<span id="cb26-16"><a href="#cb26-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-17"><a href="#cb26-17" aria-hidden="true" tabindex="-1"></a><span class="co"># 튜플은 언제 사용할까요?</span></span>
+<span id="cb26-18"><a href="#cb26-18" aria-hidden="true" tabindex="-1"></a><span class="co"># - 함수가 여러 값을 '하나의 묶음'으로 반환할 때 (예: 최댓값과 최솟값을 함께 반환)</span></span>
+<span id="cb26-19"><a href="#cb26-19" aria-hidden="true" tabindex="-1"></a><span class="co"># - 딕셔너리의 키(Key)로 사용될 때 (키는 변경 불가능해야 하므로)</span></span>
+<span id="cb26-20"><a href="#cb26-20" aria-hidden="true" tabindex="-1"></a><span class="co"># - 값이 절대 바뀌면 안 되는 고정된 목록을 표현할 때 (예: 함수의 고정 파라미터 세트)</span></span>
+<span id="cb26-21"><a href="#cb26-21" aria-hidden="true" tabindex="-1"></a><span class="co"># - 리스트보다 약간 더 빠르거나 메모리를 적게 사용하는 경우가 있음 (미미한 차이)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>좌표 튜플: (10, 20) &lt;class 'tuple'&gt;
+RGB 색상 튜플: (255, 0, 0) &lt;class 'tuple'&gt;
+단일 요소 튜플: (2024,) &lt;class 'tuple'&gt;
+x 좌표: 10
+G, B 값: (0, 0)</code></pre>
+</div>
+</div>
+<p>튜플은 리스트만큼 자주 사용되지는 않지만, ’변경 불가능’이라는 특성 때문에 특정 상황에서 유용하게 쓰입니다. 지금은 이런 것이 있다는 정도만 알아두세요.</p>
+<hr>
+<section id="실습-2-딕셔너리와-튜플-연습" class="level3">
+<h3 class="anchored" data-anchor-id="실습-2-딕셔너리와-튜플-연습">[실습 2] 딕셔너리와 튜플 연습</h3>
+<ol type="1">
+<li><strong>학생 정보 딕셔너리 함수:</strong> 학생의 이름(str), 전공(str), 평점(float)을 키로 가지는 딕셔너리를 인자로 받아서, “이름: [이름], 전공: [전공], 평점: [평점]” 형식으로 정보를 출력하는 함수 <code>print_student_info(student_dict)</code> 를 정의하세요. 그리고 아래 <code>student_A</code> 딕셔너리를 사용하여 함수를 호출해보세요. <code>student_A = {"이름": "김민수", "전공": "경제학과", "평점": 3.85}</code></li>
+<li><strong>딕셔너리 순회:</strong> <code>stock_portfolio = {"삼성전자": 100, "카카오": 50, "현대차": 30}</code> 딕셔너리가 주어졌을 때 (값은 보유 주식 수), <code>for</code> 반복문과 <code>.items()</code> 메소드를 사용하여 “종목명: 보유량 주” 형식으로 각 종목과 보유량을 출력하세요.</li>
+<li><strong>(선택) 튜플 생성:</strong> 위도와 경도를 나타내는 <code>(37.5665, 126.9780)</code> 튜플을 <code>seoul_location</code> 변수에 저장하고, 첫 번째 요소(위도)를 출력하세요.</li>
+</ol>
+<hr>
+<div id="cbcdbc5a" class="cell" data-execution_count="14">
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 실습 2-1: 학생 정보 출력 함수</span></span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> print_student_info(student_dict):</span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>  <span class="co">"""학생 정보 딕셔너리를 받아 정보를 출력합니다."""</span></span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>  name <span class="op">=</span> student_dict.get(<span class="st">"이름"</span>, <span class="st">"정보 없음"</span>)</span>
+<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a>  major <span class="op">=</span> student_dict.get(<span class="st">"전공"</span>, <span class="st">"정보 없음"</span>)</span>
+<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a>  gpa <span class="op">=</span> student_dict.get(<span class="st">"평점"</span>, <span class="st">"정보 없음"</span>)</span>
+<span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a>  <span class="bu">print</span>(<span class="ss">f"이름: </span><span class="sc">{</span>name<span class="sc">}</span><span class="ss">, 전공: </span><span class="sc">{</span>major<span class="sc">}</span><span class="ss">, 평점: </span><span class="sc">{</span>gpa<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb28-8"><a href="#cb28-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-9"><a href="#cb28-9" aria-hidden="true" tabindex="-1"></a>student_A <span class="op">=</span> {<span class="st">"이름"</span>: <span class="st">"김민수"</span>, <span class="st">"전공"</span>: <span class="st">"경제학과"</span>, <span class="st">"평점"</span>: <span class="fl">3.85</span>}</span>
+<span id="cb28-10"><a href="#cb28-10" aria-hidden="true" tabindex="-1"></a>print_student_info(student_A)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>이름: 김민수, 전공: 경제학과, 평점: 3.85</code></pre>
+</div>
+</div>
+<div id="f12c7dfb" class="cell" data-execution_count="15">
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 실습 2-2: 포트폴리오 딕셔너리 순회</span></span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>stock_portfolio <span class="op">=</span> {<span class="st">"삼성전자"</span>: <span class="dv">100</span>, <span class="st">"카카오"</span>: <span class="dv">50</span>, <span class="st">"현대차"</span>: <span class="dv">30</span>}</span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"--- 보유 주식 현황 ---"</span>)</span>
+<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> stock_name, quantity <span class="kw">in</span> stock_portfolio.items():</span>
+<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span>stock_name<span class="sc">}</span><span class="ss">: </span><span class="sc">{</span>quantity<span class="sc">}</span><span class="ss"> 주"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>--- 보유 주식 현황 ---
+삼성전자: 100 주
+카카오: 50 주
+현대차: 30 주</code></pre>
+</div>
+</div>
+<div id="6f8ab9a2" class="cell" data-execution_count="16">
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 실습 2-3 (선택): 튜플 생성 및 접근</span></span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>seoul_location <span class="op">=</span> (<span class="fl">37.5665</span>, <span class="fl">126.9780</span>)</span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"서울 위치 튜플:"</span>, seoul_location)</span>
+<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"위도:"</span>, seoul_location[<span class="dv">0</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>서울 위치 튜플: (37.5665, 126.978)
+위도: 37.5665</code></pre>
+</div>
+</div>
+<hr>
+</section>
+</section>
+<section id="sec-function-visualization" class="level2" data-number="5.7">
+<h2 data-number="5.7" class="anchored" data-anchor-id="sec-function-visualization"><span class="header-section-number">5.7</span> 7. 함수와 시각화의 만남 : 함수로 그린 수요 곡선</h2>
+<p>함수는 단순히 계산만 하는 것이 아니라, <strong>데이터를 생성</strong>하는 역할도 할 수 있습니다. 그리고 이렇게 생성된 데이터를 시각화하면 경제 이론을 눈으로 확인할 수 있게 됩니다!</p>
+<p>앞서 만들었던 수요 함수 <code>quantity_demanded(price, a=100, b=2)</code> 를 이용하여 여러 가격 지점에서의 수요량을 계산하고, 이를 선 그래프로 그려서 <strong>우하향하는 수요 곡선</strong>을 직접 확인해 봅시다.</p>
+<div id="aa3d7494" class="cell" data-execution_count="17">
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="co"># --- 함수와 시각화 연결 맛보기 ---</span></span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> platform <span class="co"># 이전 셀들에서 import 되었다고 가정</span></span>
+<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-5"><a href="#cb34-5" aria-hidden="true" tabindex="-1"></a><span class="co"># 한글 폰트 설정 (이전 셀들에서 실행되었다고 가정)</span></span>
+<span id="cb34-6"><a href="#cb34-6" aria-hidden="true" tabindex="-1"></a><span class="cf">try</span>:</span>
+<span id="cb34-7"><a href="#cb34-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> platform.system() <span class="op">==</span> <span class="st">'Linux'</span>: plt.rc(<span class="st">'font'</span>, family<span class="op">=</span><span class="st">'NanumBarunGothic'</span>)</span>
+<span id="cb34-8"><a href="#cb34-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">elif</span> platform.system() <span class="op">==</span> <span class="st">'Windows'</span>: plt.rc(<span class="st">'font'</span>, family<span class="op">=</span><span class="st">'Malgun Gothic'</span>)</span>
+<span id="cb34-9"><a href="#cb34-9" aria-hidden="true" tabindex="-1"></a>    <span class="cf">elif</span> platform.system() <span class="op">==</span> <span class="st">'Darwin'</span>: plt.rc(<span class="st">'font'</span>, family<span class="op">=</span><span class="st">'AppleGothic'</span>)</span>
+<span id="cb34-10"><a href="#cb34-10" aria-hidden="true" tabindex="-1"></a><span class="cf">except</span> <span class="pp">NameError</span>: <span class="cf">pass</span> <span class="co"># plt가 import 안된 경우 무시</span></span>
+<span id="cb34-11"><a href="#cb34-11" aria-hidden="true" tabindex="-1"></a><span class="cf">except</span> <span class="pp">FileNotFoundError</span>: <span class="bu">print</span>(<span class="st">"한글 폰트를 찾을 수 없습니다."</span>)</span>
+<span id="cb34-12"><a href="#cb34-12" aria-hidden="true" tabindex="-1"></a>plt.rcParams[<span class="st">'axes.unicode_minus'</span>] <span class="op">=</span> <span class="va">False</span></span>
+<span id="cb34-13"><a href="#cb34-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-14"><a href="#cb34-14" aria-hidden="true" tabindex="-1"></a><span class="co"># 수요 함수 정의 (앞선 예제와 동일)</span></span>
+<span id="cb34-15"><a href="#cb34-15" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> quantity_demanded(price, a<span class="op">=</span><span class="dv">100</span>, b<span class="op">=</span><span class="dv">2</span>):</span>
+<span id="cb34-16"><a href="#cb34-16" aria-hidden="true" tabindex="-1"></a>  q_d <span class="op">=</span> a <span class="op">-</span> b <span class="op">*</span> price</span>
+<span id="cb34-17"><a href="#cb34-17" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> <span class="bu">max</span>(<span class="dv">0</span>, q_d) <span class="co"># 음수일 경우 0 반환 (max 함수 사용)</span></span>
+<span id="cb34-18"><a href="#cb34-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-19"><a href="#cb34-19" aria-hidden="true" tabindex="-1"></a><span class="co"># --- 데이터 생성 (함수와 반복문 활용) ---</span></span>
+<span id="cb34-20"><a href="#cb34-20" aria-hidden="true" tabindex="-1"></a><span class="co"># 다양한 가격대를 리스트로 준비 (예: 0부터 50까지 5단위)</span></span>
+<span id="cb34-21"><a href="#cb34-21" aria-hidden="true" tabindex="-1"></a>prices <span class="op">=</span> <span class="bu">list</span>(<span class="bu">range</span>(<span class="dv">0</span>, <span class="dv">51</span>, <span class="dv">5</span>)) <span class="co"># 0, 5, 10, ..., 50</span></span>
+<span id="cb34-22"><a href="#cb34-22" aria-hidden="true" tabindex="-1"></a>quantities <span class="op">=</span> [] <span class="co"># 해당 가격에서의 수요량을 저장할 빈 리스트</span></span>
+<span id="cb34-23"><a href="#cb34-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-24"><a href="#cb34-24" aria-hidden="true" tabindex="-1"></a><span class="co"># 각 가격에 대해 수요량 계산 함수를 호출하고 결과를 리스트에 추가</span></span>
+<span id="cb34-25"><a href="#cb34-25" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> p <span class="kw">in</span> prices:</span>
+<span id="cb34-26"><a href="#cb34-26" aria-hidden="true" tabindex="-1"></a>    q <span class="op">=</span> quantity_demanded(p) <span class="co"># 함수 호출!</span></span>
+<span id="cb34-27"><a href="#cb34-27" aria-hidden="true" tabindex="-1"></a>    quantities.append(q)</span>
+<span id="cb34-28"><a href="#cb34-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-29"><a href="#cb34-29" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"가격 리스트:"</span>, prices)</span>
+<span id="cb34-30"><a href="#cb34-30" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"수요량 리스트:"</span>, quantities)</span>
+<span id="cb34-31"><a href="#cb34-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-32"><a href="#cb34-32" aria-hidden="true" tabindex="-1"></a><span class="co"># --- 시각화 (생성된 데이터 사용) ---</span></span>
+<span id="cb34-33"><a href="#cb34-33" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">8</span>, <span class="dv">6</span>))</span>
+<span id="cb34-34"><a href="#cb34-34" aria-hidden="true" tabindex="-1"></a>plt.plot(prices, quantities, marker<span class="op">=</span><span class="st">'o'</span>, color<span class="op">=</span><span class="st">'crimson'</span>) <span class="co"># 가격(x축), 수요량(y축)으로 선 그래프</span></span>
+<span id="cb34-35"><a href="#cb34-35" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-36"><a href="#cb34-36" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'수요 곡선 (Demand Curve)'</span>, fontsize<span class="op">=</span><span class="dv">15</span>)</span>
+<span id="cb34-37"><a href="#cb34-37" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'가격 (Price)'</span>, fontsize<span class="op">=</span><span class="dv">12</span>)</span>
+<span id="cb34-38"><a href="#cb34-38" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'수요량 (Quantity Demanded)'</span>, fontsize<span class="op">=</span><span class="dv">12</span>)</span>
+<span id="cb34-39"><a href="#cb34-39" aria-hidden="true" tabindex="-1"></a>plt.grid(<span class="va">True</span>, linestyle<span class="op">=</span><span class="st">'--'</span>, alpha<span class="op">=</span><span class="fl">0.6</span>)</span>
+<span id="cb34-40"><a href="#cb34-40" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-41"><a href="#cb34-41" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>가격 리스트: [0, 5, 10, 15, 20, 25, 30, 35, 40, 45, 50]
+수요량 리스트: [100, 90, 80, 70, 60, 50, 40, 30, 20, 10, 0]</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="week5_files/figure-html/cell-18-output-2.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<p><strong>결과를 보세요!</strong> 우리가 정의한 간단한 <code>quantity_demanded</code> 함수와 <code>for</code> 반복문을 이용해 여러 가격 지점에서의 수요량 데이터를 생성했고, 이 데이터를 Matplotlib을 이용해 그래프로 그리니 경제학 교과서에서 보던 <strong>우하향하는 수요 곡선</strong>이 나타났습니다!</p>
+<p>이것이 바로 <strong>함수와 프로그래밍을 통해 경제 이론을 현실적xx인 데이터와 시각화로 연결</strong>하는 강력한 예시입니다. 함수로 경제 모델을 표현하고, 반복문으로 데이터를 생성하며, 시각화 도구로 그 결과를 분석하는 이 과정이 앞으로 우리가 파이썬으로 경제 분석을 하는 핵심적인 흐름이 될 것입니다.</p>
+<hr>
+</section>
+<section id="마무리-및-다음-시간-예고" class="level2" data-number="5.8">
+<h2 data-number="5.8" class="anchored" data-anchor-id="마무리-및-다음-시간-예고"><span class="header-section-number">5.8</span> 8. 마무리 및 다음 시간 예고</h2>
+<p>이번 주에는 코드를 재사용하고 구조화하는 핵심적인 방법인 <strong>함수(Function)</strong> 에 대해 배웠습니다. 함수를 정의(<code>def</code>)하고 호출하는 방법, 입력을 받는 매개변수(parameter)와 결과를 돌려주는 반환값(<code>return</code>)의 개념을 익혔고, 이를 다양한 경제/회계 계산 함수 예제로 구현해 보았습니다. 또한, <strong>딕셔너리</strong>를 함수와 함께 활용하고 순회하는 방법, 그리고 잠깐 <strong>튜플</strong>에 대해서도 알아보았습니다. 마지막으로 함수를 이용해 생성한 데이터를 <strong>시각화</strong>하여 이론적인 경제 개념(수요 곡선)을 눈으로 확인하는 과정까지 경험했습니다.</p>
+<p><strong>다음 시간에는:</strong></p>
+<p>이제 우리는 파이썬의 기본적인 데이터 타입, 자료 구조(리스트, 딕셔너리), 제어 흐름(조건문, 반복문), 그리고 코드 구조화(함수)까지 배웠습니다! 다음 주에는 이 모든 지식을 종합하여 좀 더 본격적인 <strong>경제 모델링</strong>에 적용해 볼 것입니다. 특히 경제학의 가장 기본 모델인 <strong>수요와 공급 모형</strong>을 파이썬 코드로 구현하고, 두 곡선이 만나는 <strong>시장 균형점</strong>을 찾는 방법에 대해 (개념적으로, 또는 간단한 대수적/수치적 방법으로) 알아볼 예정입니다. 필요하다면, 수치 계산에 더욱 강력한 <strong>NumPy</strong> 라이브러리를 살짝 소개할 수도 있습니다.</p>
+<hr>
+</section>
+<section id="다섯-번째-주차-과제" class="level2" data-number="5.9">
+<h2 data-number="5.9" class="anchored" data-anchor-id="다섯-번째-주차-과제"><span class="header-section-number">5.9</span> 다섯 번째 주차 과제</h2>
+<p>오늘 배운 함수, 딕셔너리, (선택) 튜플을 연습하기 위해 다음 과제를 Colab에서 새 노트(<code>Week5_Assignment.ipynb</code> 등)에 풀어보세요.</p>
+<ol type="1">
+<li><strong>탄력성 계산 함수:</strong> 두 점 <span class="math inline">\((P_1, Q_1)\)</span> 과 <span class="math inline">\((P_2, Q_2)\)</span> 가 주어졌을 때, 수요의 가격 탄력성(중간점 공식)을 계산하는 함수 <code>calculate_elasticity(p1, q1, p2, q2)</code> 를 정의하세요.
+<ul>
+<li>중간점 공식: <span class="math inline">\(E_d = \frac{(Q_2 - Q_1) / ((Q_1 + Q_2)/2)}{(P_2 - P_1) / ((P_1 + P_2)/2)}\)</span></li>
+<li>함수는 계산된 탄력성 값(실수)을 반환해야 합니다.</li>
+<li>주의: 분모가 0이 되는 경우(가격 또는 수량이 변하지 않는 경우) 오류가 발생할 수 있습니다. 간단하게 <code>if p1 == p2 or q1 == q2:</code> 조건을 넣어 0을 반환하거나 <code>None</code>을 반환하도록 처리해보세요.</li>
+<li>함수를 호출하여 <span class="math inline">\(P_1=10, Q_1=80\)</span> 과 <span class="math inline">\(P_2=15, Q_2=60\)</span> 일 때의 탄력성을 계산하고 출력하세요.</li>
+</ul></li>
+<li><strong>생산 함수:</strong> 간단한 콥-더글라스 생산 함수 <span class="math inline">\(Y = A K^\alpha L^\beta\)</span> 를 계산하는 함수 <code>cobb_douglas(capital, labor, alpha=0.3, beta=0.7, A=1)</code> 를 정의하세요 (K: 자본, L: 노동, alpha/beta: 생산요소 탄력성, A: 총요소생산성).
+<ul>
+<li>자본(K)이 100, 노동(L)이 200일 때, 기본 파라미터 값 (<span class="math inline">\(\alpha=0.3, \beta=0.7, A=1\)</span>)을 사용하여 총 생산량(Y)을 계산하고 출력하세요.</li>
+</ul></li>
+<li><strong>딕셔너리 활용:</strong> 학생 정보를 담은 딕셔너리 리스트 <code>students = [{"name": "Lee", "major": "Economics", "gpa": 4.1}, {"name": "Park", "major": "Business", "gpa": 3.7}, {"name": "Choi", "major": "Economics", "gpa": 3.9}]</code> 가 있습니다.
+<ul>
+<li><code>for</code> 반복문과 <code>if</code> 조건문을 사용하여 <strong>전공이 “Economics”인 학생들의 이름만</strong> 출력하세요.</li>
+<li>(도전) 경제학과 학생들의 <strong>평균 GPA</strong>를 계산하여 출력하세요. (힌트: 경제학과 학생의 gpa만 따로 리스트에 모아서 계산)</li>
+</ul></li>
+<li><strong>(선택) 튜플 사용:</strong> 2023년과 2024년의 (연도, 성장률) 데이터를 각각 <code>(2023, 1.4)</code> 와 <code>(2024, 2.2)</code> 튜플로 만들고, 이 두 튜플을 요소로 가지는 리스트 <code>growth_data</code> 를 만드세요. 그리고 리스트의 첫 번째 요소(2023년 데이터 튜플)를 출력하세요.</li>
+</ol>
+<hr>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+        const codeEl = trigger.previousElementSibling.cloneNode(true);
+        for (const childEl of codeEl.children) {
+          if (isCodeAnnotation(childEl)) {
+            childEl.remove();
+          }
+        }
+        return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./week4.html" class="pagination-link" aria-label="4주차: 반복 작업은 컴퓨터에게! (반복문 for 와 리스트 활용)">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">4주차: 반복 작업은 컴퓨터에게! (반복문 for 와 리스트 활용)</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./week6.html" class="pagination-link" aria-label="6주차: 시장의 작동 원리 파헤치기 (수요와 공급 모델링 및 균형 찾기)">
+        <span class="nav-page-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">6주차: 시장의 작동 원리 파헤치기 (수요와 공급 모델링 및 균형 찾기)</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+<p>Economic Freshman Python (1e) was written by JunhaPark.</p>
+</div>   
+    <div class="nav-footer-center">
+      &nbsp;
+    </div>
+    <div class="nav-footer-right">
+<p>This book was built with <a href="https://quarto.org/">Quarto</a>.</p>
+</div>
+  </div>
+</footer>
+
+
+
+
+</body></html>
