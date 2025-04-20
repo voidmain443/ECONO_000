@@ -22,7 +22,13 @@ book:
       chapters:
         - Introduction.ipynb
         - week2.ipynb
-        - summary.qmd
+        - week3.ipynb
+        - week4.ipynb
+        - week5.ipynb
+        - week6.ipynb
+        - week6-a.ipynb
+        - week7.ipynb
+        - week8.ipynb
         - references.qmd
     #- part: Support
     #  chapters:
